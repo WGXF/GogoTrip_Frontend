@@ -94,7 +94,7 @@ const formatPlacesData = (placesArray: any[]) => {
             // [修正] 这里必须用 place.photo_reference
             const refEncoded = encodeURIComponent(place.photo_reference);
             
-            const backendBaseUrl = 'http://127.0.0.1:5000'; 
+            const backendBaseUrl = ''; 
             imageUrl = `${backendBaseUrl}/proxy_image?ref=${refEncoded}`;
         }
 
