@@ -136,7 +136,7 @@ const handleSendMessage = async () => {
 
     // --- 完整的 try/catch/finally 结构 ---
     try { // <--- 你的 try 块开始在这里
-        const API_URL = ''; // 确保是本地地址
+        const API_URL = '/chat_message'; // 确保是本地地址
 
         const conversationHistory = messages.map(msg => ({
             role: msg.sender === 'user' ? 'user' : 'model',
