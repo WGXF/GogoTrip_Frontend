@@ -29,7 +29,22 @@ const App: React.FC = () => {
   
   // Initialize greeting with a random selection on mount
   const [greeting] = useState(() => GREETINGS[Math.floor(Math.random() * GREETINGS.length)]);
-
+  
+  const handleLogout = async () => {
+    try {
+      // 调用后端的 /revoke 接口清除 Session
+      await fetch('/revoke'); 
+    } catch (error) {
+      console.error("Logout error:", error);
+    } finally {
+      // 无论后端是否成功，前端都强制设为未登录，并清空 Sidebar 状态
+      setIsLoggedIn(false);
+      setIsSidebarOpen(false);
+      // 可选：重置视图
+      setCurrentView(ViewState.DASHBOARD); 
+    }
+  };
+  
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
@@ -85,6 +100,14 @@ const App: React.FC = () => {
     }
   };
 
+if (!isLoggedIn) {
+    return (
+      <div className={`${isDarkMode ? 'dark' : ''}`}>
+        <LoginView onLogin={() => setIsLoggedIn(true)} />
+      </div>
+    );
+  }
+  
   const getTitle = () => {
     switch(currentView) {
       case ViewState.DASHBOARD: return `${greeting}, ${MOCK_USER.name.split(' ')[0]}`;
@@ -125,6 +148,7 @@ const App: React.FC = () => {
             title={getTitle()}
             isDarkMode={isDarkMode}
             onToggleTheme={toggleTheme}
+            onLogout={handleLogout}
           />
           
           <div className="flex-1 overflow-y-auto bg-transparent relative">
