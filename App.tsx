@@ -34,7 +34,7 @@ const App: React.FC = () => {
     const checkLoginStatus = async () => {
       try {
         // 发送请求检查登录状态，必须带上 credentials: 'include' 以便携带 Cookie
-        const response = await fetch('http://localhost:5000/check_login_status', {
+        const response = await fetch('/check_login_status', {
             credentials: 'include' 
         });
         
