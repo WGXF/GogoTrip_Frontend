@@ -8,9 +8,10 @@ interface TopBarProps {
   title: string;
   isDarkMode: boolean;
   onToggleTheme: () => void;
+  onLogout: () => void;
 }
 
-const TopBar: React.FC<TopBarProps> = ({ onToggleSidebar, title, isDarkMode, onToggleTheme }) => {
+const TopBar: React.FC<TopBarProps> = ({ onToggleSidebar, title, isDarkMode, onToggleTheme, onLogout }) => {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
 
@@ -115,8 +116,10 @@ const TopBar: React.FC<TopBarProps> = ({ onToggleSidebar, title, isDarkMode, onT
                   </div>
 
                   <div className="p-2 border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/20">
-                     <button className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors">
-                        <LogOut className="w-4 h-4" />
+                     <button onClick={onLogout} // <--- 修改这里：绑定 onLogout
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+                     >
+                       <LogOut className="w-4 h-4" />
                         Sign Out
                      </button>
                   </div>
