@@ -25,7 +25,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
   const handleGoogleLogin = () => {
     setIsLoading(true);
-    window.location.href = 'http://localhost:5000/authorize';
+    window.location.href = '/authorize';
   };
 
   return (
