@@ -1,18 +1,19 @@
+import React, { useState } from 'react';
+import Sidebar from './components/user/Sidebar';
+import TopBar from './components/user/TopBar';
+import DashboardView from './components/user/DashboardView';
+import ChatView from './components/user/ChatView';
+import CalendarView from './components/user/CalendarView';
+import TravelView from './components/user/TravelView';
+import SchedulerView from './components/user/SchedulerView';
+import TranslateView from './components/user/TranslateView';
+import ExpensesView from './components/user/ExpensesView';
+import SettingsView from './components/user/SettingsView';
+import BillingView from './components/user/BillingView';
+import { ViewState, User, Notification } from './types';
 
-import React, { useState, useEffect } from 'react';
-import Sidebar from './components/Sidebar';
-import TopBar from './components/TopBar';
-import DashboardView from './components/DashboardView';
-import ChatView from './components/ChatView';
-import CalendarView from './components/CalendarView';
-import TravelView from './components/TravelView';
-import SchedulerView from './components/SchedulerView';
-import TranslateView from './components/TranslateView';
-import ExpensesView from './components/ExpensesView';
-import LoginView from './components/LoginView';
-import { ViewState } from './types';
-import { MOCK_USER } from './constants';
 
+// Greeting variants
 const GREETINGS = [
   "Hello there",
   "Welcome back",
@@ -21,125 +22,89 @@ const GREETINGS = [
   "Let's explore",
 ];
 
-const App: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+// [修复] 接口定义：增加 onSwitchToAdmin
+interface AppProps {
+  user: User;           
+  onLogout: () => void; 
+  onSwitchToAdmin: () => void; // 新增：接收切换到后台的函数
+}
+
+const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
+  
   const [currentView, setCurrentView] = useState<ViewState>(ViewState.DASHBOARD);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   
-  // Initialize greeting with a random selection on mount
-  const [greeting] = useState(() => GREETINGS[Math.floor(Math.random() * GREETINGS.length)]);
+  // 模拟通知数据
+  const [notifications, setNotifications] = useState<Notification[]>([
+    { id: 1, text: "Flight JL405 departs in 24 hours.", time: "1h ago", unread: true },
+    { id: 2, text: "New suggestion from AI Planner.", time: "2h ago", unread: true },
+    { id: 3, text: "Hotel check-in confirmed.", time: "1d ago", unread: false },
+  ]);
   
-  const handleLogout = async () => {
-    try {
-      // 调用后端的 /revoke 接口清除 Session
-      await fetch('/revoke'); 
-    } catch (error) {
-      console.error("Logout error:", error);
-    } finally {
-      // 无论后端是否成功，前端都强制设为未登录，并清空 Sidebar 状态
-      setIsLoggedIn(false);
-      setIsSidebarOpen(false);
-      // 可选：重置视图
-      setCurrentView(ViewState.DASHBOARD); 
+  const [greeting] = useState(() => GREETINGS[Math.floor(Math.random() * GREETINGS.length)]);
+
+  // Handlers
+  const handleSignOut = () => {
+    // 使用 window.confirm 确保用户确认
+    if (window.confirm("Are you sure you want to sign out?")) {
+      onLogout(); 
     }
   };
-  
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        // 发送请求检查登录状态，必须带上 credentials: 'include' 以便携带 Cookie
-        const response = await fetch('/check_login_status', {
-            credentials: 'include' 
-        });
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data.logged_in) {
-            setIsLoggedIn(true); // 如果后端确认已登录，更新状态
-          }
-        }
-      } catch (error) {
-        console.error("检查登录状态失败:", error);
-      }
-    };
-    checkLoginStatus();
-  }, []);
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  const renderContent = () => {
-    switch (currentView) {
-      case ViewState.DASHBOARD:
-        return <DashboardView />;
-      case ViewState.CHAT:
-        return <ChatView />;
-      case ViewState.TRAVEL:
-        return <TravelView />;
-      case ViewState.SCHEDULER:
-        return <SchedulerView />;
-      case ViewState.TRANSLATE:
-        return <TranslateView />;
-      case ViewState.EXPENSES:
-        return <ExpensesView />;
-      case ViewState.CALENDAR:
-        return <CalendarView />;
-      case ViewState.SETTINGS:
-        return (
-          <div className="flex items-center justify-center h-[calc(100vh-4rem)] text-slate-500 dark:text-slate-500">
-            <div className="text-center">
-              <h2 className="text-xl font-medium text-slate-700 dark:text-slate-300 mb-2">Settings</h2>
-              <p>User preferences panel would go here.</p>
-            </div>
-          </div>
-        );
-      default:
-        return <DashboardView />;
-    }
+  const handleUpdateUser = (updatedUser: Partial<User>) => {
+    console.log("Update user request:", updatedUser);
   };
 
-if (!isLoggedIn) {
-    return (
-      <div className={`${isDarkMode ? 'dark' : ''}`}>
-        <LoginView onLogin={() => setIsLoggedIn(true)} />
-      </div>
-    );
-  }
-  
   const getTitle = () => {
     switch(currentView) {
-      case ViewState.DASHBOARD: return `${greeting}, ${MOCK_USER.name.split(' ')[0]}`;
+      case ViewState.DASHBOARD: return `${greeting}, ${user.name ? user.name.split(' ')[0] : 'Traveler'}`;
       case ViewState.CHAT: return 'AI Planner';
       case ViewState.TRAVEL: return 'My Trips';
       case ViewState.SCHEDULER: return 'Notes';
       case ViewState.TRANSLATE: return 'Live Translate';
       case ViewState.EXPENSES: return 'Expenses';
       case ViewState.CALENDAR: return 'Calendar';
-      case ViewState.SETTINGS: return 'Settings';
+      case ViewState.SETTINGS: return 'Account Settings';
+      case ViewState.BILLING: return 'Billing & Subscription';
       default: return 'GogoTrip';
     }
   }
 
-  if (!isLoggedIn) {
-    return (
-      <div className={`${isDarkMode ? 'dark' : ''}`}>
-        <LoginView onLogin={() => setIsLoggedIn(true)} />
-      </div>
-    );
-  }
+  const renderContent = () => {
+    switch (currentView) {
+      case ViewState.DASHBOARD: return <DashboardView onNavigate={setCurrentView} />;
+      case ViewState.CHAT: return <ChatView user={user} />;
+      case ViewState.TRAVEL: return <TravelView />;
+      case ViewState.SCHEDULER: return <SchedulerView />;
+      case ViewState.TRANSLATE: return <TranslateView />;
+      case ViewState.EXPENSES: return <ExpensesView />;
+      case ViewState.CALENDAR: return <CalendarView />;
+      case ViewState.SETTINGS: return <SettingsView user={user} onUpdateUser={handleUpdateUser} />;
+      case ViewState.BILLING: return <BillingView user={user} onUpdateUser={handleUpdateUser} />;
+      default: return <DashboardView onNavigate={setCurrentView} />;
+    }
+  };
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''} h-full`}>
-      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-sky-50 to-white dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex text-slate-900 dark:text-slate-200 font-sans transition-colors duration-300">
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-sky-50 to-white dark:bg-gradient-to-br dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 flex text-slate-900 dark:text-slate-200 font-sans transition-colors duration-300 select-none">
+        
         <Sidebar 
           currentView={currentView} 
           onChangeView={(view) => {
             setCurrentView(view);
-            setIsSidebarOpen(false); // Close sidebar on mobile when navigating
+            setIsSidebarOpen(false);
           }} 
           isOpen={isSidebarOpen}
+          // [修复] 传递正确的权限判断
+          isAdminUser={user.role === 'admin' || user.role === 'super_admin'}
+          // [修复] 此时 onSwitchToAdmin 已经是有效的函数了
+          onSwitchToAdmin={onSwitchToAdmin} 
         />
         
         <main className="flex-1 flex flex-col min-w-0 transition-all duration-300 relative">
@@ -148,7 +113,8 @@ if (!isLoggedIn) {
             title={getTitle()}
             isDarkMode={isDarkMode}
             onToggleTheme={toggleTheme}
-            onLogout={handleLogout}
+            user={user}
+            onLogout={handleSignOut} 
           />
           
           <div className="flex-1 overflow-y-auto bg-transparent relative">
