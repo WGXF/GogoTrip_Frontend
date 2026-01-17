@@ -27,6 +27,7 @@ import { API_BASE_URL } from './config';
 
 // 🔥 Import standardized role utilities
 import { isAdmin, UserRole } from './role-utils';
+import { initLanguageFromProfile } from './i18n';
 
 interface AppProps {
   user: User;
@@ -42,6 +43,15 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+  // =========================
+  // 🆕 Language Sync
+  // =========================
+  useEffect(() => {
+    if (user?.preferredLanguage) {
+      initLanguageFromProfile(user.preferredLanguage);
+    }
+  }, [user]);
 
   // =========================
   // Notifications
