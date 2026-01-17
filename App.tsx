@@ -48,6 +48,8 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
   // 🆕 Language Sync
   // =========================
   useEffect(() => {
+    // Only update if user has a preference AND it differs from current
+    // AND it's not just the default 'en' overriding a valid local choice
     if (user?.preferredLanguage) {
       initLanguageFromProfile(user.preferredLanguage);
     }
