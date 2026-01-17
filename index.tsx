@@ -1,102 +1,144 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+
 import App from './App';
 import AdminApp from './AdminApp';
 import LoginView from './components/user/LoginView';
-import { User } from './types'; 
-
+import { SocketProvider } from './hooks/useSocket';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
+import { User } from './types';
 import { API_BASE_URL } from './config';
+
+// 🔥 Import standardized role utilities
+import { normalizeRole, isAdmin, UserRole } from './role-utils';
 
 const Root: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 1. 初始化检查登录状态
+  // 1️⃣ Initialize login status check
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/check_login_status`, {
-          credentials: 'include', 
+          credentials: 'include',
         });
-        
+
         if (response.ok) {
           const data = await response.json();
           if (data.logged_in && data.user) {
-            setUser(data.user);
-            // 默认 admin 登录后进入后台，也可以改成 false 默认进入前台
-            if (data.role === 'admin' || data.role === 'super_admin') {
-                setIsAdminMode(true);
+            // 🔥 Normalize the role before setting user
+            const normalizedUser = {
+              ...data.user,
+              role: normalizeRole(data.user.role || data.role)
+            };
+            setUser(normalizedUser);
+            
+            // 🔥 Use standardized role check
+            if (isAdmin(normalizedUser.role)) {
+              setIsAdminMode(true);
             }
           }
         }
       } catch (error) {
-        console.error("Auth check failed:", error);
+        console.error('Auth check failed:', error);
       } finally {
         setIsLoading(false);
       }
     };
+
     checkLoginStatus();
   }, []);
 
-  // 2. 统一登出逻辑
+  // 2️⃣ Logout logic
   const handleLogout = async () => {
     try {
       await fetch(`${API_BASE_URL}/auth/logout`, {
         method: 'POST',
-        credentials: 'include'
+        credentials: 'include',
       });
-    } catch (e) {
-      console.error("Logout failed:", e);
+    } catch (error) {
+      console.error('Logout request failed', error);
+    } finally {
+      setUser(null);
+      setIsAdminMode(false);
+      window.location.href = '/';
     }
-    // 清除前端状态
-    setUser(null);
-    setIsAdminMode(false);
-    // 可选：强制刷新以确保所有状态清空
-    window.location.reload(); 
   };
 
-  // 3. 渲染逻辑
+  // 3️⃣ Loading
   if (isLoading) {
-    return <div className="h-screen flex items-center justify-center">Loading...</div>;
-  }
-
-  if (!user) {
-    return <LoginView onLogin={(u) => {
-        setUser(u);
-        // 登录时如果是管理员，自动进后台
-        if (u.role === 'admin' || u.role === 'super_admin') {
-            setIsAdminMode(true);
-        }
-    }} />;
-  }
-
-  // 4. Admin View
-  if (isAdminMode) {
     return (
-      <AdminApp 
-        onSwitchToUser={() => setIsAdminMode(false)} 
-        onLogout={handleLogout} 
-      />
+      <div className="h-screen flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+          <span className="text-slate-500 text-sm">Loading...</span>
+        </div>
+      </div>
     );
   }
 
-  // 5. User View
+  // 4️⃣ Not logged in → Login
+  if (!user) {
+    return (
+      <GoogleReCaptchaProvider
+        reCaptchaKey="6LewjjUsAAAAAKFHuvd4JdyTZ06TK14FTHZSZSTF"
+        scriptProps={{
+          async: false,
+          defer: false,
+          appendTo: 'head',
+        }}
+      >
+        <LoginView
+          onLogin={(u) => {
+            // 🔥 Normalize role on login
+            const normalizedUser = {
+              ...u,
+              role: normalizeRole(u.role)
+            };
+            setUser(normalizedUser);
+            
+            // 🔥 Use standardized role check
+            if (isAdmin(normalizedUser.role)) {
+              setIsAdminMode(true);
+            }
+          }}
+        />
+      </GoogleReCaptchaProvider>
+    );
+  }
+
+  // 5️⃣ Main App View
   return (
-    <App 
-        user={user} 
-        onLogout={handleLogout}
-        onSwitchToAdmin={() => setIsAdminMode(true)} // 必须传这个函数
-    /> 
+    <SocketProvider userId={user.id} isAuthenticated={!!user}>
+      {isAdminMode ? (
+        <AdminApp
+          user={user}
+          onSwitchToUser={() => setIsAdminMode(false)}
+          onLogout={handleLogout}
+        />
+      ) : (
+        <App
+          user={user}
+          onLogout={handleLogout}
+          onSwitchToAdmin={() => setIsAdminMode(true)}
+        />
+      )}
+    </SocketProvider>
   );
 };
 
 const rootElement = document.getElementById('root');
-if (!rootElement) throw new Error("Root not found");
+if (!rootElement) throw new Error('Root not found');
 
 const root = ReactDOM.createRoot(rootElement);
+
 root.render(
   <React.StrictMode>
-    <Root />
+    <BrowserRouter>
+      <Root />
+    </BrowserRouter>
   </React.StrictMode>
 );

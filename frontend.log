@@ -1,0 +1,117 @@
+
+> gogotrip@0.0.0 dev
+> vite
+
+
+  [32m[1mVITE[22m v6.4.1[39m  [2mready in [0m[1m402[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://100.103.154.44:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.56.1:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.53.1:[1m3000[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.1.9:[1m3000[22m/[39m
+[2m下午3:05:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/index.tsx, /App.tsx, /hooks/useSocket.tsx, /components/user/LoginView.tsx, /components/user/DashboardView.tsx, /components/user/BlogView.tsx, /components/admin/AdminChatbox.tsx, /components/user/ReceiptView.tsx, /components/user/TopBar.tsx, /components/admin/AdminVoucherManager.tsx, /components/admin/Advertisementmanagement.tsx, /components/admin/TicketManager.tsx, /components/admin/DashboardWidgets.tsx, /components/user/AnnouncementPage.tsx, /components/admin/SettingsView.tsx, /components/admin/BlogModeration.tsx, /components/admin/Adminsubscriptionview.tsx, /components/admin/BlogReportManager.tsx, /components/admin/AdminMessaging.tsx, /components/user/ChatView.tsx, /components/admin/AdminPlanManager.tsx, /components/admin/NotificationManager.tsx, /components/user/BillingView.tsx, /components/user/CalendarView.tsx, /components/admin/InquiryManager.tsx, /components/user/TravelView.tsx, /components/user/SupportTicket.tsx, /components/user/SettingsView.tsx, /components/admin/LoginHeroManagement.tsx, /components/user/AdvertisementBanner.tsx, /components/user/TranslateView.tsx, /components/user/CreateBlogModal.tsx, /components/user/ChatAdvertisementPopup.tsx, /components/user/BlogDetailView.tsx[22m
+[2m下午3:05:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/index.tsx[22m Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m下午3:05:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.tsx[22m
+[2m下午3:05:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/hooks/useSocket.tsx[22m Could not Fast Refresh ("default" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m下午3:05:48[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/index.tsx, /components/admin/AdminChatbox.tsx, /components/admin/TicketManager.tsx, /components/admin/AdminMessaging.tsx, /components/user/SupportTicket.tsx[22m
+[2m下午3:05:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [33mhmr invalidate [39m[2m/index.tsx[22m Could not Fast Refresh ("true" export is incompatible). Learn more at https://github.com/vitejs/vite-plugin-react/tree/main/packages/plugin-react#consistent-components-exports
+[2m下午3:05:49[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.tsx[22m
+[2m下午3:07:44[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:07:53[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:09:30[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/admin/BlogModeration.tsx[22m
+[2m下午3:09:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/admin/BlogModeration.tsx[22m
+[2m下午3:12:47[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:12:55[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:15:21[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:15:29[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:15:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:16:24[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:17:32[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:17:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:22:00[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m下午3:22:08[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/App.tsx[22m
+[2m下午3:22:16[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/App.tsx[22m
+[2m下午3:22:16[22m [31m[1m[vite][22m[39m [31mInternal server error: D:\TEST\gogotrip_backup\App.tsx: Unterminated JSX contents. (222:10)
+
+[0m [90m 220 |[31m
+ [90m 221 |[31m       [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+[31m[1m>[22m[31m[90m 222 |[31m     [33m<[31m[33m/[31m[33mdiv[31m[33m>[31m
+ [90m     |[31m           [31m[1m^[22m[31m
+ [90m 223 |[31m   )[33m;[31m
+ [90m 224 |[31m }[33m;[31m
+ [90m 225 |[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mD:/TEST/gogotrip_backup/App.tsx[39m:222:10
+[33m  220|  
+  221|        </div>
+  222|      </div>
+     |            ^
+  223|    );
+  224|  };[39m
+      at constructor (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:367:19)
+      at TypeScriptParserMixin.raise (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:6624:19)
+      at TypeScriptParserMixin.jsxReadToken (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4477:20)
+      at TypeScriptParserMixin.getTokenFromCode (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4803:12)
+      at TypeScriptParserMixin.getTokenFromCode (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10042:11)
+      at TypeScriptParserMixin.nextToken (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:5807:10)
+      at TypeScriptParserMixin.next (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:5717:10)
+      at TypeScriptParserMixin.eat (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:5721:12)
+      at TypeScriptParserMixin.expect (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:6923:15)
+      at TypeScriptParserMixin.jsxParseClosingElementAt (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4709:10)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4724:37)
+      at TypeScriptParserMixin.jsxParseElementAt (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4727:32)
+      at TypeScriptParserMixin.jsxParseElement (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4778:17)
+      at TypeScriptParserMixin.parseExprAtom (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4788:19)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10895:21)
+      at D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9828:39
+      at TypeScriptParserMixin.tryParse (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:6932:20)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9828:18)
+      at D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10864:39
+      at TypeScriptParserMixin.allowInAnd (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12500:12)
+      at TypeScriptParserMixin.parseMaybeAssignAllowIn (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10864:17)
+      at TypeScriptParserMixin.parseMaybeAssignAllowInOrVoidPattern (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12567:17)
+      at TypeScriptParserMixin.parseParenAndDistinguishExpression (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11747:28)
+      at TypeScriptParserMixin.parseExprAtom (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11395:23)
+      at TypeScriptParserMixin.parseExprAtom (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:4793:20)
+      at TypeScriptParserMixin.parseExprSubscripts (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11145:23)
+      at TypeScriptParserMixin.parseUpdate (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11130:21)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:11110:23)
+      at TypeScriptParserMixin.parseMaybeUnary (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9890:18)
+      at TypeScriptParserMixin.parseMaybeUnaryOrPrivate (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10963:61)
+      at TypeScriptParserMixin.parseExprOps (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10968:23)
+      at TypeScriptParserMixin.parseMaybeConditional (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10945:23)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10895:21)
+      at TypeScriptParserMixin.parseMaybeAssign (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9839:20)
+      at TypeScriptParserMixin.parseExpressionBase (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10848:23)
+      at D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10844:39
+      at TypeScriptParserMixin.allowInAnd (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12495:16)
+      at TypeScriptParserMixin.parseExpression (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:10844:17)
+      at TypeScriptParserMixin.parseReturnStatement (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:13218:28)
+      at TypeScriptParserMixin.parseStatementContent (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12874:21)
+      at TypeScriptParserMixin.parseStatementContent (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:9569:18)
+      at TypeScriptParserMixin.parseStatementLike (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12843:17)
+      at TypeScriptParserMixin.parseStatementListItem (D:\TEST\gogotrip_backup\node_modules\@babel\parser\lib\index.js:12823:17)
+[2m下午3:22:23[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/App.tsx[22m
+[2m下午3:22:41[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogView.tsx[22m
+[2m下午3:22:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogView.tsx[22m
+[2m下午3:22:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogView.tsx[22m
+[2m下午3:23:05[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogView.tsx[22m
+[2m下午3:23:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogView.tsx[22m
+[2m下午3:23:28[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:23:36[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:23:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:23:54[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:24:04[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:24:12[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:24:18[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/BlogDetailView.tsx[22m
+[2m下午3:24:43[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:24:50[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
+[2m下午3:24:57[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/components/user/CreateBlogModal.tsx[22m
