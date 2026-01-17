@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard,
   CalendarDays,
@@ -31,22 +32,23 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation('nav');
 
   const [isHovered, setIsHovered] = useState(false);
   const [isLogoMenuOpen, setIsLogoMenuOpen] = useState(false);
   const [isMobileLogoMenuOpen, setIsMobileLogoMenuOpen] = useState(false);
   const logoMenuRef = useRef<HTMLDivElement>(null);
 
-  // 定义菜单项及其对应路径
+  // 定义菜单项及其对应路径 (with i18n)
   const menuItems = [
-    { path: '/', label: 'Travel Dashboard', icon: LayoutDashboard }, // 使用根路径作为 Dashboard
-    { path: '/chat', label: 'AI Planner', icon: Sparkles },
-    { path: '/trips', label: 'My Trips', icon: Plane },
-    { path: '/blogs', label: 'Travel Stories', icon: BookOpen },
-    { path: '/scheduler', label: 'Notes', icon: NotebookPen },
-    { path: '/translate', label: 'Translate', icon: Languages },
-    { path: '/expenses', label: 'Expenses', icon: Wallet },
-    { path: '/calendar', label: 'Calendar', icon: CalendarDays }
+    { path: '/', labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
+    { path: '/chat', labelKey: 'sidebar.aiPlanner', icon: Sparkles },
+    { path: '/trips', labelKey: 'sidebar.myTrips', icon: Plane },
+    { path: '/blogs', labelKey: 'sidebar.travelStories', icon: BookOpen },
+    { path: '/scheduler', labelKey: 'sidebar.notes', icon: NotebookPen },
+    { path: '/translate', labelKey: 'sidebar.translate', icon: Languages },
+    { path: '/expenses', labelKey: 'sidebar.expenses', icon: Wallet },
+    { path: '/calendar', labelKey: 'sidebar.calendar', icon: CalendarDays }
   ];
 
   // Close logo menu when clicking outside
@@ -110,14 +112,14 @@ const Sidebar: React.FC<SidebarProps> = ({
                 ${isMobileLogoMenuOpen ? 'max-h-48 opacity-100 mt-2' : 'max-h-0 opacity-0'}
              `}>
                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-2 space-y-1">
-                  <button onClick={handleHelp} className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors active:scale-95">
+              <button onClick={handleHelp} className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors active:scale-95">
                      <HelpCircle className="w-4 h-4" />
-                     Help & Support
-                  </button>
-                  <button onClick={handleAbout} className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors active:scale-95">
-                     <Info className="w-4 h-4" />
-                     About
-                  </button>
+                     {t('sidebar.helpSupport')}
+                   </button>
+                   <button onClick={handleAbout} className="w-full flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-white dark:hover:bg-slate-700 transition-colors active:scale-95">
+                      <Info className="w-4 h-4" />
+                      {t('sidebar.about')}
+                   </button>
                </div>
              </div>
            </div>
@@ -139,19 +141,19 @@ const Sidebar: React.FC<SidebarProps> = ({
                 `}
               >
                 <item.icon className={`w-6 h-6 ${isActive(item.path) ? 'text-sky-600 dark:text-indigo-400' : 'text-slate-400'}`} />
-                <span className="text-base">{item.label}</span>
+                <span className="text-base">{t(item.labelKey)}</span>
               </button>
              ))}
 
-             {isAdminUser && onSwitchToAdmin && (
-               <button
-                 onClick={onSwitchToAdmin}
-                 className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 origin-left mt-4 bg-violet-50 text-violet-700 dark:bg-violet-900/20 dark:text-violet-300 font-bold active:scale-95"
-               >
-                 <ShieldCheck className="w-6 h-6" />
-                 <span className="text-base">Admin Portal</span>
-               </button>
-             )}
+              {isAdminUser && onSwitchToAdmin && (
+                <button
+                  onClick={onSwitchToAdmin}
+                  className="w-full flex items-center gap-4 px-4 py-4 rounded-2xl transition-all duration-300 origin-left mt-4 bg-violet-50 text-violet-700 dark:bg-violet-900/20 dark:text-violet-300 font-bold active:scale-95"
+                >
+                  <ShieldCheck className="w-6 h-6" />
+                  <span className="text-base">{t('sidebar.adminPortal')}</span>
+                </button>
+              )}
 
            </nav>
         </div>
@@ -202,15 +204,15 @@ const Sidebar: React.FC<SidebarProps> = ({
                 ${isLogoMenuOpen && isHovered ? 'opacity-100 scale-100 translate-y-0 max-h-40' : 'opacity-0 scale-95 -translate-y-2 max-h-0 pointer-events-none'}
              `}>
                <div className="p-1.5 space-y-0.5">
-                  <button onClick={handleHelp} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                     <HelpCircle className="w-4 h-4" />
-                     Help & Support
-                  </button>
-                  <button onClick={handleAbout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
-                     <Info className="w-4 h-4" />
-                     About
-                  </button>
-               </div>
+                   <button onClick={handleHelp} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                      <HelpCircle className="w-4 h-4" />
+                      {t('sidebar.helpSupport')}
+                   </button>
+                   <button onClick={handleAbout} className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors">
+                      <Info className="w-4 h-4" />
+                      {t('sidebar.about')}
+                   </button>
+                </div>
              </div>
           </div>
 
@@ -250,7 +252,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     ${active ? 'text-sky-600 dark:text-indigo-300' : 'text-slate-600 dark:text-slate-400'}
                     group-hover:scale-105
                   `}>
-                    {item.label}
+                    {t(item.labelKey)}
                   </span>
 
                   {/* Active Indicator Dot */}
@@ -281,7 +283,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                     text-violet-700 dark:text-violet-300
                     ${isHovered ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'}
                   `}>
-                    Admin Portal
+                    {t('sidebar.adminPortal')}
                   </span>
                 </button>
               </>

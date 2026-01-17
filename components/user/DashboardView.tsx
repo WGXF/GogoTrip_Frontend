@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Appointment, User } from '../../types';
 import { Plane, Utensils, BedDouble, Sparkles, MapPin, Globe, Map, Clock } from 'lucide-react';
 import { AdvertisementBanner } from './AdvertisementBanner';
@@ -109,6 +110,7 @@ const AppointmentCard: React.FC<{ appointment: Appointment }> = ({ appointment }
 
 const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation('dashboard');
   const [dashboardData, setDashboardData] = useState<DashboardData>({
     upcomingTrips: 0,
     countriesVisited: 0,
@@ -157,12 +159,12 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
   }
 
   const nextTripBadge = dashboardData.nextTrip 
-    ? `NEXT: ${dashboardData.nextTrip.destination.toUpperCase()} (${dashboardData.nextTrip.daysUntil}D)`
-    : 'NO TRIPS PLANNED';
+    ? t('nextTrip.badge', { destination: dashboardData.nextTrip.destination.toUpperCase(), days: dashboardData.nextTrip.daysUntil })
+    : t('nextTrip.badgeEmpty');
 
   const nextTripText = dashboardData.nextTrip
-    ? `Your next adventure to ${dashboardData.nextTrip.destination} begins in ${dashboardData.nextTrip.daysUntil} days.`
-    : 'Plan your next adventure today!';
+    ? t('nextTrip.countdown', { destination: dashboardData.nextTrip.destination, days: dashboardData.nextTrip.daysUntil })
+    : t('nextTrip.empty');
 
   return (
     <div className="p-6 md:p-8 w-full mx-auto space-y-8 animate-fade-in-up">
@@ -176,7 +178,7 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
           {/* Top Row: Text & Buttons */}
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-10">
             <div>
-              <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">Travel Dashboard</h2>
+              <h2 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">{t('title')}</h2>
               <p className="text-slate-500 dark:text-slate-400 font-medium text-lg">{nextTripText}</p>
             </div>
             <div className="flex gap-3">
@@ -184,14 +186,14 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
                 onClick={() => navigate('/trips')}
                 className="px-5 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all shadow-sm active:scale-95 border border-transparent hover:border-slate-300 dark:hover:border-slate-500 hover:-translate-y-1 hover:shadow-md"
               >
-                View All Trips
+                {t('viewAllTrips')}
               </button>
               <button 
                 onClick={() => navigate('/chat')}
                 className="px-5 py-3 bg-sky-600 dark:bg-indigo-600 text-white rounded-xl text-sm font-bold hover:bg-sky-500 dark:hover:bg-indigo-500 transition-all shadow-lg shadow-sky-600/30 dark:shadow-indigo-600/30 flex items-center gap-2 active:scale-95 hover:-translate-y-1 hover:shadow-xl"
               >
                 <Sparkles className="w-4 h-4" />
-                Start AI Planning
+                {t('startAiPlanning')}
               </button>
             </div>
           </div>
@@ -199,22 +201,22 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
           {/* Stats Cards Row */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <StatCard 
-              title="Upcoming Trips" 
+              title={t('stats.upcomingTrips')}
               value={dashboardData.upcomingTrips.toString()} 
               badgeText={nextTripBadge}
               icon={<Plane className="w-5 h-5" />} 
             />
             <StatCard 
-              title="Countries Visited" 
+              title={t('stats.countriesVisited')}
               value={dashboardData.countriesVisited.toString()} 
-              badgeText="EXPLORED" 
+              badgeText={t('badges.explored')}
               badgeColor="green"
               icon={<Globe className="w-5 h-5" />} 
             />
             <StatCard 
-              title="Saved Itineraries" 
+              title={t('stats.savedItineraries')}
               value={dashboardData.savedItineraries.toString()} 
-              badgeText="READY TO GO" 
+              badgeText={t('badges.ready')}
               badgeColor="green"
               icon={<Map className="w-5 h-5" />} 
             />
@@ -226,23 +228,23 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
         {/* 2. Upcoming Itinerary Container - UI Restore */}
         <div className="lg:col-span-2 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-[2.5rem] p-8 h-fit shadow-sm border border-transparent hover:border-sky-300 dark:hover:border-indigo-500 transition-all duration-500 ease-out hover:shadow-xl hover:bg-white/70 dark:hover:bg-slate-900/70">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Upcoming Itinerary</h3>
+            <h3 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">{t('upcomingItinerary.title')}</h3>
             <button 
               onClick={() => navigate('/calendar')}
               className="text-sm text-sky-600 hover:text-sky-500 dark:text-indigo-400 dark:hover:text-indigo-300 font-bold hover:underline"
             >
-              View Full Schedule
+              {t('upcomingItinerary.viewFull')}
             </button>
           </div>
           <div className="space-y-4">
             {dashboardData.upcomingAppointments.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-slate-500 dark:text-slate-400">No upcoming appointments</p>
+                <p className="text-slate-500 dark:text-slate-400">{t('upcomingItinerary.empty')}</p>
                 <button 
                   onClick={() => navigate('/chat')}
                   className="mt-4 text-sky-600 dark:text-indigo-400 hover:underline font-medium"
                 >
-                  Plan your first trip
+                  {t('upcomingItinerary.planFirst')}
                 </button>
               </div>
             ) : (
@@ -269,27 +271,27 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
           <div className="bg-gradient-to-b from-sky-500 to-blue-600 dark:from-indigo-600 dark:to-violet-700 rounded-[2.5rem] p-8 relative overflow-hidden shadow-xl shadow-sky-500/20 dark:shadow-indigo-500/20 group text-center border border-transparent hover:border-white/50 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:shadow-2xl">
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 dark:bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none group-hover:scale-125 transition-transform duration-700"></div>
             
-            <h3 className="text-2xl font-bold text-white mb-2 relative z-10 tracking-tight">Trip Idea?</h3>
+            <h3 className="text-2xl font-bold text-white mb-2 relative z-10 tracking-tight">{t('tripIdea.title')}</h3>
             <p className="text-sky-100 dark:text-indigo-100 font-medium leading-relaxed mb-8 relative z-10 px-4">
-              Not sure where to go next? Ask the AI Planner to suggest destinations.
+              {t('tripIdea.description')}
             </p>
             <div className="relative z-10">
               <button 
                 onClick={() => navigate('/chat')}
                 className="w-full py-3.5 bg-white text-sky-600 hover:bg-sky-50 dark:bg-white/10 dark:backdrop-blur-md dark:text-white dark:hover:bg-white/20 text-sm font-bold rounded-xl transition-all shadow-lg active:scale-95 border border-transparent hover:border-sky-100 hover:shadow-xl hover:-translate-y-1"
               >
-                Ask AI Planner
+                {t('tripIdea.button')}
               </button>
             </div>
           </div>
 
           {/* 4. Saved Drafts Card - UI Restore */}
           <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-sm border border-transparent hover:border-sky-300 dark:hover:border-indigo-500 transition-all duration-500 ease-out hover:shadow-xl hover:bg-white/70 dark:hover:bg-slate-900/70">
-            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Saved Drafts</h3>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4">{t('savedDrafts.title')}</h3>
             <div className="space-y-3">
               {dashboardData.savedDrafts.length === 0 ? (
                 <p className="text-sm text-slate-500 dark:text-slate-400 text-center py-4">
-                  No saved drafts yet
+                  {t('savedDrafts.empty')}
                 </p>
               ) : (
                 dashboardData.savedDrafts.map((draft) => (

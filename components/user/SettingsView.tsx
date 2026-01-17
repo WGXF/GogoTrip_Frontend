@@ -21,9 +21,12 @@ import {
   ExternalLink,
   Unlink
 } from 'lucide-react';
-import { User } from '../../types';
+import { User, SupportedLanguage } from '../../types';
 import { API_BASE_URL } from '../../config';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useTranslation } from 'react-i18next';
+import { changeLanguage, getCurrentLanguage, SUPPORTED_LANGUAGES } from '../../i18n';
+import { Globe } from 'lucide-react';
 
 /* =========================
    Types & Interfaces
@@ -52,6 +55,9 @@ type PasswordChangeStep = 'idle' | 'verify_current' | 'verify_code' | 'set_new' 
    Main Component
 ========================= */
 const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateUser }) => {
+  // i18n Hook
+  const { t } = useTranslation(['settings', 'common']);
+  
   // reCAPTCHA Hook
   
 
@@ -102,9 +108,22 @@ const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateUser }) => {
   const [emailNotifs, setEmailNotifs] = useState(user.emailNotifications ?? true);
   const [dataPrivacy, setDataPrivacy] = useState(true);
   
+  // 🆕 Language Preference State
+  const [selectedLanguage, setSelectedLanguage] = useState<SupportedLanguage>(
+    (user.preferredLanguage as SupportedLanguage) || getCurrentLanguage()
+  );
+  const [isLanguageChanging, setIsLanguageChanging] = useState(false);
+  
   useEffect(() => {
     setEmailNotifs(user.emailNotifications ?? true);
   }, [user.emailNotifications]);
+  
+  // 🆕 Sync language from user profile
+  useEffect(() => {
+    if (user.preferredLanguage) {
+      setSelectedLanguage(user.preferredLanguage);
+    }
+  }, [user.preferredLanguage]);
   
   // --- UI State ---
   const [isSaving, setIsSaving] = useState(false); 
@@ -119,6 +138,41 @@ const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateUser }) => {
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3000);
+  };
+
+  // 🆕 Handle Language Change
+  const handleLanguageChange = async (lang: SupportedLanguage) => {
+    if (lang === selectedLanguage) return;
+    
+    setIsLanguageChanging(true);
+    try {
+      // 1. Change UI language immediately
+      await changeLanguage(lang);
+      setSelectedLanguage(lang);
+      
+      // 2. Sync to backend (if user is logged in)
+      const uploadData = new FormData();
+      uploadData.append('preferredLanguage', lang);
+      
+      const res = await fetch(`${API_BASE_URL}/auth/update-profile`, {
+        method: 'PUT',
+        credentials: 'include',
+        body: uploadData
+      });
+      
+      if (res.ok) {
+        const data = await res.json();
+        if (data.user) {
+          onUpdateUser({ ...data.user });
+        }
+        showToast(t('settings:language.changeSuccess', { fallback: 'Language updated!' }), 'success');
+      }
+    } catch (error) {
+      console.error('Failed to update language:', error);
+      // UI already changed, just log the error
+    } finally {
+      setIsLanguageChanging(false);
+    }
   };
 
   // 🆕 Handle OAuth callback success/error from URL params
@@ -1204,6 +1258,55 @@ const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateUser }) => {
                   </button>
                 </div>
             </div>
+          </div>
+
+          {/* 🆕 Language Preference Section */}
+          <div className="pt-6 mt-6 border-t border-slate-200 dark:border-slate-800">
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <Globe className="w-5 h-5 text-indigo-500" />
+              {t('settings:language.title', 'Language')}
+            </h3>
+            <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+              {t('settings:language.description', 'Choose your preferred language for the interface and AI responses')}
+            </p>
+            
+            {/* Language Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {SUPPORTED_LANGUAGES.map((lang) => (
+                <button
+                  key={lang.code}
+                  onClick={() => handleLanguageChange(lang.code as SupportedLanguage)}
+                  disabled={isLanguageChanging}
+                  className={`p-4 rounded-xl border-2 transition-all duration-200 text-left relative ${
+                    selectedLanguage === lang.code
+                      ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 shadow-md'
+                      : 'border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/50 hover:border-slate-300 dark:hover:border-slate-600'
+                  } ${isLanguageChanging ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                >
+                  {/* Selected indicator */}
+                  {selectedLanguage === lang.code && (
+                    <div className="absolute top-2 right-2">
+                      <CheckCircle2 className="w-5 h-5 text-indigo-500" />
+                    </div>
+                  )}
+                  
+                  {/* Flag */}
+                  <span className="text-2xl mb-2 block">{lang.flag}</span>
+                  
+                  {/* Language name */}
+                  <p className="font-bold text-slate-900 dark:text-white">{lang.nativeName}</p>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">{lang.name}</p>
+                </button>
+              ))}
+            </div>
+            
+            {/* Loading indicator */}
+            {isLanguageChanging && (
+              <div className="mt-3 flex items-center gap-2 text-sm text-slate-500">
+                <Loader2 className="w-4 h-4 animate-spin" />
+                {t('settings:language.changing', 'Changing language...')}
+              </div>
+            )}
           </div>
 
           {/* Save Action */}

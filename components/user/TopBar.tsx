@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { 
   Bell, Menu, Search, Sun, Moon, LogOut, Settings, 
   User as UserIcon, CreditCard, X, Check, Trash2,
@@ -79,6 +80,7 @@ const TopBar: React.FC<TopBarProps> = ({
   onLogout 
 }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation(['nav', 'common']);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -225,26 +227,26 @@ const TopBar: React.FC<TopBarProps> = ({
             {isNotificationsOpen && (
               <div className="absolute right-0 mt-4 w-80 md:w-96 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden z-50 animate-in zoom-in-95 origin-top-right">
                 <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50 backdrop-blur-sm">
-                  <h3 className="font-bold text-slate-900 dark:text-white">Notifications</h3>
+                  <h3 className="font-bold text-slate-900 dark:text-white">{t('nav:topBar.notifications')}</h3>
                   {unreadCount > 0 && (
                     <button 
                       onClick={handleMarkAllRead}
                       className="text-xs font-bold text-sky-600 hover:text-sky-700 dark:text-indigo-400 flex items-center gap-1 px-2 py-1 rounded-lg hover:bg-sky-50 dark:hover:bg-indigo-900/20 transition-colors"
                     >
-                      <Check className="w-3 h-3" /> Mark all read
+                      <Check className="w-3 h-3" /> {t('nav:topBar.markAllRead')}
                     </button>
                   )}
                 </div>
                 
                 <div className="max-h-[60vh] overflow-y-auto custom-scrollbar">
                   {loading ? (
-                    <div className="p-8 text-center text-slate-400">Loading...</div>
+                    <div className="p-8 text-center text-slate-400">{t('common:loading')}</div>
                   ) : notifications.length === 0 ? (
                     <div className="p-8 text-center">
                       <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-3 text-slate-300">
                         <Bell className="w-6 h-6" />
                       </div>
-                      <p className="text-slate-500 dark:text-slate-400 font-medium">No notifications</p>
+                      <p className="text-slate-500 dark:text-slate-400 font-medium">{t('nav:topBar.noNotifications')}</p>
                     </div>
                   ) : (
                     <div className="divide-y divide-slate-100 dark:divide-slate-800">
@@ -287,7 +289,7 @@ const TopBar: React.FC<TopBarProps> = ({
                     onClick={() => { setIsNotificationsOpen(false); navigate('/announcements'); }}
                     className="text-xs font-bold text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 transition-colors flex items-center justify-center gap-1 w-full py-1"
                   >
-                    View all announcements <ChevronRight className="w-3 h-3" />
+                    {t('nav:topBar.viewAllAnnouncements')} <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
               </div>
@@ -327,7 +329,7 @@ const TopBar: React.FC<TopBarProps> = ({
                   {user.isPremium && (
                     <div className="mt-2 inline-flex items-center gap-1.5 px-2 py-1 bg-gradient-to-r from-amber-200 to-yellow-400 rounded-lg shadow-sm">
                       <span className="text-[10px] font-black text-yellow-900 uppercase tracking-wider flex items-center gap-1">
-                        <Gift className="w-3 h-3" /> Premium
+                        <Gift className="w-3 h-3" /> {t('nav:sidebar.premium')}
                       </span>
                     </div>
                   )}
@@ -339,14 +341,14 @@ const TopBar: React.FC<TopBarProps> = ({
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                   >
                     <UserIcon size={16} />
-                    Account
+                    {t('nav:userMenu.account')}
                   </button>
                   <button 
                     onClick={() => handleSettings('Billing')}
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
                   >
                     <CreditCard size={16} />
-                    Billing & Plan
+                    {t('nav:userMenu.billing')}
                   </button>
                 </div>
                 
@@ -356,7 +358,7 @@ const TopBar: React.FC<TopBarProps> = ({
                     className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-bold text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                   >
                     <LogOut size={16} />
-                    Sign Out
+                    {t('nav:userMenu.signOut')}
                   </button>
                 </div>
               </div>

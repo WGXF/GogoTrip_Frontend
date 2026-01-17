@@ -55,6 +55,9 @@ export interface Transaction {
   invoiceUrl?: string;
 }
 
+// Supported language codes for i18n
+export type SupportedLanguage = 'en' | 'zh' | 'ms';
+
 export interface User {
   id: string;
   name: string;
@@ -77,6 +80,8 @@ export interface User {
   status?: 'Active' | 'Inactive' | 'suspended' | 'pending_verification';
   isPremium?: boolean;
   emailNotifications: boolean;
+  // 🆕 Language Preference (i18n)
+  preferredLanguage?: SupportedLanguage;
 }
 
 export interface AdminUser {

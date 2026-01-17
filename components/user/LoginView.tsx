@@ -6,6 +6,7 @@ import {
   Clock, Hash, Shield, Zap, PartyPopper, Sparkles
 } from 'lucide-react';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { useTranslation } from 'react-i18next';
 import { API_BASE_URL } from '../../config';
 
 interface LoginViewProps {
@@ -123,6 +124,7 @@ HeroSection.displayName = 'HeroSection';
 // 🔥 Verification Success Page
 // ==========================================
 const VerificationSuccessPage: React.FC<{ email: string; onRedirect: () => void }> = ({ email, onRedirect }) => {
+  const { t } = useTranslation('auth');
   const [countdown, setCountdown] = useState(3);
 
   useEffect(() => {
@@ -162,7 +164,7 @@ const VerificationSuccessPage: React.FC<{ email: string; onRedirect: () => void 
         {/* Success message */}
         <div className="text-center space-y-4 animate-in fade-in-up duration-500 delay-300">
           <h1 className="text-4xl font-black text-slate-900 mb-2">
-            Email Verified! 🎉
+            {t('verification.verified')} 🎉
           </h1>
           <p className="text-lg text-slate-600 font-medium">
             Welcome aboard! Your account has been successfully verified.
@@ -180,7 +182,7 @@ const VerificationSuccessPage: React.FC<{ email: string; onRedirect: () => void 
           <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/80 backdrop-blur-sm border border-slate-200 rounded-full shadow-lg">
             <Loader2 className="w-5 h-5 text-green-600 animate-spin" />
             <span className="text-sm font-medium text-slate-700">
-              Redirecting in <span className="text-green-600 font-bold text-lg">{countdown}</span>s...
+              {t('verification.redirecting')} <span className="text-green-600 font-bold text-lg">{countdown}</span>s...
             </span>
           </div>
         </div>
@@ -203,6 +205,7 @@ const VerificationSuccessPage: React.FC<{ email: string; onRedirect: () => void 
 // 🔥 Verifying Page (loading state)
 // ==========================================
 const VerifyingPage: React.FC = () => {
+  const { t } = useTranslation('auth');
   return (
     <div className="min-h-screen flex items-center justify-center p-6 bg-gradient-to-br from-blue-50 via-sky-50 to-cyan-50">
       <div className="max-w-md w-full text-center">
@@ -217,7 +220,7 @@ const VerifyingPage: React.FC = () => {
 
         <div className="space-y-4 animate-in fade-in-up duration-500 delay-200">
           <h2 className="text-3xl font-black text-slate-900">
-            Verifying Your Email...
+            {t('verification.verifying')}
           </h2>
           <p className="text-lg text-slate-600">
             Please wait while we confirm your account.
@@ -245,6 +248,7 @@ const VerifyEmailPage: React.FC<{
   onResend: () => Promise<{ success: boolean; token?: string; message?: string }>;
   onBack: () => void;
 }> = ({ email, token, verificationConfig, onVerified, onResend, onBack }) => {
+  const { t } = useTranslation('auth');
   const [verificationCode, setVerificationCode] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -436,9 +440,9 @@ const VerifyEmailPage: React.FC<{
         <div className="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
           <Mail className="w-8 h-8 text-white" />
         </div>
-        <h2 className="text-2xl font-black text-slate-900 mb-2">Verify Your Email</h2>
+        <h2 className="text-2xl font-black text-slate-900 mb-2">{t('verification.title')}</h2>
         <p className="text-slate-600">
-          We've sent a verification code to<br />
+          {t('verification.subtitle')}<br />
           <strong className="text-slate-900">{email}</strong>
         </p>
       </div>
@@ -468,7 +472,7 @@ const VerifyEmailPage: React.FC<{
       <form onSubmit={handleVerify} className="space-y-4">
         <div className="space-y-1">
           <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">
-            Verification Code
+            {t('verification.enterCode')}
           </label>
           <div className="relative">
             <input
@@ -486,12 +490,12 @@ const VerifyEmailPage: React.FC<{
                 }
               }}
               maxLength={verificationConfig.codeLength}
-              placeholder={`Enter ${verificationConfig.codeLength}-digit code`}
+              placeholder={t('verification.codePlaceholder', { length: verificationConfig.codeLength })}
               className="w-full bg-white border border-slate-200 rounded-xl py-4 px-4 font-mono text-2xl tracking-[0.5em] text-center font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all uppercase"
             />
           </div>
           <p className="text-xs text-slate-500 text-center mt-2">
-            Enter the code from your email or click the verification link
+            {t('verification.enterCodeDesc')}
           </p>
         </div>
 
@@ -504,7 +508,7 @@ const VerifyEmailPage: React.FC<{
             <Loader2 className="w-5 h-5 animate-spin" />
           ) : (
             <>
-              Verify Email
+              {t('verification.verify')}
               <ArrowRight className="w-4 h-4" />
             </>
           )}
@@ -513,7 +517,7 @@ const VerifyEmailPage: React.FC<{
 
       {/* 🔥 Resend button with cooldown */}
       <div className="text-center pt-4 border-t border-slate-200">
-        <p className="text-sm text-slate-600 mb-3">Didn't receive the email?</p>
+        <p className="text-sm text-slate-600 mb-3">{t('verification.didntReceive')}</p>
         <button
           type="button"
           onClick={handleResend}
@@ -529,17 +533,17 @@ const VerifyEmailPage: React.FC<{
           {resendLoading ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
-              Sending...
+              {t('forgotPassword.sending')}
             </>
           ) : resendCooldown > 0 ? (
             <>
               <Clock className="w-4 h-4" />
-              Resend in {resendCooldown}s
+              {t('verification.resendIn', { seconds: resendCooldown })}
             </>
           ) : (
             <>
               <RefreshCw className="w-4 h-4" />
-              Resend Code
+              {t('verification.resendCode')}
             </>
           )}
         </button>
@@ -552,7 +556,7 @@ const VerifyEmailPage: React.FC<{
           onClick={onBack}
           className="text-sm text-slate-500 hover:text-slate-700 font-medium"
         >
-          ← Back to Sign Up
+          ← {t('register.backToSignUp')}
         </button>
       </div>
     </div>
@@ -563,6 +567,7 @@ const VerifyEmailPage: React.FC<{
 // Main Login Component
 // ==========================================
 const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
+  const { t } = useTranslation('auth');
   const [mode, setMode] = useState<AuthMode>('LOGIN');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -1141,18 +1146,18 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
         <div className="w-full max-w-md">
           <div className="mb-8 text-center">
             <h2 className="text-3xl font-black text-slate-900 mb-2">
-              {mode === 'LOGIN' && 'Welcome Back'}
-              {mode === 'SIGNUP' && 'Create Account'}
-              {mode === 'VERIFY' && 'Verify Your Email'}
-              {mode === 'FORGOT' && 'Reset Password'}
-              {mode === 'FORGOT_VERIFY' && 'Reset Password'}
+              {mode === 'LOGIN' && t('login.title')}
+              {mode === 'SIGNUP' && t('register.title')}
+              {mode === 'VERIFY' && t('verification.title')}
+              {mode === 'FORGOT' && t('forgotPassword.title')}
+              {mode === 'FORGOT_VERIFY' && t('resetPassword.title')}
             </h2>
             <p className="text-slate-500 font-medium">
-              {mode === 'LOGIN' && 'Sign in to continue your journey'}
-              {mode === 'SIGNUP' && 'Start planning your next adventure'}
-              {mode === 'VERIFY' && 'Check your email for the verification code'}
-              {mode === 'FORGOT' && 'Enter your email to receive a reset code'}
-              {mode === 'FORGOT_VERIFY' && 'Enter code and new password'}
+              {mode === 'LOGIN' && t('login.subtitle')}
+              {mode === 'SIGNUP' && t('register.subtitle')}
+              {mode === 'VERIFY' && t('verification.checkEmail')}
+              {mode === 'FORGOT' && t('forgotPassword.subtitle')}
+              {mode === 'FORGOT_VERIFY' && t('resetPassword.subtitle')}
             </p>
           </div>
 
@@ -1192,7 +1197,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
             {mode === 'FORGOT_VERIFY' && (
               <form onSubmit={handleResetPassword} className="space-y-6">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Verification Code</label>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('verification.enterCode')}</label>
                   <div className="relative">
                     <input
                       type="text"
@@ -1209,7 +1214,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                         }
                       }}
                       maxLength={verificationConfig.codeLength}
-                      placeholder={`Enter ${verificationConfig.codeLength}-digit code`}
+                      placeholder={t('verification.codePlaceholder', { length: verificationConfig.codeLength })}
                       className="w-full bg-white border border-slate-200 rounded-xl py-3.5 pl-12 pr-12 font-mono text-lg tracking-widest text-center font-bold focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all uppercase"
                     />
                     <Shield className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
@@ -1217,7 +1222,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">New Password</label>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('resetPassword.newPassword')}</label>
                   <div className="relative">
                     <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
@@ -1245,7 +1250,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
 
                 {isPasswordValid && (
                   <div className="space-y-1 animate-in fade-in-down">
-                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Confirm New Password</label>
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('resetPassword.confirmPassword')}</label>
                     <div className="relative">
                       <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                       <input
@@ -1253,7 +1258,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                         required
                         value={confirmPassword}
                         onChange={e => setConfirmPassword(e.target.value)}
-                        placeholder="Confirm password"
+                        placeholder={t('resetPassword.confirmPasswordPlaceholder')}
                         className={`w-full bg-white border rounded-xl py-3.5 pl-12 pr-12 font-medium focus:ring-2 outline-none transition-all ${
                           confirmPassword.length > 0 && confirmPassword !== newPassword
                             ? 'border-red-300 focus:ring-red-200 focus:border-red-400'
@@ -1269,7 +1274,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                       </button>
                     </div>
                     {confirmPassword.length > 0 && confirmPassword !== newPassword && (
-                      <p className="text-xs text-red-500 font-bold ml-1">Passwords do not match</p>
+                      <p className="text-xs text-red-500 font-bold ml-1">{t('errors.passwordMismatch')}</p>
                     )}
                   </div>
                 )}
@@ -1281,7 +1286,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                     <>
-                      Reset Password
+                      {t('resetPassword.resetPassword')}
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -1295,7 +1300,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 <VerificationOptionsSelector />
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Email Address</label>
+                  <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('login.email')}</label>
                   <div className="relative">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                     <input
@@ -1303,7 +1308,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                       required
                       value={formData.email}
                       onChange={e => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="you@example.com"
+                      placeholder={t('login.emailPlaceholder')}
                       className="w-full bg-white border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 font-medium focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
                     />
                   </div>
@@ -1316,7 +1321,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 >
                   {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
                     <>
-                      Send Reset Code
+                      {t('forgotPassword.sendLink')}
                       <ArrowRight className="w-4 h-4" />
                     </>
                   )}
@@ -1330,7 +1335,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                   }}
                   className="w-full text-sm text-sky-600 font-bold hover:underline"
                 >
-                  ← Back to Login
+                  ← {t('forgotPassword.backToLogin')}
                 </button>
               </form>
             )}
@@ -1345,7 +1350,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                   className="w-full py-3.5 bg-white border border-slate-200 rounded-xl font-bold text-slate-700 hover:bg-slate-50 hover:border-slate-300 transition-all flex items-center justify-center gap-3 relative group overflow-hidden"
                 >
                   <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" className="w-5 h-5 relative z-10" />
-                  <span className="relative z-10">Continue with Google</span>
+                  <span className="relative z-10">{t('login.googleSignIn')}</span>
                 </button>
 
                 <div className="relative">
@@ -1353,7 +1358,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                     <div className="w-full border-t border-slate-200"></div>
                   </div>
                   <div className="relative flex justify-center text-xs uppercase">
-                    <span className="bg-white px-2 text-slate-400 font-bold">Or continue with email</span>
+                    <span className="bg-white px-2 text-slate-400 font-bold">{t('login.orContinueWithEmail')}</span>
                   </div>
                 </div>
 
@@ -1362,7 +1367,7 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                 <form onSubmit={mode === 'LOGIN' ? handleLoginSubmit : handleEmailSignupSubmit} className="space-y-4">
                   {mode === 'SIGNUP' && (
                     <div className="space-y-1">
-                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Full Name</label>
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('register.fullName')}</label>
                       <div className="relative">
                         <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
                         <input
@@ -1370,12 +1375,134 @@ const LoginView: React.FC<LoginViewProps> = ({ onLogin }) => {
                           required
                           value={formData.name}
                           onChange={e => setFormData({ ...formData, name: e.target.value })}
-                          placeholder="John Doe"
+                          placeholder={t('register.fullNamePlaceholder')}
                           className="w-full bg-white border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 font-medium focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
                         />
                       </div>
                     </div>
                   )}
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('login.email')}</label>
+                    <div className="relative">
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input
+                        type="email"
+                        required
+                        value={formData.email}
+                        onChange={e => setFormData({ ...formData, email: e.target.value })}
+                        placeholder={t('login.emailPlaceholder')}
+                        className="w-full bg-white border border-slate-200 rounded-xl py-3.5 pl-12 pr-4 font-medium focus:ring-2 focus:ring-sky-500/20 focus:border-sky-500 outline-none transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('login.password')}</label>
+                    <div className="relative">
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        required
+                        value={formData.password}
+                        onChange={e => setFormData({ ...formData, password: e.target.value })}
+                        placeholder={mode === 'SIGNUP' ? t('register.passwordPlaceholder') : t('login.passwordPlaceholder')}
+                        className={`w-full bg-white border rounded-xl py-3.5 pl-12 pr-12 font-medium focus:ring-2 outline-none transition-all ${
+                          mode === 'SIGNUP' && !isPasswordValid && formData.password.length > 0
+                            ? 'border-red-300 focus:ring-red-200 focus:border-red-400'
+                            : 'border-slate-200 focus:ring-sky-500/20 focus:border-sky-500'
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                      >
+                        {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                      </button>
+                    </div>
+                    {mode === 'SIGNUP' && <PasswordStrengthChecker />}
+                  </div>
+
+                  {mode === 'SIGNUP' && isPasswordValid && (
+                    <div className="space-y-1 animate-in fade-in-down">
+                      <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">{t('register.confirmPassword')}</label>
+                      <div className="relative">
+                        <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                        <input
+                          type={showConfirmPassword ? "text" : "password"}
+                          required
+                          value={confirmPassword}
+                          onChange={e => setConfirmPassword(e.target.value)}
+                          placeholder={t('register.confirmPasswordPlaceholder')}
+                          className={`w-full bg-white border rounded-xl py-3.5 pl-12 pr-12 font-medium focus:ring-2 outline-none transition-all ${
+                            confirmPassword.length > 0 && confirmPassword !== formData.password
+                              ? 'border-red-300 focus:ring-red-200 focus:border-red-400'
+                              : 'border-slate-200 focus:ring-sky-500/20 focus:border-sky-500'
+                          }`}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                        >
+                          {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                        </button>
+                      </div>
+                      {confirmPassword.length > 0 && confirmPassword !== formData.password && (
+                        <p className="text-xs text-red-500 font-bold ml-1">{t('errors.passwordMismatch')}</p>
+                      )}
+                    </div>
+                  )}
+
+                  {mode === 'LOGIN' && (
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setMode('FORGOT');
+                          setError(null);
+                        }}
+                        className="text-sm font-bold text-sky-600 hover:text-sky-700"
+                      >
+                        {t('login.forgotPassword')}
+                      </button>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={loading || (mode === 'SIGNUP' && (!isPasswordValid || formData.password !== confirmPassword))}
+                    className="w-full py-3.5 bg-slate-900 text-white font-bold rounded-xl shadow-lg hover:bg-slate-800 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : (
+                      <>
+                        {mode === 'LOGIN' ? t('login.signIn') : t('register.signUp')}
+                        <ArrowRight className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </form>
+
+                <div className="text-center">
+                  <p className="text-slate-500 text-sm">
+                    {mode === 'LOGIN' ? t('login.noAccount') : t('register.hasAccount')}{' '}
+                    <button
+                      onClick={() => {
+                        setMode(mode === 'LOGIN' ? 'SIGNUP' : 'LOGIN');
+                        setError(null);
+                        setSuccessMsg(null);
+                        setFormData({ name: '', email: '', password: '', verificationCode: '' });
+                        setConfirmPassword('');
+                      }}
+                      className="font-bold text-sky-600 hover:text-sky-700"
+                    >
+                      {mode === 'LOGIN' ? t('login.signUpLink') : t('register.signInLink')}
+                    </button>
+                  </p>
+                </div>
+              </div>
+            )}
 
                   <div className="space-y-1">
                     <label className="text-xs font-bold text-slate-500 uppercase tracking-wider pl-1">Email Address</label>

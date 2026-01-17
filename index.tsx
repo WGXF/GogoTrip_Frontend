@@ -13,6 +13,10 @@ import { API_BASE_URL } from './config';
 // 🔥 Import standardized role utilities
 import { normalizeRole, isAdmin, UserRole } from './role-utils';
 
+// 🌐 Import i18n configuration (initializes i18next)
+import './i18n';
+import { initLanguageFromProfile } from './i18n';
+
 const Root: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdminMode, setIsAdminMode] = useState(false);
@@ -35,6 +39,9 @@ const Root: React.FC = () => {
               role: normalizeRole(data.user.role || data.role)
             };
             setUser(normalizedUser);
+            
+            // 🌐 Initialize language from user profile
+            initLanguageFromProfile(normalizedUser.preferredLanguage);
             
             // 🔥 Use standardized role check
             if (isAdmin(normalizedUser.role)) {
@@ -99,6 +106,9 @@ const Root: React.FC = () => {
               role: normalizeRole(u.role)
             };
             setUser(normalizedUser);
+            
+            // 🌐 Initialize language from user profile
+            initLanguageFromProfile(normalizedUser.preferredLanguage);
             
             // 🔥 Use standardized role check
             if (isAdmin(normalizedUser.role)) {

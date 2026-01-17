@@ -10,6 +10,8 @@ import {
 import { Message, TripSuggestion, User } from '../../types';
 import { API_BASE_URL } from '../../config';
 import { ChatAdvertisementPopup } from './ChatAdvertisementPopup';
+import { getCurrentLanguage } from '../../i18n';
+import { useTranslation } from 'react-i18next';
 import { PlanWizard, TripPreferences } from './PlanWizard';
 import { FoodWizard, FoodPreferences } from './FoodWizard';
 import { FoodRecommendationList, FoodPlace } from './FoodRecommendationCard';
@@ -57,14 +59,8 @@ interface DailyPlanData {
 /* =========================
    Constants
 ========================= */
-const PLACEHOLDERS = [
-  "Describe your dream trip to Kyoto...",
-  "Plan a weekend getaway to Napa Valley...",
-  "Find the best sushi restaurants in Tokyo...",
-  "Suggest a 7-day itinerary for Italy...",
-  "Looking for family-friendly activities in London...",
-  "Show me flights to New York under RM 2000..."
-];
+// Moved inside component for i18n
+
 
 /* =========================
    Sub-Components
@@ -563,6 +559,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
   onToggleSidebar,
   onUpgrade
 }) => {
+  const { t } = useTranslation(['chat', 'common']);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editTitle, setEditTitle] = useState('');
   const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
@@ -586,9 +583,9 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
     const now = new Date();
     const diffDays = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24));
     
-    if (diffDays === 0) return 'Today';
-    if (diffDays === 1) return 'Yesterday';
-    if (diffDays < 7) return `${diffDays} days ago`;
+    if (diffDays === 0) return t('today');
+    if (diffDays === 1) return t('yesterday');
+    if (diffDays < 7) return t('daysAgo', { count: diffDays });
     return date.toLocaleDateString();
   };
 
@@ -628,7 +625,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
                        disabled:opacity-50 disabled:cursor-not-allowed"
           >
             <Plus className="w-5 h-5" />
-            <span className="font-medium">New Chat</span>
+            <span className="font-medium">{t('newChat')}</span>
           </button>
         </div>
 
@@ -639,10 +636,10 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
               <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-xl mb-3">
                 <Crown className="w-8 h-8 text-amber-500 mx-auto mb-2" />
                 <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
-                  Upgrade to Premium
+                  {t('premium.historyLocked')}
                 </p>
                 <p className="text-xs text-amber-600 dark:text-amber-400 mt-1">
-                  Save & access your chat history
+                  {t('premium.unlockHistory')}
                 </p>
               </div>
               {onUpgrade && (
@@ -650,7 +647,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
                   onClick={onUpgrade}
                   className="w-full px-4 py-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-bold rounded-xl transition-all"
                 >
-                  Upgrade Now
+                  {t('premium.upgradeNow')}
                 </button>
               )}
             </div>
@@ -661,8 +658,8 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
           ) : conversations.length === 0 ? (
             <div className="text-center py-8 text-slate-500">
               <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-50" />
-              <p className="text-sm">No conversations yet</p>
-              <p className="text-xs mt-1">Start a new chat!</p>
+              <p className="text-sm">{t('noHistory')}</p>
+              <p className="text-xs mt-1">{t('startNewChat')}</p>
             </div>
           ) : (
             Object.entries(groupedConversations).map(([dateLabel, convs]) => (
@@ -723,7 +720,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
                             className="w-full px-3 py-2 text-left text-sm hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2"
                           >
                             <Pencil className="w-3.5 h-3.5" />
-                            Rename
+                            {t('common:rename')}
                           </button>
                           <button
                             onClick={(e) => {
@@ -734,7 +731,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
                             className="w-full px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 flex items-center gap-2"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
-                            Delete
+                            {t('common:delete')}
                           </button>
                         </div>
                       )}
@@ -769,6 +766,7 @@ interface ChatViewProps {
 }
 
 const ChatView: React.FC<ChatViewProps> = ({ user }) => {
+  const { t } = useTranslation('chat');
   // URL params for direct conversation loading
   const { conversationId: urlConversationId } = useParams<{ conversationId?: string }>();
   const navigate = useNavigate();
@@ -798,7 +796,8 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
 
   // UI State
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
-  const [currentPlaceholder, setCurrentPlaceholder] = useState(PLACEHOLDERS[0]);
+  // Initialize with first placeholder from translation, fallback to empty string
+  const [currentPlaceholder, setCurrentPlaceholder] = useState('');
   const [isPlaceholderVisible, setIsPlaceholderVisible] = useState(true);
   const [pullOffset, setPullOffset] = useState(0);
   
@@ -1207,7 +1206,8 @@ Please suggest a destination or ask for one if needed.`;
                 message: userMessageToSend,
                 conversationId: activeConversationId,
                 history: conversationHistory,
-                coordinates: currentCoordinates
+                coordinates: currentCoordinates,
+                language: getCurrentLanguage()  // 🆕 Pass user's preferred language for AI response
             }),
         });
 
@@ -1415,18 +1415,30 @@ Please suggest a destination or ask for one if needed.`;
 
   // Placeholder rotation
   useEffect(() => {
+    // Get placeholders from translation
+    const placeholders = t('placeholdersList', { returnObjects: true }) as string[];
+    
+    // Set initial placeholder if empty
+    if (!currentPlaceholder && placeholders.length > 0) {
+      setCurrentPlaceholder(placeholders[0]);
+    }
+
     const interval = setInterval(() => {
       setIsPlaceholderVisible(false);
       setTimeout(() => {
         setCurrentPlaceholder(prev => {
-          const idx = PLACEHOLDERS.indexOf(prev);
-          return PLACEHOLDERS[(idx + 1) % PLACEHOLDERS.length];
+          // Re-fetch inside interval to ensure fresh translations if language changes
+          const currentPlaceholders = t('placeholdersList', { returnObjects: true }) as string[];
+          const idx = currentPlaceholders.indexOf(prev);
+          // If not found or last, start from 0
+          const nextIdx = idx === -1 ? 0 : (idx + 1) % currentPlaceholders.length;
+          return currentPlaceholders[nextIdx];
         });
         setIsPlaceholderVisible(true);
       }, 300);
     }, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [t, currentPlaceholder]);
 
   return (
     <div className="flex h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
