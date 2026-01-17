@@ -97,18 +97,24 @@ i18n
     
     // Language detection options
     detection: {
-      // Priority order for language detection
+      // Priority order: localStorage > navigator
+      // This ensures we respect the last saved preference immediately on load
       order: ['localStorage', 'navigator'],
+      
       // Cache user language preference in localStorage
       caches: ['localStorage'],
+      
       // LocalStorage key
       lookupLocalStorage: LANGUAGE_STORAGE_KEY,
     },
     
     // React-specific options
     react: {
-      useSuspense: false, // Disable suspense for simpler error handling
+      useSuspense: false,
     },
+    
+    // Init immediately
+    initImmediate: true,
     
     // Interpolation settings
     interpolation: {
