@@ -4,6 +4,7 @@ import {
   Wallet, Coffee, Heart, Users,
   Utensils, Sparkles, ArrowRight
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export interface TripPreferences {
   mood: string;
@@ -20,37 +21,38 @@ interface PlanWizardProps {
 }
 
 const MOODS = [
-  { id: 'relaxed', label: 'Relaxed', icon: Coffee },
-  { id: 'energetic', label: 'Energetic', icon: Sparkles },
-  { id: 'romantic', label: 'Romantic', icon: Heart },
-  { id: 'family', label: 'Family Fun', icon: Users },
+  { id: 'relaxed', icon: Coffee },
+  { id: 'energetic', icon: Sparkles },
+  { id: 'romantic', icon: Heart },
+  { id: 'family', icon: Users },
 ];
 
 const COMPANIONS = [
-  { id: 'solo', label: 'Solo' },
-  { id: 'couple', label: 'Couple' },
-  { id: 'family', label: 'Family' },
-  { id: 'friends', label: 'Friends' },
+  { id: 'solo' },
+  { id: 'couple' },
+  { id: 'family' },
+  { id: 'friends' },
 ];
 
 const TRANSPORTS = [
-  { id: 'car', label: 'Car', icon: Car },
-  { id: 'public', label: 'Public Transport', icon: MapPin },
-  { id: 'walk', label: 'Walking', icon: Footprints },
+  { id: 'car', icon: Car },
+  { id: 'public', icon: MapPin },
+  { id: 'walk', icon: Footprints },
 ];
 
 const BUDGETS = [
-  { id: 'low', label: 'Budget', desc: 'Cheap & Cheerful' },
-  { id: 'medium', label: 'Standard', desc: 'Balanced' },
-  { id: 'high', label: 'Premium', desc: 'Treat Yourself' },
-  { id: 'luxury', label: 'Luxury', desc: 'Spare No Expense' },
+  { id: 'low' },
+  { id: 'medium' },
+  { id: 'high' },
+  { id: 'luxury' },
 ];
 
 const DIETARY = [
-  'Halal', 'Vegetarian', 'Vegan', 'No Beef', 'No Pork', 'Gluten Free'
+  'halal', 'vegetarian', 'vegan', 'noBeef', 'noPork', 'glutenFree'
 ];
 
 export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onComplete }) => {
+  const { t } = useTranslation('chat');
   const [step, setStep] = useState(1);
   const [prefs, setPrefs] = useState<TripPreferences>({
     mood: '',
@@ -83,8 +85,8 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
         {/* Header */}
         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
           <div>
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white">Trip Wizard</h2>
-            <p className="text-xs text-slate-500">Step {step} of 3</p>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t('tripWizard.title')}</h2>
+            <p className="text-xs text-slate-500">{t('tripWizard.stepIndicator', { current: step, total: 3 })}</p>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
             <X className="w-5 h-5 text-slate-500" />
@@ -98,7 +100,7 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
           {step === 1 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">What's the vibe today?</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('tripWizard.mood')}</label>
                 <div className="grid grid-cols-2 gap-3">
                   {MOODS.map(m => (
                     <button
@@ -111,14 +113,14 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <m.icon className="w-6 h-6" />
-                      <span className="text-sm font-medium">{m.label}</span>
+                      <span className="text-sm font-medium">{t(`tripWizard.moodOptions.${m.id}`)}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">Who are you with?</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('tripWizard.companions')}</label>
                 <div className="flex flex-wrap gap-2">
                   {COMPANIONS.map(c => (
                     <button
@@ -130,7 +132,7 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
                           : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-100'
                       }`}
                     >
-                      {c.label}
+                      {t(`tripWizard.companionOptions.${c.id}`)}
                     </button>
                   ))}
                 </div>
@@ -143,7 +145,7 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Wallet className="w-4 h-4" /> Budget Level
+                  <Wallet className="w-4 h-4" /> {t('tripWizard.budget')}
                 </label>
                 <div className="grid grid-cols-1 gap-2">
                   {BUDGETS.map(b => (
@@ -156,28 +158,28 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
                           : 'border-slate-200 dark:border-slate-700'
                       }`}
                     >
-                      <span className="text-sm font-medium text-slate-900 dark:text-white">{b.label}</span>
-                      <span className="text-xs text-slate-500">{b.desc}</span>
+                      <span className="text-sm font-medium text-slate-900 dark:text-white">{t(`tripWizard.budgetOptions.${b.id}`)}</span>
+                      {/* Note: budget descriptions are currently hardcoded in English in some logic, but here we can just show label for now or add desc keys */}
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">How are you getting around?</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('tripWizard.transport')}</label>
                 <div className="flex gap-2">
-                  {TRANSPORTS.map(t => (
+                  {TRANSPORTS.map(transport => (
                     <button
-                      key={t.id}
-                      onClick={() => setPrefs({...prefs, transport: t.id})}
+                      key={transport.id}
+                      onClick={() => setPrefs({...prefs, transport: transport.id})}
                       className={`flex-1 flex flex-col items-center gap-2 p-3 rounded-xl border transition-all ${
-                        prefs.transport === t.id
+                        prefs.transport === transport.id
                           ? 'border-indigo-500 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400'
                           : 'border-slate-200 dark:border-slate-700'
                       }`}
                     >
-                      <t.icon className="w-5 h-5" />
-                      <span className="text-xs font-medium">{t.label}</span>
+                      <transport.icon className="w-5 h-5" />
+                      <span className="text-xs font-medium">{t(`tripWizard.transportOptions.${transport.id}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -190,7 +192,7 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Utensils className="w-4 h-4" /> Dietary Preferences
+                  <Utensils className="w-4 h-4" /> {t('tripWizard.dietary')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {DIETARY.map(d => (
@@ -203,14 +205,14 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
                           : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
                       }`}
                     >
-                      {d}
+                      {t(`tripWizard.dietaryOptions.${d}`)}
                     </button>
                   ))}
                 </div>
               </div>
               
               <div className="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-400">
-                <p>Ready to generate your custom plan? The AI will use these preferences to find the best spots for you.</p>
+                <p>{t('tripWizard.readyPrompt')}</p>
               </div>
             </div>
           )}
@@ -226,11 +228,11 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
           >
             {step === 3 ? (
               <>
-                <Sparkles className="w-5 h-5" /> Generate My Plan
+                <Sparkles className="w-5 h-5" /> {t('tripWizard.generatePlan')}
               </>
             ) : (
               <>
-                Next Step <ArrowRight className="w-5 h-5" />
+                {t('tripWizard.nextStep')} <ArrowRight className="w-5 h-5" />
               </>
             )}
           </button>

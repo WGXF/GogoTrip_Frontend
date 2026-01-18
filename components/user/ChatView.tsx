@@ -1525,10 +1525,10 @@ Please suggest a destination or ask for one if needed.`;
                 </div>
                 <div className="space-y-2 max-w-md">
                   <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    Where to next?
+                    {t('wizards.whereToNext', "Where to next?")}
                   </h3>
                   <p className="text-sm text-slate-500 dark:text-slate-400">
-                    I can help you plan the perfect trip based on your budget, mood, and preferences.
+                    {t('wizards.welcomeDesc', "I can help you plan the perfect trip based on your budget, mood, and preferences.")}
                   </p>
                 </div>
                 
@@ -1538,14 +1538,14 @@ Please suggest a destination or ask for one if needed.`;
                     className="flex items-center gap-2 px-6 py-3 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-full shadow-lg shadow-sky-500/20 transition-all hover:scale-105 active:scale-95"
                   >
                     <Sparkles className="w-4 h-4" />
-                    Plan a Trip
+                    {t('wizards.planTrip', "Plan a Trip")}
                   </button>
                   <button
                     onClick={() => setFoodWizardOpen(true)}
                     className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-bold rounded-full shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95"
                   >
                     <Utensils className="w-4 h-4" />
-                    Find Food
+                    {t('wizards.findFood', "Find Food")}
                   </button>
                 </div>
               </div>

@@ -4,6 +4,7 @@ import {
   Wallet, MapPin, Clock, Sparkles, ArrowRight,
   Heart, Users, Flame, Leaf, Star
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export interface FoodPreferences {
   cuisine: string[];
@@ -22,54 +23,55 @@ interface FoodWizardProps {
 }
 
 const CUISINES = [
-  { id: 'local', label: 'Local', icon: '🍜' },
-  { id: 'chinese', label: 'Chinese', icon: '🥡' },
-  { id: 'japanese', label: 'Japanese', icon: '🍣' },
-  { id: 'korean', label: 'Korean', icon: '🍲' },
-  { id: 'western', label: 'Western', icon: '🍔' },
-  { id: 'indian', label: 'Indian', icon: '🍛' },
-  { id: 'thai', label: 'Thai', icon: '🍝' },
-  { id: 'malay', label: 'Malay', icon: '🍚' },
+  { id: 'local', icon: '🍜' },
+  { id: 'chinese', icon: '🥡' },
+  { id: 'japanese', icon: '🍣' },
+  { id: 'korean', icon: '🍲' },
+  { id: 'western', icon: '🍔' },
+  { id: 'indian', icon: '🍛' },
+  { id: 'thai', icon: '🍝' },
+  { id: 'malay', icon: '🍚' },
 ];
 
 const MOODS = [
-  { id: 'quick', label: 'Quick Bite', icon: Clock, desc: 'Fast & convenient' },
-  { id: 'casual', label: 'Casual', icon: Coffee, desc: 'Relaxed dining' },
-  { id: 'romantic', label: 'Date Night', icon: Heart, desc: 'Special occasion' },
-  { id: 'group', label: 'Group Feast', icon: Users, desc: 'Friends & family' },
+  { id: 'quick', icon: Clock },
+  { id: 'casual', icon: Coffee },
+  { id: 'romantic', icon: Heart },
+  { id: 'group', icon: Users },
 ];
 
 const MEAL_TYPES = [
-  { id: 'breakfast', label: 'Breakfast', icon: '🌅' },
-  { id: 'lunch', label: 'Lunch', icon: '☀️' },
-  { id: 'dinner', label: 'Dinner', icon: '🌙' },
-  { id: 'supper', label: 'Supper', icon: '🌃' },
-  { id: 'cafe', label: 'Cafe/Dessert', icon: '☕' },
+  { id: 'breakfast', icon: '🌅' },
+  { id: 'lunch', icon: '☀️' },
+  { id: 'dinner', icon: '🌙' },
+  { id: 'supper', icon: '🌃' },
+  { id: 'cafe', icon: '☕' },
 ];
 
 const BUDGETS = [
-  { id: 'low', label: 'Budget', desc: 'Under RM 15/pax', icon: '$' },
-  { id: 'medium', label: 'Moderate', desc: 'RM 15-40/pax', icon: '$$' },
-  { id: 'high', label: 'Upscale', desc: 'RM 40-80/pax', icon: '$$$' },
-  { id: 'luxury', label: 'Fine Dining', desc: 'RM 80+/pax', icon: '$$$$' },
+  { id: 'low', icon: '$' },
+  { id: 'medium', icon: '$$' },
+  { id: 'high', icon: '$$$' },
+  { id: 'luxury', icon: '$$$$' },
 ];
 
 const DIETARY = [
-  { id: 'halal', label: 'Halal', icon: '☪️' },
-  { id: 'vegetarian', label: 'Vegetarian', icon: '🥬' },
-  { id: 'vegan', label: 'Vegan', icon: '🌱' },
-  { id: 'no-pork', label: 'No Pork', icon: '🚫🐷' },
-  { id: 'no-beef', label: 'No Beef', icon: '🚫🐄' },
-  { id: 'gluten-free', label: 'Gluten Free', icon: '🌾' },
+  { id: 'halal', icon: '☪️' },
+  { id: 'vegetarian', icon: '🥬' },
+  { id: 'vegan', icon: '🌱' },
+  { id: 'no-pork', icon: '🚫🐷' },
+  { id: 'no-beef', icon: '🚫🐄' },
+  { id: 'gluten-free', icon: '🌾' },
 ];
 
 const DISTANCES = [
-  { id: 'nearby', label: 'Walking (< 1km)', value: '1' },
-  { id: 'short', label: 'Short drive (< 5km)', value: '5' },
-  { id: 'any', label: 'Any distance', value: '15' },
+  { id: 'nearby', value: '1' },
+  { id: 'short', value: '5' },
+  { id: 'any', value: '15' },
 ];
 
 export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onComplete, userLocation }) => {
+  const { t } = useTranslation('chat');
   const [step, setStep] = useState(1);
   const [prefs, setPrefs] = useState<FoodPreferences>({
     cuisine: [],
@@ -122,8 +124,8 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
               <Utensils className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-slate-900 dark:text-white">Food Finder</h2>
-              <p className="text-xs text-slate-500">Step {step} of 3 • Quick recommendations</p>
+              <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t('foodWizard.title')}</h2>
+              <p className="text-xs text-slate-500">{t('foodWizard.stepIndicator', { current: step, total: 3 })}</p>
             </div>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-white/50 dark:hover:bg-slate-800 rounded-full transition-colors">
@@ -139,7 +141,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Clock className="w-4 h-4 text-orange-500" /> What meal are you looking for?
+                  <Clock className="w-4 h-4 text-orange-500" /> {t('foodWizard.mealType')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {MEAL_TYPES.map(m => (
@@ -153,14 +155,14 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <span className="text-lg">{m.icon}</span>
-                      <span className="text-sm font-medium">{m.label}</span>
+                      <span className="text-sm font-medium">{t(`foodWizard.mealOptions.${m.id}`)}</span>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div className="space-y-3">
-                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">What's the vibe?</label>
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('foodWizard.vibe')}</label>
                 <div className="grid grid-cols-2 gap-3">
                   {MOODS.map(m => (
                     <button
@@ -173,8 +175,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <m.icon className="w-6 h-6" />
-                      <span className="text-sm font-bold">{m.label}</span>
-                      <span className="text-[10px] text-slate-500">{m.desc}</span>
+                      <span className="text-sm font-bold">{t(`foodWizard.vibeOptions.${m.id}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -187,7 +188,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Wallet className="w-4 h-4 text-emerald-500" /> Budget per person
+                  <Wallet className="w-4 h-4 text-emerald-500" /> {t('tripWizard.budget')}
                 </label>
                 <div className="grid grid-cols-2 gap-2">
                   {BUDGETS.map(b => (
@@ -201,8 +202,8 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <div className="text-left">
-                        <span className="text-sm font-bold text-slate-900 dark:text-white block">{b.label}</span>
-                        <span className="text-[10px] text-slate-500">{b.desc}</span>
+                        <span className="text-sm font-bold text-slate-900 dark:text-white block">{t(`tripWizard.budgetOptions.${b.id}`)}</span>
+                        <span className="text-[10px] text-slate-500">{t(`foodWizard.budgetDescriptions.${b.id}`)}</span>
                       </div>
                       <span className="text-lg font-bold text-emerald-600">{b.icon}</span>
                     </button>
@@ -212,7 +213,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
 
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Leaf className="w-4 h-4 text-green-500" /> Dietary requirements (optional)
+                  <Leaf className="w-4 h-4 text-green-500" /> {t('tripWizard.dietary')}
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {DIETARY.map(d => (
@@ -226,7 +227,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <span>{d.icon}</span>
-                      <span>{d.label}</span>
+                      <span>{t(`foodWizard.dietaryOptions.${d.id.replace('-', '')}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -234,7 +235,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
 
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <MapPin className="w-4 h-4 text-blue-500" /> Distance
+                  <MapPin className="w-4 h-4 text-blue-500" /> {t('recommendations.distance')}
                 </label>
                 <div className="flex gap-2">
                   {DISTANCES.map(d => (
@@ -247,7 +248,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                           : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50'
                       }`}
                     >
-                      {d.label}
+                      {t(`foodWizard.distanceOptions.${d.id}`)}
                     </button>
                   ))}
                 </div>
@@ -260,9 +261,9 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                  <Utensils className="w-4 h-4 text-orange-500" /> What are you craving? (optional)
+                  <Utensils className="w-4 h-4 text-orange-500" /> {t('foodWizard.cravingPrompt')}
                 </label>
-                <p className="text-xs text-slate-500">Select one or more, or skip for varied suggestions</p>
+                <p className="text-xs text-slate-500">{t('foodWizard.cravingDesc')}</p>
                 <div className="grid grid-cols-4 gap-2">
                   {CUISINES.map(c => (
                     <button
@@ -275,7 +276,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <span className="text-2xl">{c.icon}</span>
-                      <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300">{c.label}</span>
+                      <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300">{t(`foodWizard.cuisineOptions.${c.id}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -284,13 +285,13 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
               {/* Summary */}
               <div className="bg-gradient-to-br from-orange-50 to-amber-50 dark:from-orange-900/20 dark:to-amber-900/20 p-4 rounded-xl border border-orange-100 dark:border-orange-800/30">
                 <h4 className="text-sm font-bold text-orange-800 dark:text-orange-300 mb-2 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4" /> Ready to find your perfect meal!
+                  <Sparkles className="w-4 h-4" /> {t('foodWizard.readyTitle')}
                 </h4>
                 <div className="text-xs text-orange-700 dark:text-orange-400 space-y-1">
-                  <p>• {MEAL_TYPES.find(m => m.id === prefs.mealType)?.label || 'Any meal'} • {MOODS.find(m => m.id === prefs.mood)?.label || 'Any mood'}</p>
-                  <p>• Budget: {BUDGETS.find(b => b.id === prefs.budget)?.desc}</p>
-                  {prefs.dietary.length > 0 && <p>• Dietary: {prefs.dietary.join(', ')}</p>}
-                  {prefs.cuisine.length > 0 && <p>• Cuisine: {prefs.cuisine.join(', ')}</p>}
+                  <p>• {t(`foodWizard.mealOptions.${prefs.mealType}`)} • {t(`foodWizard.vibeOptions.${prefs.mood}`)}</p>
+                  <p>• {t('tripWizard.budget')}: {t(`foodWizard.budgetDescriptions.${prefs.budget}`)}</p>
+                  {prefs.dietary.length > 0 && <p>• {t('tripWizard.dietary')}: {prefs.dietary.map(d => t(`foodWizard.dietaryOptions.${d.replace('-', '')}`)).join(', ')}</p>}
+                  {prefs.cuisine.length > 0 && <p>• {t('foodWizard.cuisine')}: {prefs.cuisine.map(c => t(`foodWizard.cuisineOptions.${c}`)).join(', ')}</p>}
                 </div>
               </div>
             </div>
@@ -315,11 +316,11 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
           >
             {step === 3 ? (
               <>
-                <Sparkles className="w-5 h-5" /> Find Food
+                <Sparkles className="w-5 h-5" /> {t('foodWizard.findFood')}
               </>
             ) : (
               <>
-                Next <ArrowRight className="w-5 h-5" />
+                {t('foodWizard.next')} <ArrowRight className="w-5 h-5" />
               </>
             )}
           </button>
