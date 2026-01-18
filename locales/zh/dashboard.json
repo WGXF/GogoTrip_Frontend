@@ -1,0 +1,83 @@
+{
+  "title": "仪表盘",
+  "welcome": "欢迎回来，{{name}}！",
+  "welcomeDefault": "欢迎回来！",
+  "subtitle": "您的旅行控制中心",
+  "nextTrip": {
+    "countdown": "您前往{{destination}}的旅程将在{{days}}天后开始。",
+    "empty": "立即规划您的下一次冒险！",
+    "badge": "下一站：{{destination}} ({{days}}天)",
+    "badgeEmpty": "暂无计划"
+  },
+  "badges": {
+    "explored": "已探索",
+    "ready": "准备出发"
+  },
+  "viewAllTrips": "查看所有行程",
+  "startAiPlanning": "开始AI规划",
+  "upcomingItinerary": {
+    "title": "即将到来的行程",
+    "viewFull": "查看完整日程",
+    "empty": "暂无即将到来的安排",
+    "planFirst": "规划您的第一次旅行"
+  },
+  "tripIdea": {
+    "title": "寻找灵感？",
+    "description": "不确定去哪里？让AI规划师为您推荐目的地。",
+    "button": "询问AI规划师"
+  },
+  "savedDrafts": {
+    "title": "保存的草稿",
+    "empty": "暂无保存的草稿"
+  },
+  "stats": {
+    "upcomingTrips": "即将到来",
+    "countriesVisited": "已访问国家",
+    "savedItineraries": "已保存行程",
+    "totalDistance": "总里程"
+  },
+  "quickActions": {
+    "title": "快速操作",
+    "planTrip": "规划行程",
+    "findFood": "寻找美食",
+    "viewTrips": "查看行程",
+    "translate": "翻译"
+  },
+  "recentTrips": {
+    "title": "最近行程",
+    "noTrips": "暂无行程",
+    "startPlanning": "开始规划您的第一次冒险！",
+    "createTrip": "创建行程",
+    "viewAll": "查看全部"
+  },
+  "upcomingTrips": {
+    "title": "即将到来",
+    "noUpcoming": "暂无即将到来的行程",
+    "daysLeft": "还有 {{days}} 天",
+    "tomorrow": "明天",
+    "today": "今天"
+  },
+  "weather": {
+    "title": "天气",
+    "currentLocation": "当前位置",
+    "feelsLike": "体感温度",
+    "humidity": "湿度",
+    "wind": "风速"
+  },
+  "notifications": {
+    "title": "最新通知",
+    "noNotifications": "暂无新通知",
+    "viewAll": "查看全部"
+  },
+  "premium": {
+    "title": "升级到高级版",
+    "description": "解锁无限行程、AI功能等更多精彩！",
+    "features": [
+      "无限行程规划",
+      "完整聊天记录",
+      "AI优先响应",
+      "导出到日历"
+    ],
+    "upgradeNow": "立即升级"
+  }
+}

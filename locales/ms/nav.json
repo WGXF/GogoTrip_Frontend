@@ -1,0 +1,55 @@
+{
+  "sidebar": {
+    "dashboard": "Papan Pemuka Perjalanan",
+    "aiPlanner": "Perancang AI",
+    "myTrips": "Perjalanan Saya",
+    "travelStories": "Cerita Perjalanan",
+    "notes": "Nota",
+    "calendar": "Kalendar",
+    "translate": "Terjemah",
+    "expenses": "Perbelanjaan",
+    "settings": "Tetapan",
+    "support": "Sokongan",
+    "billing": "Bil",
+    "premium": "Premium",
+    "adminPortal": "Portal Admin",
+    "helpSupport": "Bantuan & Sokongan",
+    "about": "Tentang"
+  },
+  "topBar": {
+    "search": "Cari...",
+    "searchPlaceholder": "Cari perjalanan, tempat...",
+    "notifications": "Pemberitahuan",
+    "noNotifications": "Tiada pemberitahuan baharu",
+    "markAllRead": "Tandakan semua sudah dibaca",
+    "viewAll": "Lihat Semua",
+    "viewAllAnnouncements": "Lihat semua pengumuman"
+  },
+  "userMenu": {
+    "profile": "Profil",
+    "account": "Akaun",
+    "billing": "Bil & Pelan",
+    "settings": "Tetapan",
+    "help": "Bantuan & Sokongan",
+    "signOut": "Log Keluar",
+    "switchToAdmin": "Tukar ke Admin",
+    "switchToUser": "Tukar ke Paparan Pengguna"
+  },
+  "admin": {
+    "title": "Portal Admin",
+    "dashboard": "Papan Pemuka",
+    "users": "Pengguna",
+    "trips": "Perjalanan",
+    "subscriptions": "Langganan",
+    "notifications": "Pemberitahuan",
+    "settings": "Tetapan",
+    "systemLogs": "Log Sistem",
+    "messaging": "Pemesejan"
+  },
+  "footer": {
+    "copyright": "2024 GogoTrip. Hak cipta terpelihara.",
+    "terms": "Terma Perkhidmatan",
+    "privacy": "Dasar Privasi",
+    "contact": "Hubungi Kami"
+  }
+}

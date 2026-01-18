@@ -1,0 +1,55 @@
+{
+  "sidebar": {
+    "dashboard": "Travel Dashboard",
+    "aiPlanner": "AI Planner",
+    "myTrips": "My Trips",
+    "travelStories": "Travel Stories",
+    "notes": "Notes",
+    "calendar": "Calendar",
+    "translate": "Translate",
+    "expenses": "Expenses",
+    "settings": "Settings",
+    "support": "Support",
+    "billing": "Billing",
+    "premium": "Premium",
+    "adminPortal": "Admin Portal",
+    "helpSupport": "Help & Support",
+    "about": "About"
+  },
+  "topBar": {
+    "search": "Search...",
+    "searchPlaceholder": "Search trips, places...",
+    "notifications": "Notifications",
+    "noNotifications": "No new notifications",
+    "markAllRead": "Mark all as read",
+    "viewAll": "View All",
+    "viewAllAnnouncements": "View all announcements"
+  },
+  "userMenu": {
+    "profile": "Profile",
+    "account": "Account",
+    "billing": "Billing & Plan",
+    "settings": "Settings",
+    "help": "Help & Support",
+    "signOut": "Sign Out",
+    "switchToAdmin": "Switch to Admin",
+    "switchToUser": "Switch to User View"
+  },
+  "admin": {
+    "title": "Admin Portal",
+    "dashboard": "Dashboard",
+    "users": "Users",
+    "trips": "Trips",
+    "subscriptions": "Subscriptions",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "systemLogs": "System Logs",
+    "messaging": "Messaging"
+  },
+  "footer": {
+    "copyright": "2024 GogoTrip. All rights reserved.",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "contact": "Contact Us"
+  }
+}

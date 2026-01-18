@@ -1,0 +1,55 @@
+{
+  "sidebar": {
+    "dashboard": "旅行仪表盘",
+    "aiPlanner": "AI规划",
+    "myTrips": "我的行程",
+    "travelStories": "旅行故事",
+    "notes": "笔记",
+    "calendar": "日历",
+    "translate": "翻译",
+    "expenses": "开支",
+    "settings": "设置",
+    "support": "帮助",
+    "billing": "订阅",
+    "premium": "高级版",
+    "adminPortal": "管理后台",
+    "helpSupport": "帮助与支持",
+    "about": "关于"
+  },
+  "topBar": {
+    "search": "搜索...",
+    "searchPlaceholder": "搜索行程、地点...",
+    "notifications": "通知",
+    "noNotifications": "暂无新通知",
+    "markAllRead": "全部标为已读",
+    "viewAll": "查看全部",
+    "viewAllAnnouncements": "查看所有公告"
+  },
+  "userMenu": {
+    "profile": "个人资料",
+    "account": "账户",
+    "billing": "账单与计划",
+    "settings": "设置",
+    "help": "帮助与支持",
+    "signOut": "退出登录",
+    "switchToAdmin": "切换到管理后台",
+    "switchToUser": "切换到用户界面"
+  },
+  "admin": {
+    "title": "管理后台",
+    "dashboard": "仪表盘",
+    "users": "用户管理",
+    "trips": "行程管理",
+    "subscriptions": "订阅管理",
+    "notifications": "通知管理",
+    "settings": "系统设置",
+    "systemLogs": "系统日志",
+    "messaging": "消息中心"
+  },
+  "footer": {
+    "copyright": "© 2024 GogoTrip. 保留所有权利。",
+    "terms": "服务条款",
+    "privacy": "隐私政策",
+    "contact": "联系我们"
+  }
+}

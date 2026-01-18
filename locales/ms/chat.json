@@ -1,0 +1,162 @@
+{
+  "title": "Perancang Perjalanan AI",
+  "subtitle": "Rancang perjalanan sempurna anda dengan bantuan AI",
+  "placeholder": "Tanya saya apa-apa tentang perjalanan anda...",
+  "placeholderExamples": "cth., \"Rancang perjalanan 3 hari ke Pulau Pinang\" atau \"Cari restoran halal berdekatan\"",
+  "placeholdersList": [
+    "Gambarkan perjalanan impian anda ke Kyoto...",
+    "Rancang percutian hujung minggu ke Lembah Napa...",
+    "Cari restoran sushi terbaik di Tokyo...",
+    "Cadangkan itinerari 7 hari untuk Itali...",
+    "Mencari aktiviti mesra keluarga di London...",
+    "Tunjukkan penerbangan ke New York di bawah RM 2000..."
+  ],
+  "send": "Hantar",
+  "sending": "Menghantar...",
+  "thinking": "AI sedang berfikir...",
+  "typing": "AI sedang menaip...",
+  "newChat": "Perbualan Baharu",
+  "clearChat": "Padam Perbualan",
+  "history": "Sejarah Perbualan",
+  "noHistory": "Tiada sejarah perbualan",
+  "startNewChat": "Mula perbualan baharu!",
+  "loadMore": "Muat Lebih",
+  "today": "Hari Ini",
+  "yesterday": "Semalam",
+  "daysAgo": "{{count}} hari lalu",
+  "wizards": {
+    "title": "Mula Pantas",
+    "tripWizard": "Wizard Perjalanan",
+    "tripWizardDesc": "Rancang itinerari berbilang hari yang lengkap",
+    "foodWizard": "Wizard Makanan",
+    "foodWizardDesc": "Cari tempat makan yang sempurna"
+  },
+  "tripWizard": {
+    "title": "Wizard Perjalanan",
+    "destination": "Ke mana anda mahu pergi?",
+    "destinationPlaceholder": "cth., Kuala Lumpur, Pulau Pinang, Singapura",
+    "duration": "Berapa lama perjalanan anda?",
+    "durationOptions": {
+      "1day": "Satu Hari",
+      "2days": "2 Hari",
+      "3days": "3 Hari",
+      "5days": "5 Hari",
+      "7days": "1 Minggu",
+      "custom": "Tersuai"
+    },
+    "mood": "Apakah gaya perjalanan anda?",
+    "moodOptions": {
+      "relaxed": "Santai",
+      "energetic": "Bertenaga",
+      "romantic": "Romantik",
+      "family": "Mesra Keluarga",
+      "adventure": "Pengembaraan"
+    },
+    "budget": "Apakah bajet anda?",
+    "budgetOptions": {
+      "low": "Bajet",
+      "medium": "Sederhana",
+      "high": "Premium",
+      "luxury": "Mewah"
+    },
+    "transport": "Bagaimana anda akan bergerak?",
+    "transportOptions": {
+      "public": "Pengangkutan Awam",
+      "car": "Kereta / Grab",
+      "walk": "Berjalan Kaki"
+    },
+    "dietary": "Ada keperluan diet?",
+    "dietaryOptions": {
+      "halal": "Halal",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "noPork": "Tiada Babi",
+      "noBeef": "Tiada Daging Lembu"
+    },
+    "companions": "Dengan siapa anda mengembara?",
+    "companionOptions": {
+      "solo": "Bersendirian",
+      "couple": "Pasangan",
+      "friends": "Rakan-rakan",
+      "family": "Keluarga"
+    },
+    "generatePlan": "Jana Pelan Perjalanan",
+    "generating": "Mencipta itinerari sempurna anda..."
+  },
+  "foodWizard": {
+    "title": "Wizard Makanan",
+    "cuisine": "Apakah masakan yang anda inginkan?",
+    "cuisineOptions": {
+      "local": "Tempatan Malaysia",
+      "chinese": "Cina",
+      "indian": "India",
+      "japanese": "Jepun",
+      "korean": "Korea",
+      "western": "Barat",
+      "any": "Kejutkan Saya"
+    },
+    "mealType": "Hidangan apa?",
+    "mealOptions": {
+      "breakfast": "Sarapan",
+      "lunch": "Makan Tengah Hari",
+      "dinner": "Makan Malam",
+      "snack": "Snek/Teh",
+      "supper": "Supper"
+    },
+    "vibe": "Apakah suasananya?",
+    "vibeOptions": {
+      "quick": "Makan Cepat",
+      "casual": "Santai",
+      "romantic": "Romantik",
+      "group": "Berkumpulan"
+    },
+    "findFood": "Cari Makanan",
+    "finding": "Mencari pilihan sedap..."
+  },
+  "dailyPlan": {
+    "day": "Hari {{number}}",
+    "morning": "Pagi",
+    "afternoon": "Petang",
+    "evening": "Malam",
+    "night": "Malam",
+    "lunch": "Makan Tengah Hari",
+    "dinner": "Makan Malam",
+    "budget": "Bajet",
+    "tips": "Tip",
+    "savePlan": "Simpan Pelan",
+    "exportCalendar": "Eksport ke Kalendar",
+    "shareLink": "Kongsi Pautan"
+  },
+  "recommendations": {
+    "title": "Cadangan",
+    "distance": "{{distance}} jauhnya",
+    "rating": "{{rating}} bintang",
+    "priceLevel": "Harga: {{level}}",
+    "openNow": "Buka Sekarang",
+    "closed": "Tutup",
+    "directions": "Dapatkan Arah",
+    "addToPlan": "Tambah ke Pelan"
+  },
+  "errors": {
+    "sendFailed": "Gagal menghantar mesej. Sila cuba lagi.",
+    "loadFailed": "Gagal memuatkan sejarah perbualan.",
+    "aiError": "AI menghadapi ralat. Sila cuba lagi.",
+    "loadConversationFailed": "Gagal memuatkan perbualan",
+    "deleteFailed": "Gagal memadam",
+    "renameFailed": "Gagal menamakan semula",
+    "shareFailed": "Gagal berkongsi perbualan",
+    "copyFailed": "Gagal menyalin pautan",
+    "saveFailed": "Gagal menyimpan perjalanan"
+  },
+  "messages": {
+    "conversationDeleted": "Perbualan dipadam",
+    "linkCopied": "Pautan disalin ke papan klip!",
+    "tripSaved": "Perjalanan disimpan!",
+    "placeAdded": "Menambah \"{{name}}\" ke pelan anda!"
+  },
+  "premium": {
+    "historyLocked": "Sejarah perbualan adalah ciri Premium",
+    "unlockHistory": "Naik taraf untuk menyimpan dan mengakses sejarah perbualan anda",
+    "upgradeNow": "Naik Taraf Sekarang"
+  }
+}

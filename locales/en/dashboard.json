@@ -1,0 +1,83 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome back, {{name}}!",
+  "welcomeDefault": "Welcome back!",
+  "subtitle": "Your travel command center",
+  "nextTrip": {
+    "countdown": "Your next adventure to {{destination}} begins in {{days}} days.",
+    "empty": "Plan your next adventure today!",
+    "badge": "NEXT: {{destination}} ({{days}}D)",
+    "badgeEmpty": "NO TRIPS PLANNED"
+  },
+  "badges": {
+    "explored": "EXPLORED",
+    "ready": "READY TO GO"
+  },
+  "viewAllTrips": "View All Trips",
+  "startAiPlanning": "Start AI Planning",
+  "upcomingItinerary": {
+    "title": "Upcoming Itinerary",
+    "viewFull": "View Full Schedule",
+    "empty": "No upcoming appointments",
+    "planFirst": "Plan your first trip"
+  },
+  "tripIdea": {
+    "title": "Trip Idea?",
+    "description": "Not sure where to go next? Ask the AI Planner to suggest destinations.",
+    "button": "Ask AI Planner"
+  },
+  "savedDrafts": {
+    "title": "Saved Drafts",
+    "empty": "No saved drafts yet"
+  },
+  "stats": {
+    "upcomingTrips": "Upcoming Trips",
+    "countriesVisited": "Countries Visited",
+    "savedItineraries": "Saved Itineraries",
+    "totalDistance": "Total Distance"
+  },
+  "quickActions": {
+    "title": "Quick Actions",
+    "planTrip": "Plan a Trip",
+    "findFood": "Find Food",
+    "viewTrips": "View My Trips",
+    "translate": "Translate"
+  },
+  "recentTrips": {
+    "title": "Recent Trips",
+    "noTrips": "No trips yet",
+    "startPlanning": "Start planning your first adventure!",
+    "createTrip": "Create Trip",
+    "viewAll": "View All Trips"
+  },
+  "upcomingTrips": {
+    "title": "Upcoming Trips",
+    "noUpcoming": "No upcoming trips",
+    "daysLeft": "{{days}} days to go",
+    "tomorrow": "Tomorrow",
+    "today": "Today"
+  },
+  "weather": {
+    "title": "Weather",
+    "currentLocation": "Current Location",
+    "feelsLike": "Feels like",
+    "humidity": "Humidity",
+    "wind": "Wind"
+  },
+  "notifications": {
+    "title": "Recent Notifications",
+    "noNotifications": "No new notifications",
+    "viewAll": "View All"
+  },
+  "premium": {
+    "title": "Upgrade to Premium",
+    "description": "Unlock unlimited trips, AI features, and more!",
+    "features": [
+      "Unlimited trip planning",
+      "Full chat history",
+      "Priority AI responses",
+      "Export to calendar"
+    ],
+    "upgradeNow": "Upgrade Now"
+  }
+}

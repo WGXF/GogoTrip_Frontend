@@ -1,0 +1,162 @@
+{
+  "title": "AI Trip Planner",
+  "subtitle": "Plan your perfect trip with AI assistance",
+  "placeholder": "Ask me anything about your trip...",
+  "placeholderExamples": "e.g., \"Plan a 3-day trip to Penang\" or \"Find halal restaurants near me\"",
+  "placeholdersList": [
+    "Describe your dream trip to Kyoto...",
+    "Plan a weekend getaway to Napa Valley...",
+    "Find the best sushi restaurants in Tokyo...",
+    "Suggest a 7-day itinerary for Italy...",
+    "Looking for family-friendly activities in London...",
+    "Show me flights to New York under RM 2000..."
+  ],
+  "send": "Send",
+  "sending": "Sending...",
+  "thinking": "AI is thinking...",
+  "typing": "AI is typing...",
+  "newChat": "New Chat",
+  "clearChat": "Clear Chat",
+  "history": "Chat History",
+  "noHistory": "No chat history yet",
+  "startNewChat": "Start a new chat!",
+  "loadMore": "Load More",
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "daysAgo": "{{count}} days ago",
+  "wizards": {
+    "title": "Quick Start",
+    "tripWizard": "Trip Wizard",
+    "tripWizardDesc": "Plan a complete multi-day itinerary",
+    "foodWizard": "Food Wizard", 
+    "foodWizardDesc": "Find the perfect place to eat"
+  },
+  "tripWizard": {
+    "title": "Trip Wizard",
+    "destination": "Where do you want to go?",
+    "destinationPlaceholder": "e.g., Kuala Lumpur, Penang, Singapore",
+    "duration": "How long is your trip?",
+    "durationOptions": {
+      "1day": "Day Trip",
+      "2days": "2 Days",
+      "3days": "3 Days",
+      "5days": "5 Days",
+      "7days": "1 Week",
+      "custom": "Custom"
+    },
+    "mood": "What's your travel style?",
+    "moodOptions": {
+      "relaxed": "Relaxed",
+      "energetic": "Energetic",
+      "romantic": "Romantic",
+      "family": "Family-Friendly",
+      "adventure": "Adventure"
+    },
+    "budget": "What's your budget?",
+    "budgetOptions": {
+      "low": "Budget",
+      "medium": "Mid-Range",
+      "high": "Premium",
+      "luxury": "Luxury"
+    },
+    "transport": "How will you get around?",
+    "transportOptions": {
+      "public": "Public Transport",
+      "car": "Car / Grab",
+      "walk": "Walking"
+    },
+    "dietary": "Any dietary requirements?",
+    "dietaryOptions": {
+      "halal": "Halal",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "noPork": "No Pork",
+      "noBeef": "No Beef"
+    },
+    "companions": "Who are you traveling with?",
+    "companionOptions": {
+      "solo": "Solo",
+      "couple": "Couple",
+      "friends": "Friends",
+      "family": "Family"
+    },
+    "generatePlan": "Generate Trip Plan",
+    "generating": "Creating your perfect itinerary..."
+  },
+  "foodWizard": {
+    "title": "Food Wizard",
+    "cuisine": "What cuisine are you craving?",
+    "cuisineOptions": {
+      "local": "Local Malaysian",
+      "chinese": "Chinese",
+      "indian": "Indian",
+      "japanese": "Japanese",
+      "korean": "Korean",
+      "western": "Western",
+      "any": "Surprise Me"
+    },
+    "mealType": "What meal?",
+    "mealOptions": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch", 
+      "dinner": "Dinner",
+      "snack": "Snack/Tea",
+      "supper": "Supper"
+    },
+    "vibe": "What's the vibe?",
+    "vibeOptions": {
+      "quick": "Quick Bite",
+      "casual": "Casual Dining",
+      "romantic": "Romantic",
+      "group": "Group Gathering"
+    },
+    "findFood": "Find Food",
+    "finding": "Finding delicious options..."
+  },
+  "dailyPlan": {
+    "day": "Day {{number}}",
+    "morning": "Morning",
+    "afternoon": "Afternoon",
+    "evening": "Evening",
+    "night": "Night",
+    "lunch": "Lunch",
+    "dinner": "Dinner",
+    "budget": "Budget",
+    "tips": "Tips",
+    "savePlan": "Save Plan",
+    "exportCalendar": "Export to Calendar",
+    "shareLink": "Share Link"
+  },
+  "recommendations": {
+    "title": "Recommendations",
+    "distance": "{{distance}} away",
+    "rating": "{{rating}} stars",
+    "priceLevel": "Price: {{level}}",
+    "openNow": "Open Now",
+    "closed": "Closed",
+    "directions": "Get Directions",
+    "addToPlan": "Add to Plan"
+  },
+  "errors": {
+    "sendFailed": "Failed to send message. Please try again.",
+    "loadFailed": "Failed to load chat history.",
+    "aiError": "AI encountered an error. Please try again.",
+    "loadConversationFailed": "Failed to load conversation",
+    "deleteFailed": "Failed to delete",
+    "renameFailed": "Failed to rename",
+    "shareFailed": "Failed to share conversation",
+    "copyFailed": "Failed to copy link",
+    "saveFailed": "Failed to save trip"
+  },
+  "messages": {
+    "conversationDeleted": "Conversation deleted",
+    "linkCopied": "Link copied to clipboard!",
+    "tripSaved": "Trip saved!",
+    "placeAdded": "Added \"{{name}}\" to your plans!"
+  },
+  "premium": {
+    "historyLocked": "Chat history is a Premium feature",
+    "unlockHistory": "Upgrade to save and access your chat history",
+    "upgradeNow": "Upgrade Now"
+  }
+}

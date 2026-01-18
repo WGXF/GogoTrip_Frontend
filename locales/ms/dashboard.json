@@ -1,0 +1,83 @@
+{
+  "title": "Papan Pemuka",
+  "welcome": "Selamat kembali, {{name}}!",
+  "welcomeDefault": "Selamat kembali!",
+  "subtitle": "Pusat kawalan perjalanan anda",
+  "nextTrip": {
+    "countdown": "Pengembaraan anda seterusnya ke {{destination}} bermula dalam {{days}} hari.",
+    "empty": "Rancang pengembaraan anda hari ini!",
+    "badge": "SETERUSNYA: {{destination}} ({{days}}H)",
+    "badgeEmpty": "TIADA PERJALANAN"
+  },
+  "badges": {
+    "explored": "DIJELAJAH",
+    "ready": "SEDIA"
+  },
+  "viewAllTrips": "Lihat Semua Perjalanan",
+  "startAiPlanning": "Mula Perancangan AI",
+  "upcomingItinerary": {
+    "title": "Itinerari Akan Datang",
+    "viewFull": "Lihat Jadual Penuh",
+    "empty": "Tiada janji temu akan datang",
+    "planFirst": "Rancang perjalanan pertama anda"
+  },
+  "tripIdea": {
+    "title": "Idea Perjalanan?",
+    "description": "Tidak pasti ke mana seterusnya? Tanya Perancang AI untuk cadangan.",
+    "button": "Tanya Perancang AI"
+  },
+  "savedDrafts": {
+    "title": "Draf Disimpan",
+    "empty": "Tiada draf disimpan"
+  },
+  "stats": {
+    "upcomingTrips": "Perjalanan Akan Datang",
+    "countriesVisited": "Negara Dilawati",
+    "savedItineraries": "Itinerari Disimpan",
+    "totalDistance": "Jumlah Jarak"
+  },
+  "quickActions": {
+    "title": "Tindakan Pantas",
+    "planTrip": "Rancang Perjalanan",
+    "findFood": "Cari Makanan",
+    "viewTrips": "Lihat Perjalanan Saya",
+    "translate": "Terjemah"
+  },
+  "recentTrips": {
+    "title": "Perjalanan Terkini",
+    "noTrips": "Tiada perjalanan lagi",
+    "startPlanning": "Mula merancang pengembaraan pertama anda!",
+    "createTrip": "Cipta Perjalanan",
+    "viewAll": "Lihat Semua Perjalanan"
+  },
+  "upcomingTrips": {
+    "title": "Perjalanan Akan Datang",
+    "noUpcoming": "Tiada perjalanan akan datang",
+    "daysLeft": "{{days}} hari lagi",
+    "tomorrow": "Esok",
+    "today": "Hari Ini"
+  },
+  "weather": {
+    "title": "Cuaca",
+    "currentLocation": "Lokasi Semasa",
+    "feelsLike": "Terasa seperti",
+    "humidity": "Kelembapan",
+    "wind": "Angin"
+  },
+  "notifications": {
+    "title": "Pemberitahuan Terkini",
+    "noNotifications": "Tiada pemberitahuan baharu",
+    "viewAll": "Lihat Semua"
+  },
+  "premium": {
+    "title": "Naik Taraf ke Premium",
+    "description": "Buka kunci perjalanan tanpa had, ciri AI, dan banyak lagi!",
+    "features": [
+      "Perancangan perjalanan tanpa had",
+      "Sejarah perbualan penuh",
+      "Respons AI keutamaan",
+      "Eksport ke kalendar"
+    ],
+    "upgradeNow": "Naik Taraf Sekarang"
+  }
+}

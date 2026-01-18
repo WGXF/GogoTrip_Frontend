@@ -1,0 +1,162 @@
+{
+  "title": "AI行程规划",
+  "subtitle": "让AI帮您规划完美旅程",
+  "placeholder": "问我任何关于旅行的问题...",
+  "placeholderExamples": "例如：「规划槟城3日游」或「找附近的清真餐厅」",
+  "placeholdersList": [
+    "描述您梦想中的京都之旅...",
+    "规划去纳帕谷的周末度假...",
+    "寻找东京最好的寿司店...",
+    "建议一个意大利7日游行程...",
+    "寻找伦敦适合家庭的活动...",
+    "帮我找RM 2000以下去纽约的机票..."
+  ],
+  "send": "发送",
+  "sending": "发送中...",
+  "thinking": "AI正在思考...",
+  "typing": "AI正在输入...",
+  "newChat": "新对话",
+  "clearChat": "清除对话",
+  "history": "聊天记录",
+  "noHistory": "暂无聊天记录",
+  "startNewChat": "开始新的对话！",
+  "loadMore": "加载更多",
+  "today": "今天",
+  "yesterday": "昨天",
+  "daysAgo": "{{count}}天前",
+  "wizards": {
+    "title": "快速开始",
+    "tripWizard": "行程向导",
+    "tripWizardDesc": "规划完整的多日行程",
+    "foodWizard": "美食向导",
+    "foodWizardDesc": "找到完美的用餐地点"
+  },
+  "tripWizard": {
+    "title": "行程向导",
+    "destination": "您想去哪里？",
+    "destinationPlaceholder": "例如：吉隆坡、槟城、新加坡",
+    "duration": "旅行时长？",
+    "durationOptions": {
+      "1day": "一日游",
+      "2days": "2天",
+      "3days": "3天",
+      "5days": "5天",
+      "7days": "一周",
+      "custom": "自定义"
+    },
+    "mood": "您的旅行风格？",
+    "moodOptions": {
+      "relaxed": "轻松悠闲",
+      "energetic": "紧凑充实",
+      "romantic": "浪漫之旅",
+      "family": "亲子家庭",
+      "adventure": "冒险探索"
+    },
+    "budget": "预算范围？",
+    "budgetOptions": {
+      "low": "经济实惠",
+      "medium": "中等预算",
+      "high": "高端享受",
+      "luxury": "奢华体验"
+    },
+    "transport": "交通方式？",
+    "transportOptions": {
+      "public": "公共交通",
+      "car": "自驾/打车",
+      "walk": "步行为主"
+    },
+    "dietary": "饮食要求？",
+    "dietaryOptions": {
+      "halal": "清真",
+      "vegetarian": "素食",
+      "vegan": "纯素",
+      "noPork": "不吃猪肉",
+      "noBeef": "不吃牛肉"
+    },
+    "companions": "同行人员？",
+    "companionOptions": {
+      "solo": "独自旅行",
+      "couple": "情侣",
+      "friends": "朋友",
+      "family": "家庭"
+    },
+    "generatePlan": "生成行程",
+    "generating": "正在为您规划完美行程..."
+  },
+  "foodWizard": {
+    "title": "美食向导",
+    "cuisine": "想吃什么菜系？",
+    "cuisineOptions": {
+      "local": "本地马来西亚菜",
+      "chinese": "中餐",
+      "indian": "印度菜",
+      "japanese": "日料",
+      "korean": "韩餐",
+      "western": "西餐",
+      "any": "随便"
+    },
+    "mealType": "哪一餐？",
+    "mealOptions": {
+      "breakfast": "早餐",
+      "lunch": "午餐",
+      "dinner": "晚餐",
+      "snack": "下午茶/小吃",
+      "supper": "宵夜"
+    },
+    "vibe": "用餐氛围？",
+    "vibeOptions": {
+      "quick": "快餐简餐",
+      "casual": "休闲用餐",
+      "romantic": "浪漫约会",
+      "group": "聚会聚餐"
+    },
+    "findFood": "寻找美食",
+    "finding": "正在寻找美味..."
+  },
+  "dailyPlan": {
+    "day": "第{{number}}天",
+    "morning": "上午",
+    "afternoon": "下午",
+    "evening": "傍晚",
+    "night": "晚上",
+    "lunch": "午餐",
+    "dinner": "晚餐",
+    "budget": "预算",
+    "tips": "小贴士",
+    "savePlan": "保存行程",
+    "exportCalendar": "导出到日历",
+    "shareLink": "分享链接"
+  },
+  "recommendations": {
+    "title": "推荐",
+    "distance": "距离 {{distance}}",
+    "rating": "{{rating}} 星",
+    "priceLevel": "价位：{{level}}",
+    "openNow": "营业中",
+    "closed": "已打烊",
+    "directions": "导航",
+    "addToPlan": "添加到行程"
+  },
+  "errors": {
+    "sendFailed": "消息发送失败，请重试。",
+    "loadFailed": "加载聊天记录失败。",
+    "aiError": "AI遇到错误，请重试。",
+    "loadConversationFailed": "加载对话失败",
+    "deleteFailed": "删除失败",
+    "renameFailed": "重命名失败",
+    "shareFailed": "分享对话失败",
+    "copyFailed": "复制链接失败",
+    "saveFailed": "保存行程失败"
+  },
+  "messages": {
+    "conversationDeleted": "对话已删除",
+    "linkCopied": "链接已复制到剪贴板！",
+    "tripSaved": "行程已保存！",
+    "placeAdded": "已将「{{name}}」添加到行程！"
+  },
+  "premium": {
+    "historyLocked": "聊天记录是高级会员功能",
+    "unlockHistory": "升级以保存和访问您的聊天记录",
+    "upgradeNow": "立即升级"
+  }
+}

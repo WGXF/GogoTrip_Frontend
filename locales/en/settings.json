@@ -1,0 +1,97 @@
+{
+  "title": "Settings",
+  "subtitle": "Manage your account preferences",
+  "sections": {
+    "profile": "Profile",
+    "security": "Security", 
+    "preferences": "Preferences",
+    "integrations": "Integrations",
+    "language": "Language",
+    "notifications": "Notifications",
+    "privacy": "Privacy"
+  },
+  "profile": {
+    "title": "Profile Information",
+    "description": "Update your personal details",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Enter your full name",
+    "email": "Email Address",
+    "emailReadOnly": "Email cannot be changed",
+    "avatar": "Profile Photo",
+    "changePhoto": "Change Photo",
+    "removePhoto": "Remove Photo",
+    "photoHint": "JPG, PNG or GIF. Max 1MB.",
+    "saveChanges": "Save Changes",
+    "saving": "Saving...",
+    "saved": "Profile updated successfully!"
+  },
+  "security": {
+    "title": "Security Settings",
+    "description": "Manage your account security",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password", 
+    "confirmPassword": "Confirm New Password",
+    "passwordRequirements": "Password must be at least 8 characters",
+    "updatePassword": "Update Password",
+    "twoFactor": "Two-Factor Authentication",
+    "twoFactorDesc": "Add an extra layer of security to your account",
+    "enable2FA": "Enable 2FA",
+    "disable2FA": "Disable 2FA",
+    "verificationCode": "Verification Code",
+    "enterCode": "Enter the code sent to your email",
+    "verifyCode": "Verify Code",
+    "resendCode": "Resend Code",
+    "codeExpires": "Code expires in {{seconds}} seconds"
+  },
+  "language": {
+    "title": "Language",
+    "description": "Choose your preferred language for the interface and AI responses",
+    "selectLanguage": "Select Language",
+    "currentLanguage": "Current Language",
+    "changeSuccess": "Language updated!",
+    "changing": "Changing language...",
+    "languageHint": "This will change the language of all text in the app, including AI chat responses.",
+    "languages": {
+      "en": "English",
+      "zh": "Chinese (Simplified)",
+      "ms": "Bahasa Melayu"
+    }
+  },
+  "notifications": {
+    "title": "Notification Preferences",
+    "description": "Control how you receive updates",
+    "emailNotifications": "Email Notifications",
+    "emailNotificationsDesc": "Receive trip updates and AI suggestions via email",
+    "pushNotifications": "Push Notifications",
+    "pushNotificationsDesc": "Receive notifications in your browser",
+    "marketingEmails": "Marketing Emails",
+    "marketingEmailsDesc": "Receive news, promotions, and tips"
+  },
+  "privacy": {
+    "title": "Privacy Settings",
+    "description": "Control your data and privacy",
+    "dataUsage": "AI Data Usage",
+    "dataUsageDesc": "Allow AI to use your travel history for better suggestions",
+    "analytics": "Analytics",
+    "analyticsDesc": "Help improve GogoTrip by sharing anonymous usage data",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDesc": "Permanently delete your account and all data",
+    "deleteWarning": "This action cannot be undone. All your trips, data, and preferences will be permanently deleted."
+  },
+  "integrations": {
+    "title": "Connected Accounts",
+    "description": "Manage your linked accounts and services",
+    "googleAccount": "Google Account",
+    "googleLinked": "Connected as {{email}}",
+    "googleNotLinked": "Not connected",
+    "linkGoogle": "Link Google Account",
+    "unlinkGoogle": "Unlink",
+    "googleCalendar": "Google Calendar",
+    "googleCalendarDesc": "Sync your trips to Google Calendar",
+    "calendarConnected": "Connected",
+    "calendarNotConnected": "Not connected",
+    "connectCalendar": "Connect Calendar",
+    "disconnectCalendar": "Disconnect"
+  }
+}

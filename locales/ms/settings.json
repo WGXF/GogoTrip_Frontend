@@ -1,0 +1,97 @@
+{
+  "title": "Tetapan",
+  "subtitle": "Urus keutamaan akaun anda",
+  "sections": {
+    "profile": "Profil",
+    "security": "Keselamatan",
+    "preferences": "Keutamaan",
+    "integrations": "Integrasi",
+    "language": "Bahasa",
+    "notifications": "Pemberitahuan",
+    "privacy": "Privasi"
+  },
+  "profile": {
+    "title": "Maklumat Profil",
+    "description": "Kemas kini butiran peribadi anda",
+    "fullName": "Nama Penuh",
+    "fullNamePlaceholder": "Masukkan nama penuh anda",
+    "email": "Alamat E-mel",
+    "emailReadOnly": "E-mel tidak boleh ditukar",
+    "avatar": "Gambar Profil",
+    "changePhoto": "Tukar Gambar",
+    "removePhoto": "Buang Gambar",
+    "photoHint": "JPG, PNG atau GIF. Maksimum 1MB.",
+    "saveChanges": "Simpan Perubahan",
+    "saving": "Menyimpan...",
+    "saved": "Profil berjaya dikemas kini!"
+  },
+  "security": {
+    "title": "Tetapan Keselamatan",
+    "description": "Urus keselamatan akaun anda",
+    "changePassword": "Tukar Kata Laluan",
+    "currentPassword": "Kata Laluan Semasa",
+    "newPassword": "Kata Laluan Baharu",
+    "confirmPassword": "Sahkan Kata Laluan Baharu",
+    "passwordRequirements": "Kata laluan mestilah sekurang-kurangnya 8 aksara",
+    "updatePassword": "Kemas Kini Kata Laluan",
+    "twoFactor": "Pengesahan Dua Faktor",
+    "twoFactorDesc": "Tambah lapisan keselamatan tambahan pada akaun anda",
+    "enable2FA": "Aktifkan 2FA",
+    "disable2FA": "Nyahaktifkan 2FA",
+    "verificationCode": "Kod Pengesahan",
+    "enterCode": "Masukkan kod yang dihantar ke e-mel anda",
+    "verifyCode": "Sahkan Kod",
+    "resendCode": "Hantar Semula Kod",
+    "codeExpires": "Kod tamat dalam {{seconds}} saat"
+  },
+  "language": {
+    "title": "Bahasa",
+    "description": "Pilih bahasa pilihan anda untuk antara muka dan respons AI",
+    "selectLanguage": "Pilih Bahasa",
+    "currentLanguage": "Bahasa Semasa",
+    "changeSuccess": "Bahasa berjaya dikemas kini!",
+    "changing": "Menukar bahasa...",
+    "languageHint": "Ini akan menukar bahasa semua teks dalam aplikasi, termasuk respons chat AI.",
+    "languages": {
+      "en": "English",
+      "zh": "中文（简体）",
+      "ms": "Bahasa Melayu"
+    }
+  },
+  "notifications": {
+    "title": "Keutamaan Pemberitahuan",
+    "description": "Kawal cara anda menerima kemas kini",
+    "emailNotifications": "Pemberitahuan E-mel",
+    "emailNotificationsDesc": "Terima kemas kini perjalanan dan cadangan AI melalui e-mel",
+    "pushNotifications": "Pemberitahuan Push",
+    "pushNotificationsDesc": "Terima pemberitahuan dalam pelayar anda",
+    "marketingEmails": "E-mel Pemasaran",
+    "marketingEmailsDesc": "Terima berita, promosi, dan tip"
+  },
+  "privacy": {
+    "title": "Tetapan Privasi",
+    "description": "Kawal data dan privasi anda",
+    "dataUsage": "Penggunaan Data AI",
+    "dataUsageDesc": "Benarkan AI menggunakan sejarah perjalanan anda untuk cadangan yang lebih baik",
+    "analytics": "Analitik",
+    "analyticsDesc": "Bantu tingkatkan GogoTrip dengan berkongsi data penggunaan tanpa nama",
+    "deleteAccount": "Padam Akaun",
+    "deleteAccountDesc": "Padam akaun dan semua data anda secara kekal",
+    "deleteWarning": "Tindakan ini tidak boleh dibatalkan. Semua perjalanan, data, dan keutamaan anda akan dipadam secara kekal."
+  },
+  "integrations": {
+    "title": "Akaun Bersambung",
+    "description": "Urus akaun dan perkhidmatan yang dipautkan",
+    "googleAccount": "Akaun Google",
+    "googleLinked": "Bersambung sebagai {{email}}",
+    "googleNotLinked": "Tidak bersambung",
+    "linkGoogle": "Pautkan Akaun Google",
+    "unlinkGoogle": "Nyahpaut",
+    "googleCalendar": "Kalendar Google",
+    "googleCalendarDesc": "Segerakkan perjalanan anda ke Kalendar Google",
+    "calendarConnected": "Bersambung",
+    "calendarNotConnected": "Tidak bersambung",
+    "connectCalendar": "Sambungkan Kalendar",
+    "disconnectCalendar": "Putuskan Sambungan"
+  }
+}
