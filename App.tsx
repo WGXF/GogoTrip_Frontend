@@ -27,15 +27,16 @@ import { API_BASE_URL } from './config';
 
 // 🔥 Import standardized role utilities
 import { isAdmin, UserRole } from './role-utils';
-import { initLanguageFromProfile } from './i18n';
+import i18n, { initLanguageFromProfile, changeLanguage, SupportedLanguage } from './i18n';
 
 interface AppProps {
   user: User;
   onLogout: () => void;
   onSwitchToAdmin: () => void;
+  onUpdateUser: (updated: Partial<User>) => void;
 }
 
-const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
+const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin, onUpdateUser }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -45,13 +46,22 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   // =========================
-  // 🆕 Language Sync
+  // 🆕 Language Sync on Mount / User Change
   // =========================
   useEffect(() => {
-    // Only update if user has a preference AND it differs from current
-    // AND it's not just the default 'en' overriding a valid local choice
+    // 1. Force read from localStorage FIRST to prevent flash
+    const localLang = localStorage.getItem('gogotrip_language');
+    if (localLang && ['en', 'zh', 'ms'].includes(localLang)) {
+      if (localLang !== i18n.language) {
+        changeLanguage(localLang as SupportedLanguage);
+      }
+    }
+
+    // 2. Sync with user profile if available (backend is source of truth)
     if (user?.preferredLanguage) {
-      initLanguageFromProfile(user.preferredLanguage);
+      if (user.preferredLanguage !== localLang) {
+         initLanguageFromProfile(user.preferredLanguage);
+      }
     }
   }, [user]);
 
@@ -87,9 +97,7 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
     onLogout();
   };
 
-  const handleUpdateUser = (updated: Partial<User>) => {
-    console.log('Update user:', updated);
-  };
+  // handleUpdateUser is now passed as a prop from index.tsx
 
   // =========================
   // Router bridge
@@ -162,7 +170,7 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
                   element={
                     <SettingsView
                       user={user}
-                      onUpdateUser={handleUpdateUser}
+                      onUpdateUser={onUpdateUser}
                     />
                   }
                 />
@@ -171,7 +179,7 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin }) => {
                   element={
                     <BillingView
                       user={user}
-                      onUpdateUser={handleUpdateUser}
+                      onUpdateUser={onUpdateUser}
                       onNavigate={handleNavigate}
                     />
                   }

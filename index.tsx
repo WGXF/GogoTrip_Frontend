@@ -14,8 +14,18 @@ import { API_BASE_URL } from './config';
 import { normalizeRole, isAdmin, UserRole } from './role-utils';
 
 // 🌐 Import i18n configuration (initializes i18next)
-import './i18n';
+import { changeLanguage, LANGUAGE_STORAGE_KEY } from './i18n';
 import { initLanguageFromProfile } from './i18n';
+
+// 🆕 CRITICAL: Force language hydration BEFORE React mounts
+try {
+  const savedLang = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+  if (savedLang && ['en', 'zh', 'ms'].includes(savedLang)) {
+    changeLanguage(savedLang as any);
+  }
+} catch (e) {
+  console.error('Failed to hydrate language preference:', e);
+}
 
 const Root: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -134,6 +144,7 @@ const Root: React.FC = () => {
           user={user}
           onLogout={handleLogout}
           onSwitchToAdmin={() => setIsAdminMode(true)}
+          onUpdateUser={(updated) => setUser(prev => prev ? { ...prev, ...updated } : prev)}
         />
       )}
     </SocketProvider>
