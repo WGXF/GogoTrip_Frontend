@@ -29,7 +29,11 @@
     "tripWizard": "Wizard Perjalanan",
     "tripWizardDesc": "Rancang itinerari berbilang hari yang lengkap",
     "foodWizard": "Wizard Makanan",
-    "foodWizardDesc": "Cari tempat makan yang sempurna"
+    "foodWizardDesc": "Cari tempat makan yang sempurna",
+    "whereToNext": "Ke mana seterusnya?",
+    "welcomeDesc": "Saya boleh membantu anda merancang perjalanan yang sempurna berdasarkan bajet, mood dan pilihan anda.",
+    "planTrip": "Rancang Perjalanan",
+    "findFood": "Cari Makanan"
   },
   "tripWizard": {
     "title": "Wizard Perjalanan",
@@ -71,8 +75,12 @@
       "vegetarian": "Vegetarian",
       "vegan": "Vegan",
       "noPork": "Tiada Babi",
-      "noBeef": "Tiada Daging Lembu"
+      "noBeef": "Tiada Daging Lembu",
+      "glutenFree": "Bebas Gluten"
     },
+    "stepIndicator": "Langkah {{current}} dari {{total}}",
+    "readyPrompt": "Sedia untuk menjana pelan tersuai anda? AI akan menggunakan keutamaan ini untuk mencari tempat terbaik.",
+    "nextStep": "Langkah Seterusnya",
     "companions": "Dengan siapa anda mengembara?",
     "companionOptions": {
       "solo": "Bersendirian",
@@ -93,8 +101,42 @@
       "japanese": "Jepun",
       "korean": "Korea",
       "western": "Barat",
+      "thai": "Thai",
+      "malay": "Melayu",
       "any": "Kejutkan Saya"
     },
+    "mealOptions": {
+      "breakfast": "Sarapan",
+      "lunch": "Makan Tengah Hari",
+      "dinner": "Makan Malam",
+      "snack": "Snek/Teh",
+      "supper": "Supper",
+      "cafe": "Kafe/Pencuci Mulut"
+    },
+    "budgetDescriptions": {
+      "low": "Bawah RM 15/pax",
+      "medium": "RM 15-40/pax",
+      "high": "RM 40-80/pax",
+      "luxury": "RM 80+/pax"
+    },
+    "dietaryOptions": {
+      "halal": "Halal",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "noPork": "Tiada Babi",
+      "noBeef": "Tiada Daging Lembu",
+      "glutenFree": "Bebas Gluten"
+    },
+    "distanceOptions": {
+      "nearby": "Berjalan (< 1km)",
+      "short": "Pandu singkat (< 5km)",
+      "any": "Sebarang jarak"
+    },
+    "stepIndicator": "Langkah {{current}} dari {{total}}",
+    "cravingPrompt": "Apa yang anda idamkan? (pilihan)",
+    "cravingDesc": "Pilih satu atau lebih, atau langkau untuk pelbagai cadangan",
+    "readyTitle": "Sedia untuk mencari hidangan sempurna anda!",
+    "next": "Seterusnya",
     "mealType": "Hidangan apa?",
     "mealOptions": {
       "breakfast": "Sarapan",

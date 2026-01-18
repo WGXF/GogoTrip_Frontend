@@ -29,7 +29,11 @@
     "tripWizard": "行程向导",
     "tripWizardDesc": "规划完整的多日行程",
     "foodWizard": "美食向导",
-    "foodWizardDesc": "找到完美的用餐地点"
+    "foodWizardDesc": "找到完美的用餐地点",
+    "whereToNext": "接下来去哪里？",
+    "welcomeDesc": "我可以根据您的预算、心情和偏好，为您规划完美的旅程。",
+    "planTrip": "规划行程",
+    "findFood": "寻找美食"
   },
   "tripWizard": {
     "title": "行程向导",
@@ -71,8 +75,12 @@
       "vegetarian": "素食",
       "vegan": "纯素",
       "noPork": "不吃猪肉",
-      "noBeef": "不吃牛肉"
+      "noBeef": "不吃牛肉",
+      "glutenFree": "无麸质"
     },
+    "stepIndicator": "第 {{current}} 步，共 {{total}} 步",
+    "readyPrompt": "准备好生成您的定制计划了吗？AI将根据这些偏好为您找到最佳地点。",
+    "nextStep": "下一步",
     "companions": "同行人员？",
     "companionOptions": {
       "solo": "独自旅行",
@@ -93,8 +101,42 @@
       "japanese": "日料",
       "korean": "韩餐",
       "western": "西餐",
+      "thai": "泰国菜",
+      "malay": "马来菜",
       "any": "随便"
     },
+    "mealOptions": {
+      "breakfast": "早餐",
+      "lunch": "午餐",
+      "dinner": "晚餐",
+      "snack": "下午茶/小吃",
+      "supper": "宵夜",
+      "cafe": "咖啡/甜点"
+    },
+    "budgetDescriptions": {
+      "low": "RM 15以下/人",
+      "medium": "RM 15-40/人",
+      "high": "RM 40-80/人",
+      "luxury": "RM 80以上/人"
+    },
+    "dietaryOptions": {
+      "halal": "清真",
+      "vegetarian": "素食",
+      "vegan": "纯素",
+      "noPork": "不吃猪肉",
+      "noBeef": "不吃牛肉",
+      "glutenFree": "无麸质"
+    },
+    "distanceOptions": {
+      "nearby": "步行 (< 1km)",
+      "short": "短途车程 (< 5km)",
+      "any": "任意距离"
+    },
+    "stepIndicator": "第 {{current}} 步，共 {{total}} 步",
+    "cravingPrompt": "想吃什么？(可选)",
+    "cravingDesc": "选择一项或多项，或跳过以获取多样化建议",
+    "readyTitle": "准备好寻找完美美食！",
+    "next": "下一步",
     "mealType": "哪一餐？",
     "mealOptions": {
       "breakfast": "早餐",

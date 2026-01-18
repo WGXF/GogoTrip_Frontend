@@ -29,7 +29,11 @@
     "tripWizard": "Trip Wizard",
     "tripWizardDesc": "Plan a complete multi-day itinerary",
     "foodWizard": "Food Wizard", 
-    "foodWizardDesc": "Find the perfect place to eat"
+    "foodWizardDesc": "Find the perfect place to eat",
+    "whereToNext": "Where to next?",
+    "welcomeDesc": "I can help you plan the perfect trip based on your budget, mood, and preferences.",
+    "planTrip": "Plan a Trip",
+    "findFood": "Find Food"
   },
   "tripWizard": {
     "title": "Trip Wizard",
@@ -71,8 +75,12 @@
       "vegetarian": "Vegetarian",
       "vegan": "Vegan",
       "noPork": "No Pork",
-      "noBeef": "No Beef"
+      "noBeef": "No Beef",
+      "glutenFree": "Gluten Free"
     },
+    "stepIndicator": "Step {{current}} of {{total}}",
+    "readyPrompt": "Ready to generate your custom plan? The AI will use these preferences to find the best spots for you.",
+    "nextStep": "Next Step",
     "companions": "Who are you traveling with?",
     "companionOptions": {
       "solo": "Solo",
@@ -93,8 +101,42 @@
       "japanese": "Japanese",
       "korean": "Korean",
       "western": "Western",
+      "thai": "Thai",
+      "malay": "Malay",
       "any": "Surprise Me"
     },
+    "mealOptions": {
+      "breakfast": "Breakfast",
+      "lunch": "Lunch",
+      "dinner": "Dinner",
+      "snack": "Snack/Tea",
+      "supper": "Supper",
+      "cafe": "Cafe/Dessert"
+    },
+    "budgetDescriptions": {
+      "low": "Under RM 15/pax",
+      "medium": "RM 15-40/pax",
+      "high": "RM 40-80/pax",
+      "luxury": "RM 80+/pax"
+    },
+    "dietaryOptions": {
+      "halal": "Halal",
+      "vegetarian": "Vegetarian",
+      "vegan": "Vegan",
+      "noPork": "No Pork",
+      "noBeef": "No Beef",
+      "glutenFree": "Gluten Free"
+    },
+    "distanceOptions": {
+      "nearby": "Walking (< 1km)",
+      "short": "Short drive (< 5km)",
+      "any": "Any distance"
+    },
+    "stepIndicator": "Step {{current}} of {{total}}",
+    "cravingPrompt": "What are you craving? (optional)",
+    "cravingDesc": "Select one or more, or skip for varied suggestions",
+    "readyTitle": "Ready to find your perfect meal!",
+    "next": "Next",
     "mealType": "What meal?",
     "mealOptions": {
       "breakfast": "Breakfast",
