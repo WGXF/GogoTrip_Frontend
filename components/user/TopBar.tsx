@@ -80,7 +80,7 @@ const TopBar: React.FC<TopBarProps> = ({
   onLogout 
 }) => {
   const navigate = useNavigate();
-  const { t } = useTranslation(['nav', 'common']);
+  const { t, i18n } = useTranslation(['nav', 'common']);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -204,7 +204,7 @@ const TopBar: React.FC<TopBarProps> = ({
               {title}
             </h1>
             <span className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest hidden sm:block">
-              {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+              {new Date().toLocaleDateString(i18n.language === 'zh' ? 'zh-CN' : i18n.language === 'ms' ? 'ms-MY' : 'en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
             </span>
           </div>
         </div>

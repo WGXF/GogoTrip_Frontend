@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { API_BASE_URL } from '../../config';
 import { Trip, User } from '../../types';
 import { 
@@ -110,6 +111,7 @@ interface TravelViewProps {
 
 const TravelView: React.FC<TravelViewProps> = ({ user }) => {
   const navigate = useNavigate();
+  const { t } = useTranslation(['common', 'dashboard']);
   const [activeMarkerId, setActiveMarkerId] = useState<string | null>(null);
   const [showPlanModal, setShowPlanModal] = useState(false);
   const [showPackingList, setShowPackingList] = useState(false);
@@ -342,7 +344,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     return (
       <div className="flex flex-col items-center justify-center h-96 space-y-4 animate-fade-in">
         <div className="w-12 h-12 border-4 border-slate-200 border-t-sky-600 rounded-full animate-spin"></div>
-        <p className="text-slate-500 font-medium">Loading your adventures...</p>
+        <p className="text-slate-500 font-medium">{t('common:loading')}</p>
       </div>
     );
   }
@@ -355,8 +357,8 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
           <Plane className="w-10 h-10 text-slate-400" />
         </div>
         <div className="text-center">
-          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">No trips yet</h3>
-          <p className="text-slate-500 dark:text-slate-400">Start planning your next adventure!</p>
+          <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">{t('dashboard:recentTrips.noTrips')}</h3>
+          <p className="text-slate-500 dark:text-slate-400">{t('dashboard:recentTrips.startPlanning')}</p>
         </div>
         <button
           type="button"
@@ -364,7 +366,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
           className="px-8 py-4 bg-sky-600 dark:bg-indigo-600 text-white rounded-2xl text-sm font-bold hover:bg-sky-500 dark:hover:bg-indigo-500 transition-all shadow-lg flex items-center gap-2"
         >
           <Plus className="w-5 h-5" />
-          Plan Your First Trip
+          {t('dashboard:recentTrips.createTrip')}
       </button>
       </div>
     );
@@ -496,7 +498,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
                   onClick={() => setConfirmDialog(prev => ({...prev, show: false}))}
                   className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
                 >
-                  Cancel
+                  {t('common:cancel')}
                 </button>
                 <button 
                   onClick={confirmDialog.onConfirm}
@@ -570,7 +572,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
                   onClick={() => setShowExportModal(false)}
                   className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border border-transparent hover:border-slate-300 dark:hover:border-slate-600"
                 >
-                  Cancel
+                  {t('common:cancel')}
                 </button>
                 <button 
                   onClick={() => exportToGoogleCalendar(selectedTripForExport, exportStartDate)}
@@ -777,7 +779,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
             
             <div className="mt-6 pt-4 border-t border-slate-100 dark:border-slate-700">
               <button onClick={() => setShowPackingList(false)} className="w-full py-3 bg-sky-600 text-white font-bold rounded-xl shadow-lg hover:bg-sky-500 active:scale-95 transition-all">
-                Done
+                {t('common:done')}
               </button>
             </div>
           </div>
@@ -844,7 +846,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
                   className="flex-1 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-white rounded-xl text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-600 transition-all flex items-center justify-center gap-2"
                 >
                   <Eye className="w-4 h-4" />
-                  View
+                  {t('common:viewMore')}
                 </button>
                 <button 
                   onClick={() => openExportModal(trip.id)}

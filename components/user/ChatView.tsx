@@ -980,7 +980,7 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
       
     } catch (error) {
       console.error('Failed to load conversation:', error);
-      showToast('Failed to load conversation', 'error');
+      showToast(t('errors.loadConversationFailed'), 'error');
     }
   };
 
@@ -1007,10 +1007,10 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
         setMessages([]);
       }
       
-      showToast('Conversation deleted', 'success');
+      showToast(t('messages.conversationDeleted'), 'success');
       
     } catch (error) {
-      showToast('Failed to delete', 'error');
+      showToast(t('errors.deleteFailed'), 'error');
     }
   };
 
@@ -1030,7 +1030,7 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
       );
       
     } catch (error) {
-      showToast('Failed to rename', 'error');
+      showToast(t('errors.renameFailed'), 'error');
     }
   };
 
@@ -1052,7 +1052,7 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
       setShareModalOpen(true);
       
     } catch (error) {
-      showToast('Failed to share conversation', 'error');
+      showToast(t('errors.shareFailed'), 'error');
     } finally {
       setIsSharing(false);
     }
@@ -1064,10 +1064,10 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
     try {
       await navigator.clipboard.writeText(shareUrl);
       setCopiedLink(true);
-      showToast('Link copied to clipboard!', 'success');
+      showToast(t('messages.linkCopied'), 'success');
       setTimeout(() => setCopiedLink(false), 2000);
     } catch (error) {
-      showToast('Failed to copy link', 'error');
+      showToast(t('errors.copyFailed'), 'error');
     }
   };
 
@@ -1315,10 +1315,10 @@ Please suggest a destination or ask for one if needed.`;
         });
         
         if (!response.ok) throw new Error('Failed to save trip');
-        showToast("Trip saved!", "success");
+        showToast(t('messages.tripSaved'), "success");
     } catch (error) {
         setSavedSuggestions(prev => prev.filter(sid => sid !== suggestionId));
-        showToast("Failed to save trip", "error");
+        showToast(t('errors.saveFailed'), "error");
     }
   }, [savedSuggestions]);
 
@@ -1351,10 +1351,10 @@ Please suggest a destination or ask for one if needed.`;
       });
       
       if (!response.ok) throw new Error('Failed to save');
-      showToast("行程已保存!", "success");
+      showToast(t('messages.tripSaved'), "success");
     } catch (error) {
       setSavedDailyPlans(prev => prev.filter(id => id !== planId));
-      showToast("保存失败", "error");
+      showToast(t('errors.saveFailed'), "error");
     }
   }, [savedDailyPlans]);
 
@@ -1715,13 +1715,13 @@ Please suggest a destination or ask for one if needed.`;
                   setSavedDailyPlans(prev => 
                     prev.includes(plan.title) ? prev : [...prev, plan.title]
                   );
-                  showToast('行程已保存!', 'success');
+                  showToast(t('messages.tripSaved'), 'success');
                   setDailyPlan(null);
                 } else {
-                  showToast('保存失败', 'error');
+                  showToast(t('errors.saveFailed'), 'error');
                 }
               } catch (e) {
-                showToast('保存失败', 'error');
+                showToast(t('errors.saveFailed'), 'error');
               }
             }}
             onEditActivity={(dayIdx, actIdx, activity) => {

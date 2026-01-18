@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { X, AlertCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { API_BASE_URL } from '../../config';
 
 interface Advertisement {
   id: number;
   title: string;
   description: string;
+  // 🆕 Localized fields
+  title_zh?: string;
+  description_zh?: string;
+  title_ms?: string;
+  description_ms?: string;
+  
   imageUrl: string;
   link: string;
   status: string;
@@ -23,6 +30,8 @@ export const ChatAdvertisementPopup: React.FC<ChatAdvertisementPopupProps> = ({
   onClose
 }) => {
   const navigate = useNavigate();
+
+  const { i18n } = useTranslation();
 
   const [ad, setAd] = useState<Advertisement | null>(null);
   const [countdown, setCountdown] = useState(5);
@@ -99,6 +108,26 @@ export const ChatAdvertisementPopup: React.FC<ChatAdvertisementPopupProps> = ({
       });
     } catch {}
   };
+
+  // 🆕 Helper to get localized content with fallback
+  const getLocalizedContent = (ad: Advertisement) => {
+    const lang = i18n.language; // 'en', 'zh', 'ms'
+    
+    let title = ad.title; // Default to English (fallback)
+    let description = ad.description;
+
+    if (lang === 'zh' && ad.title_zh) {
+      title = ad.title_zh;
+      description = ad.description_zh || description;
+    } else if (lang === 'ms' && ad.title_ms) {
+      title = ad.title_ms;
+      description = ad.description_ms || description;
+    }
+
+    return { title, description };
+  };
+
+  const { title: adTitle, description: adDesc } = ad ? getLocalizedContent(ad) : { title: '', description: '' };
 
   // ============================
   // Handlers
@@ -216,7 +245,7 @@ export const ChatAdvertisementPopup: React.FC<ChatAdvertisementPopupProps> = ({
                 >
                   <img
                     src={`${API_BASE_URL}${ad.imageUrl}`}
-                    alt={ad.title}
+                    alt={adTitle}
                     className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
@@ -227,12 +256,12 @@ export const ChatAdvertisementPopup: React.FC<ChatAdvertisementPopupProps> = ({
                 className="cursor-pointer group"
               >
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-sky-600 dark:group-hover:text-indigo-400 transition-colors">
-                  {ad.title}
+                  {adTitle}
                 </h3>
 
-                {ad.description && (
+                {adDesc && (
                   <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
-                    {ad.description}
+                    {adDesc}
                   </p>
                 )}
 
