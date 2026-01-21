@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { User } from '@/types';
-import VincentImg from '@/icon/about/Vincent/Vincent.svg';
-import YuanKaiImg from '@/icon/about/YuanKai/YuanKai.svg';
-import UjinImg from '@/icon/about/Ujin/Ujin.svg';
+import VincentImg from '@/about/Vincent/Vincent.svg';
+import YuanKaiImg from '@/about/YuanKai/YuanKai.svg';
+import UjinImg from '@/about/Ujin/Ujin.svg';
 
 interface AboutViewProps {
   user: User;
