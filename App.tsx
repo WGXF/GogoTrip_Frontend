@@ -29,6 +29,67 @@ import { API_BASE_URL } from './config';
 import { isAdmin, UserRole } from './role-utils';
 import i18n, { initLanguageFromProfile, changeLanguage, SupportedLanguage } from './i18n';
 
+// =========================
+// Hibiscus background
+// =========================
+const HibiscusLineArt = ({ className }: { className?: string }) => (
+  // @ts-ignore
+  <svg
+    viewBox="0 0 100 100"
+    className={className}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    stroke="currentColor"
+    strokeWidth="0.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {/* Non-overlapping Petals */}
+    <g opacity="0.8">
+      {/* Top Petal */}
+      <path d="M50 45 C55 35 65 25 50 10 C35 25 45 35 50 45Z" />
+      {/* Top Right Petal */}
+      <path d="M55 48 C65 45 80 35 90 50 C80 65 65 55 55 48Z" />
+      {/* Bottom Right Petal */}
+      <path d="M53 53 C60 63 65 85 45 90 C35 80 45 65 53 53Z" />
+      {/* Bottom Left Petal */}
+      <path d="M47 53 C40 65 15 85 10 65 C20 50 40 50 47 53Z" />
+      {/* Top Left Petal */}
+      <path d="M45 48 C35 45 10 35 15 20 C30 15 40 35 45 48Z" />
+    </g>
+
+    {/* Petal Fills */}
+    <g fill="currentColor" fillOpacity="0.03">
+      <path d="M50 45 C55 35 65 25 50 10 C35 25 45 35 50 45Z" stroke="none" />
+      <path d="M55 48 C65 45 80 35 90 50 C80 65 65 55 55 48Z" stroke="none" />
+      <path d="M53 53 C60 63 65 85 45 90 C35 80 45 65 53 53Z" stroke="none" />
+      <path d="M47 53 C40 65 15 85 10 65 C20 50 40 50 47 53Z" stroke="none" />
+      <path d="M45 48 C35 45 10 35 15 20 C30 15 40 35 45 48Z" stroke="none" />
+    </g>
+
+    {/* Vein Accents */}
+    <g strokeWidth="0.4" opacity="0.3">
+      <path d="M50 45 L50 25" />
+      <path d="M55 48 L75 42" />
+      <path d="M53 53 L58 75" />
+      <path d="M47 53 L25 65" />
+      <path d="M45 48 L25 35" />
+    </g>
+
+    {/* The Iconic Long Stamen */}
+    <g>
+      <path d="M50 50 Q65 35 85 15" strokeWidth="1.2" />
+      <circle cx="85" cy="15" r="1.5" fill="currentColor" stroke="none" />
+      {/* Minute Pollen Details */}
+      <g strokeWidth="0.5" opacity="0.6">
+        <path d="M78 22 L80 20" />
+        <path d="M82 18 L84 16" />
+        <path d="M85 12 L87 10" />
+      </g>
+    </g>
+  </svg>
+);
+
 interface AppProps {
   user: User;
   onLogout: () => void;
@@ -128,7 +189,25 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin, onUpdateUser
   return (
     <ToastProvider>
     <div className={`${isDarkMode ? 'dark' : ''} h-full`}>
-      <div className="min-h-screen flex bg-gradient-to-br from-blue-100 via-sky-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-200">
+      <div className="min-h-screen flex bg-gradient-to-br from-blue-100 via-sky-50 to-white dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 text-slate-900 dark:text-slate-200 relative overflow-hidden">
+
+        {/* Hibiscus Background Decorations */}
+        <div className="fixed inset-0 pointer-events-none overflow-hidden">
+          {/* Top Right */}
+          <HibiscusLineArt className="absolute -top-20 -right-20 w-96 h-96 text-sky-400/20 dark:text-sky-600/10 rotate-12" />
+
+          {/* Bottom Left */}
+          <HibiscusLineArt className="absolute -bottom-32 -left-32 w-[500px] h-[500px] text-blue-400/15 dark:text-blue-600/10 -rotate-45" />
+
+          {/* Top Left (smaller) */}
+          <HibiscusLineArt className="absolute top-32 left-12 w-64 h-64 text-sky-300/20 dark:text-sky-700/10 rotate-90" />
+
+          {/* Bottom Right (smaller) */}
+          <HibiscusLineArt className="absolute bottom-20 right-24 w-72 h-72 text-blue-300/15 dark:text-blue-700/10 -rotate-12" />
+
+          {/* Center (very subtle) */}
+          <HibiscusLineArt className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] text-sky-200/10 dark:text-sky-800/5 rotate-45" />
+        </div>
 
         <Sidebar
           isOpen={isSidebarOpen}

@@ -1,0 +1,54 @@
+{
+  "header": {
+    "title": "GogoTrip",
+    "subtitle": "Premium Subscription"
+  },
+  "sections": {
+    "orderInfo": "Order Information",
+    "subscriptionDetails": "Subscription Details"
+  },
+  "fields": {
+    "customerName": "Customer Name",
+    "email": "Email",
+    "orderReference": "Order Reference",
+    "orderDate": "Order Date",
+    "validFrom": "Valid From",
+    "validUntil": "Valid Until",
+    "lifetime": "Lifetime"
+  },
+  "pricing": {
+    "subtotal": "Subtotal",
+    "tax": "Tax (0%)",
+    "total": "Total"
+  },
+  "footer": {
+    "thankYou": "Thank you for choosing GogoTrip Premium!",
+    "support": "For questions or support, please contact us at support@gogotrip.com"
+  },
+  "status": {
+    "paymentSuccessful": "Payment Successful",
+    "paymentPending": "Payment Pending",
+    "paymentFailed": "Payment Failed",
+    "paymentCancelled": "Payment Cancelled"
+  },
+  "actions": {
+    "backToBilling": "Back to Billing",
+    "refreshStatus": "Refresh Status",
+    "print": "Print",
+    "downloadPdf": "Download PDF",
+    "verifying": "Verifying..."
+  },
+  "messages": {
+    "downloadSuccess": "Receipt downloaded successfully!",
+    "downloadFailed": "Failed to download PDF"
+  },
+  "errors": {
+    "orderNotFound": "Order ID not found",
+    "loadFailed": "Failed to load order",
+    "networkError": "Network error occurred",
+    "error": "Error"
+  },
+  "pdf": {
+    "filename": "GogoTrip_Receipt_{{orderRef}}.pdf"
+  }
+}

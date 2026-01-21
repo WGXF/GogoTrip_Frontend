@@ -66,5 +66,16 @@
     "share": "Share",
     "copy": "Copy",
     "copied": "Copied!"
+  },
+  "toast": {
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "info": "Info"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Invalid email address",
+    "invalidFormat": "Invalid format"
   }
 }

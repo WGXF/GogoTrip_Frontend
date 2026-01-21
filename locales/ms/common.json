@@ -66,5 +66,16 @@
     "share": "Kongsi",
     "copy": "Salin",
     "copied": "Disalin!"
+  },
+  "toast": {
+    "success": "Berjaya",
+    "error": "Ralat",
+    "warning": "Amaran",
+    "info": "Maklumat"
+  },
+  "validation": {
+    "required": "Medan ini diperlukan",
+    "invalidEmail": "Alamat e-mel tidak sah",
+    "invalidFormat": "Format tidak sah"
   }
 }

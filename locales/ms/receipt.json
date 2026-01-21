@@ -1,0 +1,54 @@
+{
+  "header": {
+    "title": "GogoTrip",
+    "subtitle": "Langganan Premium"
+  },
+  "sections": {
+    "orderInfo": "Maklumat Pesanan",
+    "subscriptionDetails": "Butiran Langganan"
+  },
+  "fields": {
+    "customerName": "Nama Pelanggan",
+    "email": "E-mel",
+    "orderReference": "Rujukan Pesanan",
+    "orderDate": "Tarikh Pesanan",
+    "validFrom": "Sah Dari",
+    "validUntil": "Sah Sehingga",
+    "lifetime": "Seumur Hidup"
+  },
+  "pricing": {
+    "subtotal": "Subjumlah",
+    "tax": "Cukai (0%)",
+    "total": "Jumlah"
+  },
+  "footer": {
+    "thankYou": "Terima kasih kerana memilih GogoTrip Premium!",
+    "support": "Untuk soalan atau sokongan, sila hubungi kami di support@gogotrip.com"
+  },
+  "status": {
+    "paymentSuccessful": "Pembayaran Berjaya",
+    "paymentPending": "Pembayaran Tertunda",
+    "paymentFailed": "Pembayaran Gagal",
+    "paymentCancelled": "Pembayaran Dibatalkan"
+  },
+  "actions": {
+    "backToBilling": "Kembali ke Pengebilan",
+    "refreshStatus": "Muat Semula Status",
+    "print": "Cetak",
+    "downloadPdf": "Muat Turun PDF",
+    "verifying": "Mengesahkan..."
+  },
+  "messages": {
+    "downloadSuccess": "Resit berjaya dimuat turun!",
+    "downloadFailed": "Gagal memuat turun PDF"
+  },
+  "errors": {
+    "orderNotFound": "ID pesanan tidak dijumpai",
+    "loadFailed": "Gagal memuatkan pesanan",
+    "networkError": "Ralat rangkaian berlaku",
+    "error": "Ralat"
+  },
+  "pdf": {
+    "filename": "GogoTrip_Resit_{{orderRef}}.pdf"
+  }
+}

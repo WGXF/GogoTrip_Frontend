@@ -1,0 +1,129 @@
+{
+  "plans": {
+    "title": "Premium Plans",
+    "subtitle": "Unlock unlimited AI-powered trip planning and advanced features",
+    "monthly": "Monthly",
+    "yearly": "Yearly",
+    "lifetime": "Lifetime",
+    "mostPopular": "Most Popular"
+  },
+  "features": {
+    "monthly": {
+      "unlimitedPlanning": "Unlimited AI trip planning",
+      "routeOptimization": "Advanced route optimization",
+      "prioritySupport": "Priority support",
+      "budgetTracking": "Budget tracking",
+      "calendarSync": "Calendar sync"
+    },
+    "yearly": {
+      "everythingMonthly": "Everything in Monthly",
+      "twoMonthsFree": "2 months FREE",
+      "earlyAccess": "Early access to new features",
+      "exclusiveTips": "Exclusive travel tips",
+      "noPriceIncrease": "No price increases"
+    },
+    "lifetime": {
+      "everythingYearly": "Everything in Yearly",
+      "lifetimeUpdates": "Lifetime updates",
+      "vipSupport": "VIP support",
+      "transferableLicense": "Transferable license",
+      "communityAccess": "Exclusive community access"
+    }
+  },
+  "subscription": {
+    "activeTitle": "Active Premium Subscription",
+    "lifetimeAccess": "Lifetime Access",
+    "remainingDaysAdded": "✨ Remaining days will be added to new plan!",
+    "higherTierPlan": "You are on a higher tier plan."
+  },
+  "tabs": {
+    "plans": "Plans",
+    "transactions": "Transactions",
+    "redeemCode": "Redeem Code"
+  },
+  "actions": {
+    "subscribeNow": "Subscribe Now",
+    "upgradePlan": "Upgrade Plan",
+    "renewSubscription": "Renew Subscription",
+    "currentPlan": "Current Plan",
+    "currentPlanHigher": "Current Plan is Higher",
+    "renewExtend": "Renew / Extend",
+    "continuePayment": "Continue Payment",
+    "refreshStatus": "Refresh Status",
+    "cancel": "Cancel",
+    "viewReceipt": "View Receipt"
+  },
+  "pending": {
+    "title": "Payment in Progress",
+    "expiresIn": "Expires in {{time}}",
+    "sessionEnded": "Payment session has ended. Please create a new payment instead."
+  },
+  "transactions": {
+    "title": "Transaction History",
+    "noTransactions": "No transactions found",
+    "discount": "-RM{{amount}} discount",
+    "filters": {
+      "all": "All",
+      "pending": "Pending",
+      "paid": "Paid",
+      "expired": "Expired",
+      "cancelled": "Cancelled"
+    }
+  },
+  "voucher": {
+    "title": "Redeem Code",
+    "description": "Enter your activation code or discount voucher below.",
+    "placeholder": "ENTER CODE HERE",
+    "checkCode": "Check Code",
+    "validating": "Validating...",
+    "applied": "Voucher Applied"
+  },
+  "activation": {
+    "title": "Premium Activation",
+    "code": "Code: {{code}}",
+    "youWillReceive": "You will receive:",
+    "daysPrefix": "{{days}} Days Premium",
+    "lifetime": "Lifetime",
+    "activateNow": "Activate Now",
+    "activating": "Activating...",
+    "useDifferentCode": "Use a different code"
+  },
+  "discount": {
+    "percentOff": "{{percent}}% Discount",
+    "amountOff": "RM{{amount}} Off",
+    "selectPlan": "Select a Plan",
+    "confirmPay": "Confirm & Pay",
+    "refreshPrice": "Refresh Price",
+    "calculatingDiscount": "Calculating discount..."
+  },
+  "pricing": {
+    "planPrice": "Plan Price ({{planName}})",
+    "subtotal": "Subtotal",
+    "total": "Total Amount",
+    "processing": "Processing...",
+    "proceedToPayment": "Proceed to Payment"
+  },
+  "status": {
+    "pending": "Pending",
+    "paid": "Paid",
+    "active": "Active",
+    "cancelled": "Cancelled",
+    "expired": "Expired",
+    "refunded": "Refunded",
+    "failed": "Failed"
+  },
+  "messages": {
+    "paymentSuccess": "🎉 Payment successful! Your premium membership is updated.",
+    "membershipActivated": "🎉 Premium membership activated successfully!",
+    "planActive": "🎉 Payment confirmed! Your plan is now active.",
+    "activatedWithVoucher": "🎉 Premium membership activated with voucher!"
+  },
+  "errors": {
+    "enterVoucherCode": "Please enter a voucher code",
+    "invalidVoucher": "Invalid voucher code",
+    "validateVoucherFailed": "Failed to validate voucher",
+    "selectPlan": "Please select a plan.",
+    "paymentFailed": "Payment failed",
+    "continueFailed": "Failed to continue payment"
+  }
+}

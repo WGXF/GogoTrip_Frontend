@@ -66,5 +66,16 @@
     "share": "分享",
     "copy": "复制",
     "copied": "已复制！"
+  },
+  "toast": {
+    "success": "成功",
+    "error": "错误",
+    "warning": "警告",
+    "info": "提示"
+  },
+  "validation": {
+    "required": "此字段为必填项",
+    "invalidEmail": "无效的电子邮件地址",
+    "invalidFormat": "格式无效"
   }
 }

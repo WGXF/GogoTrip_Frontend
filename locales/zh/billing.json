@@ -1,0 +1,129 @@
+{
+  "plans": {
+    "title": "高级会员方案",
+    "subtitle": "解锁无限AI旅行规划和高级功能",
+    "monthly": "月付",
+    "yearly": "年付",
+    "lifetime": "终身",
+    "mostPopular": "最受欢迎"
+  },
+  "features": {
+    "monthly": {
+      "unlimitedPlanning": "无限AI旅行规划",
+      "routeOptimization": "高级路线优化",
+      "prioritySupport": "优先支持",
+      "budgetTracking": "预算追踪",
+      "calendarSync": "日历同步"
+    },
+    "yearly": {
+      "everythingMonthly": "包含月付所有功能",
+      "twoMonthsFree": "免费2个月",
+      "earlyAccess": "抢先体验新功能",
+      "exclusiveTips": "独家旅行贴士",
+      "noPriceIncrease": "价格不上涨"
+    },
+    "lifetime": {
+      "everythingYearly": "包含年付所有功能",
+      "lifetimeUpdates": "终身更新",
+      "vipSupport": "VIP支持",
+      "transferableLicense": "可转让许可证",
+      "communityAccess": "独家社区访问"
+    }
+  },
+  "subscription": {
+    "activeTitle": "活跃的高级订阅",
+    "lifetimeAccess": "终身访问",
+    "remainingDaysAdded": "✨ 剩余天数将添加到新计划！",
+    "higherTierPlan": "您使用的是更高级别的计划。"
+  },
+  "tabs": {
+    "plans": "方案",
+    "transactions": "交易记录",
+    "redeemCode": "兑换代码"
+  },
+  "actions": {
+    "subscribeNow": "立即订阅",
+    "upgradePlan": "升级方案",
+    "renewSubscription": "续订",
+    "currentPlan": "当前方案",
+    "currentPlanHigher": "当前方案更高",
+    "renewExtend": "续订 / 延长",
+    "continuePayment": "继续付款",
+    "refreshStatus": "刷新状态",
+    "cancel": "取消",
+    "viewReceipt": "查看收据"
+  },
+  "pending": {
+    "title": "付款进行中",
+    "expiresIn": "{{time}}后过期",
+    "sessionEnded": "支付会话已结束。请创建新的支付。"
+  },
+  "transactions": {
+    "title": "交易历史",
+    "noTransactions": "未找到交易记录",
+    "discount": "-RM{{amount}} 折扣",
+    "filters": {
+      "all": "全部",
+      "pending": "待处理",
+      "paid": "已付款",
+      "expired": "已过期",
+      "cancelled": "已取消"
+    }
+  },
+  "voucher": {
+    "title": "兑换代码",
+    "description": "在下面输入您的激活码或折扣券。",
+    "placeholder": "在此输入代码",
+    "checkCode": "验证代码",
+    "validating": "验证中...",
+    "applied": "优惠券已应用"
+  },
+  "activation": {
+    "title": "高级会员激活",
+    "code": "代码：{{code}}",
+    "youWillReceive": "您将获得：",
+    "daysPrefix": "{{days}}天高级会员",
+    "lifetime": "终身",
+    "activateNow": "立即激活",
+    "activating": "激活中...",
+    "useDifferentCode": "使用其他代码"
+  },
+  "discount": {
+    "percentOff": "{{percent}}% 折扣",
+    "amountOff": "RM{{amount}} 优惠",
+    "selectPlan": "选择方案",
+    "confirmPay": "确认并付款",
+    "refreshPrice": "刷新价格",
+    "calculatingDiscount": "计算折扣中..."
+  },
+  "pricing": {
+    "planPrice": "方案价格（{{planName}}）",
+    "subtotal": "小计",
+    "total": "总金额",
+    "processing": "处理中...",
+    "proceedToPayment": "前往付款"
+  },
+  "status": {
+    "pending": "待处理",
+    "paid": "已付款",
+    "active": "活跃",
+    "cancelled": "已取消",
+    "expired": "已过期",
+    "refunded": "已退款",
+    "failed": "失败"
+  },
+  "messages": {
+    "paymentSuccess": "🎉 付款成功！您的高级会员已更新。",
+    "membershipActivated": "🎉 高级会员激活成功！",
+    "planActive": "🎉 付款确认！您的方案现已激活。",
+    "activatedWithVoucher": "🎉 使用优惠券激活高级会员成功！"
+  },
+  "errors": {
+    "enterVoucherCode": "请输入优惠券代码",
+    "invalidVoucher": "无效的优惠券代码",
+    "validateVoucherFailed": "验证优惠券失败",
+    "selectPlan": "请选择一个方案。",
+    "paymentFailed": "付款失败",
+    "continueFailed": "继续付款失败"
+  }
+}

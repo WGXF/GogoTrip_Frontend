@@ -1,0 +1,129 @@
+{
+  "plans": {
+    "title": "Pelan Premium",
+    "subtitle": "Buka kunci perancangan perjalanan AI tanpa had dan ciri-ciri lanjutan",
+    "monthly": "Bulanan",
+    "yearly": "Tahunan",
+    "lifetime": "Seumur Hidup",
+    "mostPopular": "Paling Popular"
+  },
+  "features": {
+    "monthly": {
+      "unlimitedPlanning": "Perancangan perjalanan AI tanpa had",
+      "routeOptimization": "Pengoptimuman laluan lanjutan",
+      "prioritySupport": "Sokongan keutamaan",
+      "budgetTracking": "Penjejakan bajet",
+      "calendarSync": "Penyegerakan kalendar"
+    },
+    "yearly": {
+      "everythingMonthly": "Semua dalam Bulanan",
+      "twoMonthsFree": "2 bulan PERCUMA",
+      "earlyAccess": "Akses awal kepada ciri baharu",
+      "exclusiveTips": "Petua perjalanan eksklusif",
+      "noPriceIncrease": "Tiada kenaikan harga"
+    },
+    "lifetime": {
+      "everythingYearly": "Semua dalam Tahunan",
+      "lifetimeUpdates": "Kemas kini seumur hidup",
+      "vipSupport": "Sokongan VIP",
+      "transferableLicense": "Lesen boleh dipindahkan",
+      "communityAccess": "Akses komuniti eksklusif"
+    }
+  },
+  "subscription": {
+    "activeTitle": "Langganan Premium Aktif",
+    "lifetimeAccess": "Akses Seumur Hidup",
+    "remainingDaysAdded": "✨ Hari yang tinggal akan ditambah ke pelan baharu!",
+    "higherTierPlan": "Anda berada pada pelan peringkat lebih tinggi."
+  },
+  "tabs": {
+    "plans": "Pelan",
+    "transactions": "Transaksi",
+    "redeemCode": "Tebus Kod"
+  },
+  "actions": {
+    "subscribeNow": "Langgan Sekarang",
+    "upgradePlan": "Naik Taraf Pelan",
+    "renewSubscription": "Perbaharui Langganan",
+    "currentPlan": "Pelan Semasa",
+    "currentPlanHigher": "Pelan Semasa Lebih Tinggi",
+    "renewExtend": "Perbaharui / Lanjutkan",
+    "continuePayment": "Teruskan Pembayaran",
+    "refreshStatus": "Muat Semula Status",
+    "cancel": "Batal",
+    "viewReceipt": "Lihat Resit"
+  },
+  "pending": {
+    "title": "Pembayaran Dalam Proses",
+    "expiresIn": "Tamat dalam {{time}}",
+    "sessionEnded": "Sesi pembayaran telah tamat. Sila buat pembayaran baru."
+  },
+  "transactions": {
+    "title": "Sejarah Transaksi",
+    "noTransactions": "Tiada transaksi dijumpai",
+    "discount": "-RM{{amount}} diskaun",
+    "filters": {
+      "all": "Semua",
+      "pending": "Tertunda",
+      "paid": "Dibayar",
+      "expired": "Tamat Tempoh",
+      "cancelled": "Dibatalkan"
+    }
+  },
+  "voucher": {
+    "title": "Tebus Kod",
+    "description": "Masukkan kod pengaktifan atau baucar diskaun anda di bawah.",
+    "placeholder": "MASUKKAN KOD DI SINI",
+    "checkCode": "Semak Kod",
+    "validating": "Mengesahkan...",
+    "applied": "Baucar Digunakan"
+  },
+  "activation": {
+    "title": "Pengaktifan Premium",
+    "code": "Kod: {{code}}",
+    "youWillReceive": "Anda akan menerima:",
+    "daysPrefix": "{{days}} Hari Premium",
+    "lifetime": "Seumur Hidup",
+    "activateNow": "Aktifkan Sekarang",
+    "activating": "Mengaktifkan...",
+    "useDifferentCode": "Gunakan kod lain"
+  },
+  "discount": {
+    "percentOff": "{{percent}}% Diskaun",
+    "amountOff": "RM{{amount}} Potongan",
+    "selectPlan": "Pilih Pelan",
+    "confirmPay": "Sahkan & Bayar",
+    "refreshPrice": "Muat Semula Harga",
+    "calculatingDiscount": "Mengira diskaun..."
+  },
+  "pricing": {
+    "planPrice": "Harga Pelan ({{planName}})",
+    "subtotal": "Subjumlah",
+    "total": "Jumlah Keseluruhan",
+    "processing": "Memproses...",
+    "proceedToPayment": "Teruskan ke Pembayaran"
+  },
+  "status": {
+    "pending": "Tertunda",
+    "paid": "Dibayar",
+    "active": "Aktif",
+    "cancelled": "Dibatalkan",
+    "expired": "Tamat Tempoh",
+    "refunded": "Dikembalikan",
+    "failed": "Gagal"
+  },
+  "messages": {
+    "paymentSuccess": "🎉 Pembayaran berjaya! Keahlian premium anda telah dikemas kini.",
+    "membershipActivated": "🎉 Keahlian premium diaktifkan dengan jayanya!",
+    "planActive": "🎉 Pembayaran disahkan! Pelan anda kini aktif.",
+    "activatedWithVoucher": "🎉 Keahlian premium diaktifkan dengan baucar!"
+  },
+  "errors": {
+    "enterVoucherCode": "Sila masukkan kod baucar",
+    "invalidVoucher": "Kod baucar tidak sah",
+    "validateVoucherFailed": "Gagal mengesahkan baucar",
+    "selectPlan": "Sila pilih pelan.",
+    "paymentFailed": "Pembayaran gagal",
+    "continueFailed": "Gagal meneruskan pembayaran"
+  }
+}

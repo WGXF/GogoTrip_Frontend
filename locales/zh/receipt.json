@@ -1,0 +1,54 @@
+{
+  "header": {
+    "title": "GogoTrip",
+    "subtitle": "高级会员订阅"
+  },
+  "sections": {
+    "orderInfo": "订单信息",
+    "subscriptionDetails": "订阅详情"
+  },
+  "fields": {
+    "customerName": "客户姓名",
+    "email": "电子邮件",
+    "orderReference": "订单编号",
+    "orderDate": "订单日期",
+    "validFrom": "有效期自",
+    "validUntil": "有效期至",
+    "lifetime": "终身"
+  },
+  "pricing": {
+    "subtotal": "小计",
+    "tax": "税金（0%）",
+    "total": "总计"
+  },
+  "footer": {
+    "thankYou": "感谢您选择GogoTrip高级会员！",
+    "support": "如有疑问或需要支持，请通过support@gogotrip.com联系我们"
+  },
+  "status": {
+    "paymentSuccessful": "付款成功",
+    "paymentPending": "付款待处理",
+    "paymentFailed": "付款失败",
+    "paymentCancelled": "付款已取消"
+  },
+  "actions": {
+    "backToBilling": "返回账单",
+    "refreshStatus": "刷新状态",
+    "print": "打印",
+    "downloadPdf": "下载PDF",
+    "verifying": "验证中..."
+  },
+  "messages": {
+    "downloadSuccess": "收据下载成功！",
+    "downloadFailed": "下载PDF失败"
+  },
+  "errors": {
+    "orderNotFound": "未找到订单ID",
+    "loadFailed": "加载订单失败",
+    "networkError": "发生网络错误",
+    "error": "错误"
+  },
+  "pdf": {
+    "filename": "GogoTrip_收据_{{orderRef}}.pdf"
+  }
+}
