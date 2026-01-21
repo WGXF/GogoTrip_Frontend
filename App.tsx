@@ -239,7 +239,7 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin, onUpdateUser
                 <Route path="/blogs" element={<BlogView user={normalizedUser} />} />
                 <Route path="/calendar" element={<CalendarView user={normalizedUser} />} />
                 <Route path="/scheduler" element={<SchedulerView user={normalizedUser} />} />
-                <Route path="/translate" element={<TranslateView user={normalizedUser} />} />
+                <Route path="/translates" element={<TranslateView user={normalizedUser} />} />
                 <Route path="/expenses" element={<ExpensesView user={normalizedUser} />} />
                 <Route path="/support" element={<TicketListPage user={normalizedUser} />} />
                 <Route path="/support/:id" element={<TicketChatPage user={normalizedUser} />} />
