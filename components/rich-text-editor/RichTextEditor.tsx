@@ -13,7 +13,7 @@ import { Placeholder } from '@tiptap/extension-placeholder';
 import { EditorToolbar } from './EditorToolbar';
 import './tiptap.css';
 
-// ✨ TipTap 编辑器组件接口
+// ✨ TipTap editor component interface
 interface RichTextEditorProps {
   content: string;
   onChange: (html: string) => void;
@@ -56,7 +56,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({ content, onChang
     },
   });
 
-  // 当 content prop 改变时更新编辑器（用于编辑已存在的文章）
+  // Update editor when content prop changes (for editing existing articles)
   useEffect(() => {
     if (editor && content !== editor.getHTML()) {
       editor.commands.setContent(content);

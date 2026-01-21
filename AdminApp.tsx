@@ -12,7 +12,7 @@ import { AdminInfoWebsite } from './components/admin/AdminInfoWebsite';
 import { AdminSubscriptionView } from './components/admin/Adminsubscriptionview';
 import { AdvertisementManagement } from './components/admin/Advertisementmanagement';
 import { LoginHeroManagement } from './components/admin/LoginHeroManagement';
-import NotificationManager from './components/admin/NotificationManager'; // 🔥 新增：通知管理
+import NotificationManager from './components/admin/NotificationManager';
 import TicketManager from './components/admin/TicketManager';
 import AdminMessaging from './components/admin/AdminMessaging';
 import AdminChatbox from './components/admin/AdminChatbox';
@@ -38,7 +38,7 @@ const AdminApp: React.FC<AdminAppProps> = ({ user, onSwitchToUser, onLogout }) =
     console.log('Admin updated profile:', updatedData);
   };
 
-  // 渲染内容区域逻辑
+  // Render content area logic
   const renderContent = () => {
     switch (activeNav) {
       case 'Home':
@@ -62,7 +62,7 @@ const AdminApp: React.FC<AdminAppProps> = ({ user, onSwitchToUser, onLogout }) =
       case 'Login Hero':
         return <LoginHeroManagement />;
       
-      // 🔥 新增：通知管理
+      // 🔥 New: Notification management
       case 'Notifications':
         return <NotificationManager />;
 

@@ -27,7 +27,7 @@ const BlogView: React.FC<BlogViewProps> = ({ user }) => {
 
   useEffect(() => {
     fetchBlogs();
-  }, [activeCategory]);
+  }, [activeCategory, searchQuery]);
 
   const fetchBlogs = async () => {
     setIsLoading(true);
@@ -135,11 +135,12 @@ const BlogView: React.FC<BlogViewProps> = ({ user }) => {
 
          <div className="relative w-full lg:w-96 group">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors" />
-            <input 
-              type="text" 
-              placeholder="Search stories, authors, tags..." 
+            <input
+              type="text"
+              placeholder="Search stories, authors, tags..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && fetchBlogs()}
               className="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-2xl pl-12 pr-4 py-3 font-medium focus:ring-2 focus:ring-indigo-500 transition-all text-slate-900 dark:text-white"
             />
          </div>

@@ -76,7 +76,7 @@ import { API_BASE_URL } from '../../config';
 
 async function fetchCurrentUser(): Promise<CurrentUser | null> {
   try {
-    // 🔧 使用你现有的 /check_login_status API
+    // 🔧 Use your existing /check_login_status API
     const response = await fetch(`${API_BASE_URL}/check_login_status`, {
       credentials: 'include',
     });

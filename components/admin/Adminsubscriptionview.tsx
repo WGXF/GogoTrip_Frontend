@@ -75,20 +75,20 @@ export const AdminSubscriptionView: React.FC = () => {
   const [currentAdminRole, setCurrentAdminRole] = useState<RoleType>(UserRole.ADMIN);
   const [canManageAdmins, setCanManageAdmins] = useState(false);
 
-  // 消息提示状态 (Toast)
+  // Message notification state (Toast)
   const [message, setMessage] = useState<{ type: 'success' | 'error' | 'info', text: string } | null>(null);
 
-  // 删除确认状态 (Modal)
+  // Delete confirmation state (Modal)
   const [cancelTargetId, setCancelTargetId] = useState<number | null>(null);
 
-  // 添加订阅表单状态
+  // Add subscription form state
   const [subscriptionType, setSubscriptionType] = useState<'preset' | 'custom'>('preset');
   const [planType, setPlanType] = useState<'monthly' | 'yearly' | 'lifetime'>('monthly');
   const [customDays, setCustomDays] = useState('30');
   const [amount, setAmount] = useState('0.00');
   const [notes, setNotes] = useState('');
 
-  // 加载统计数据
+  // Load statistics data
   useEffect(() => {
     fetchStatistics();
     fetchUsers();

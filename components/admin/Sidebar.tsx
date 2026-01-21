@@ -1,11 +1,12 @@
 import React from 'react';
-import { 
-  LayoutDashboard, Users, MapPin, Plane, Calendar, 
+import {
+  LayoutDashboard, Users, MapPin, Plane, Calendar,
   CreditCard, Settings, LogOut, FileText, Image,
   Bell, Megaphone, ChevronRight, ArrowLeftRight,
   MessageCircle, Mail, Ticket, Inbox, BookOpen, Flag
 } from 'lucide-react';
 import { NavItem } from '../../types';
+import LogoSvg from '@/icon/logo/logo.svg';
 
 interface SidebarProps {
   activeItem: NavItem;
@@ -28,12 +29,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onLogout 
 }) => {
   
-  // 主菜单项
+  // Main menu items
   const mainMenuItems: MenuItem[] = [
     { id: 'Home', label: 'Dashboard', icon: <LayoutDashboard size={20} /> },
     { id: 'Info Blog', label: 'Info Blog', icon: <FileText size={20} /> },
-    { id: 'Blog Moderation', label: 'Blog Moderation', icon: <BookOpen size={20} /> }, // 📝 Blog审核
-    { id: 'Blog Reports', label: 'Blog Reports', icon: <Flag size={20} /> }, // 📝 Blog举报
+    { id: 'Blog Moderation', label: 'Blog Moderation', icon: <BookOpen size={20} /> }, // Blog moderation
+    { id: 'Blog Reports', label: 'Blog Reports', icon: <Flag size={20} /> }, // Blog reports
     { id: 'Notifications', label: 'Notifications', icon: <Bell size={20} /> },
     { id: 'Advertisement', label: 'Advertisements', icon: <Image size={20} /> },
     { id: 'Login Hero', label: 'Login Background', icon: <Image size={20} /> },
@@ -46,7 +47,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'Inquiries', label: 'Inquiries', icon: <Inbox size={20} /> },
   ];
   
-  // 数据管理菜单项
+  // Data management menu items
   const dataMenuItems: MenuItem[] = [
     { id: 'User', label: 'Users', icon: <Users size={20} /> },
     { id: 'Place', label: 'Places', icon: <MapPin size={20} /> },
@@ -54,7 +55,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     { id: 'Trip Item', label: 'Trip Items', icon: <Calendar size={20} /> },
   ];
   
-  // 设置菜单项
+  // Settings menu items
   const settingsMenuItems: MenuItem[] = [
     { id: 'Settings', label: 'Settings', icon: <Settings size={20} /> },
   ];
@@ -95,9 +96,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Logo */}
       <div className="p-6 border-b border-slate-100">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-            <Plane className="w-5 h-5 text-white" />
-          </div>
+          <img src={LogoSvg} alt="GogoTrip Logo" className="w-10 h-10 rounded-xl" />
           <div>
             <h1 className="text-lg font-bold text-slate-900">GogoTrip</h1>
             <p className="text-xs text-slate-400">Admin Panel</p>

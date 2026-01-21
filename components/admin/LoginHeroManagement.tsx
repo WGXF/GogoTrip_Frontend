@@ -69,7 +69,7 @@ export const LoginHeroManagement: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   
-  // 🔥 新增：预览和自定义下拉菜单状态
+  // 🔥 New: Preview and custom dropdown menu state
   const [hoverPreview, setHoverPreview] = useState<PreviewState | null>(null);
   const [openDropdownIdx, setOpenDropdownIdx] = useState<number | null>(null);
   
@@ -79,7 +79,7 @@ export const LoginHeroManagement: React.FC = () => {
     loadData();
   }, []);
 
-  // 点击外部关闭下拉菜单
+  // Close dropdown menu when clicking outside
   useEffect(() => {
     const handleClickOutside = () => setOpenDropdownIdx(null);
     if (openDropdownIdx !== null) {

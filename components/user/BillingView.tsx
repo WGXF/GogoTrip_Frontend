@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   Crown,
   Check,
@@ -21,9 +22,9 @@ import {
   History,
   Wallet,
   ArrowRight,
-  TrendingUp, 
+  TrendingUp,
   RefreshCw,
-  Lock       
+  Lock
 } from 'lucide-react';
 import { API_BASE_URL } from '../../config';
 import { User } from '../../types';
@@ -100,6 +101,7 @@ type TabType = 'plans' | 'transactions' | 'voucher';
 const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { t } = useTranslation(['billing', 'common']);
 
   // Active Tab
   const [activeTab, setActiveTab] = useState<TabType>('plans');
@@ -128,28 +130,28 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
   // Success/Activation Messages
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
-  // Hardcoded plan features
+  // Plan features with translations
   const planFeatures: Record<string, string[]> = {
     monthly: [
-      'Unlimited AI trip planning',
-      'Advanced route optimization',
-      'Priority support',
-      'Budget tracking',
-      'Calendar sync'
+      t('billing:features.monthly.unlimitedPlanning'),
+      t('billing:features.monthly.routeOptimization'),
+      t('billing:features.monthly.prioritySupport'),
+      t('billing:features.monthly.budgetTracking'),
+      t('billing:features.monthly.calendarSync')
     ],
     yearly: [
-      'Everything in Monthly',
-      '2 months FREE',
-      'Early access to new features',
-      'Exclusive travel tips',
-      'No price increases'
+      t('billing:features.yearly.everythingMonthly'),
+      t('billing:features.yearly.twoMonthsFree'),
+      t('billing:features.yearly.earlyAccess'),
+      t('billing:features.yearly.exclusiveTips'),
+      t('billing:features.yearly.noPriceIncrease')
     ],
     lifetime: [
-      'Everything in Yearly',
-      'Lifetime updates',
-      'VIP support',
-      'Transferable license',
-      'Exclusive community access'
+      t('billing:features.lifetime.everythingYearly'),
+      t('billing:features.lifetime.lifetimeUpdates'),
+      t('billing:features.lifetime.vipSupport'),
+      t('billing:features.lifetime.transferableLicense'),
+      t('billing:features.lifetime.communityAccess')
     ]
   };
 
@@ -160,11 +162,11 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
     const success = searchParams.get('success');
     const activated = searchParams.get('activated');
     if (success === 'true') {
-      setSuccessMessage('🎉 Payment successful! Your premium membership is updated.');
+      setSuccessMessage(t('billing:messages.paymentSuccess'));
       setTimeout(() => setSuccessMessage(null), 5000);
     }
     if (activated === 'true') {
-      setSuccessMessage('🎉 Premium membership activated successfully!');
+      setSuccessMessage(t('billing:messages.membershipActivated'));
       setTimeout(() => setSuccessMessage(null), 5000);
     }
   }, []);
@@ -238,7 +240,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
       if (data.success && data.order?.status === 'active') {
         await fetchSubscriptionStatus();
         onUpdateUser({ isPremium: true });
-        setSuccessMessage('🎉 Payment confirmed! Your plan is now active.');
+        setSuccessMessage(t('billing:messages.planActive'));
         setTimeout(() => setSuccessMessage(null), 5000);
       }
     } catch (e) {
@@ -253,7 +255,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
   // ============================================================================
   const handleValidateVoucher = async (planIdOverride?: number) => {
     if (!voucherCode.trim()) {
-      setVoucherError('Please enter a voucher code');
+      setVoucherError(t('billing:errors.enterVoucherCode'));
       return;
     }
 
@@ -283,11 +285,11 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
           setSelectedPlan(null);
         }
       } else {
-        setVoucherError(data.error || 'Invalid voucher code');
+        setVoucherError(data.error || t('billing:errors.invalidVoucher'));
         setVoucherPreview(null);
       }
     } catch (err) {
-      setVoucherError('Failed to validate voucher');
+      setVoucherError(t('billing:errors.validateVoucherFailed'));
     } finally {
       setIsValidatingVoucher(false);
     }
@@ -320,7 +322,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
       }
       
       if (!plan && appliedVoucher?.type !== 'activation') {
-        throw new Error("Please select a plan.");
+        throw new Error(t('billing:errors.selectPlan'));
       }
 
       const res = await fetch(`${API_BASE_URL}/api/payment/create-subscription`, {
@@ -335,7 +337,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
       if (data.activated) {
         await fetchSubscriptionStatus();
         onUpdateUser({ isPremium: true });
-        setSuccessMessage('🎉 Premium membership activated!');
+        setSuccessMessage(t('billing:messages.membershipActivated'));
         handleRemoveVoucher();
         return;
       }
@@ -345,13 +347,13 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
       } else if (data.redirectTo) {
         await fetchSubscriptionStatus();
         onUpdateUser({ isPremium: true });
-        setSuccessMessage('🎉 Premium membership activated with voucher!');
+        setSuccessMessage(t('billing:messages.activatedWithVoucher'));
         handleRemoveVoucher();
       } else {
-        throw new Error(data.error || 'Payment creation failed');
+        throw new Error(data.error || t('billing:errors.paymentFailed'));
       }
     } catch (e: any) {
-      setError(e.message || 'Payment failed');
+      setError(e.message || t('billing:errors.paymentFailed'));
     } finally {
       setIsLoading(false);
     }
@@ -368,9 +370,14 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
         window.location.href = data.paymentUrl;
       } else if (data.error) {
         setError(data.error);
+        // ✅ FIX: If payment session ended, refresh status to remove pending order
+        if (data.reason === 'payment_url_reuse_blocked') {
+          await fetchSubscriptionStatus();
+          await fetchTransactions();
+        }
       }
     } catch (err) {
-      setError('Failed to continue payment');
+      setError(t('billing:errors.continueFailed'));
     }
   };
 
@@ -395,13 +402,13 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
 
   const getStatusBadge = (status: string) => {
     const configs: Record<string, { icon: any; color: string; label: string }> = {
-      pending: { icon: Clock, color: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20', label: 'Pending' },
-      paid: { icon: CheckCircle, color: 'text-green-600 bg-green-50 dark:bg-green-900/20', label: 'Paid' },
-      active: { icon: CheckCircle, color: 'text-green-600 bg-green-50 dark:bg-green-900/20', label: 'Active' },
-      cancelled: { icon: XCircle, color: 'text-red-600 bg-red-50 dark:bg-red-900/20', label: 'Cancelled' },
-      expired: { icon: AlertTriangle, color: 'text-gray-600 bg-gray-50 dark:bg-gray-800', label: 'Expired' },
-      refunded: { icon: XCircle, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20', label: 'Refunded' },
-      failed: { icon: XCircle, color: 'text-red-600 bg-red-50 dark:bg-red-900/20', label: 'Failed' }
+      pending: { icon: Clock, color: 'text-amber-600 bg-amber-50 dark:bg-amber-900/20', label: t('billing:status.pending') },
+      paid: { icon: CheckCircle, color: 'text-green-600 bg-green-50 dark:bg-green-900/20', label: t('billing:status.paid') },
+      active: { icon: CheckCircle, color: 'text-green-600 bg-green-50 dark:bg-green-900/20', label: t('billing:status.active') },
+      cancelled: { icon: XCircle, color: 'text-red-600 bg-red-50 dark:bg-red-900/20', label: t('billing:status.cancelled') },
+      expired: { icon: AlertTriangle, color: 'text-gray-600 bg-gray-50 dark:bg-gray-800', label: t('billing:status.expired') },
+      refunded: { icon: XCircle, color: 'text-blue-600 bg-blue-50 dark:bg-blue-900/20', label: t('billing:status.refunded') },
+      failed: { icon: XCircle, color: 'text-red-600 bg-red-50 dark:bg-red-900/20', label: t('billing:status.failed') }
     };
     const config = configs[status] || configs.pending;
     const Icon = config.icon;
@@ -444,31 +451,40 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-bold text-amber-900 dark:text-amber-100 mb-2">
-                Payment in Progress
+                {t('billing:pending.title')}
               </h3>
               <p className="text-sm text-amber-700 dark:text-amber-400 mb-4">
                 Order <span className="font-mono font-bold">{subscriptionInfo.pendingOrder.orderReference}</span> is pending payment.
                 {subscriptionInfo.pendingOrder.remainingTime > 0 && (
                   <span className="ml-2">
-                    Expires in {Math.floor(subscriptionInfo.pendingOrder.remainingTime / 60)}:{String(subscriptionInfo.pendingOrder.remainingTime % 60).padStart(2, '0')}
+                    {t('billing:pending.expiresIn', {
+                      time: `${Math.floor(subscriptionInfo.pendingOrder.remainingTime / 60)}:${String(subscriptionInfo.pendingOrder.remainingTime % 60).padStart(2, '0')}`
+                    })}
                   </span>
                 )}
               </p>
               <div className="flex flex-wrap gap-3">
-                <button
-                  onClick={() => handleContinuePayment(subscriptionInfo.pendingOrder.orderReference)}
-                  className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors flex items-center gap-2"
-                >
-                  <CreditCard className="w-4 h-4" />
-                  Continue Payment
-                </button>
+                {/* ✅ FIX: Only show Continue Payment if payment_url doesn't exist yet */}
+                {subscriptionInfo.pendingOrder.paymentUrl ? (
+                  <div className="text-sm text-amber-700 dark:text-amber-300 bg-amber-100 dark:bg-amber-900/30 px-4 py-2 rounded-lg">
+                    {t('billing:pending.sessionEnded')}
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => handleContinuePayment(subscriptionInfo.pendingOrder.orderReference)}
+                    className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors flex items-center gap-2"
+                  >
+                    <CreditCard className="w-4 h-4" />
+                    {t('billing:actions.continuePayment')}
+                  </button>
+                )}
                 <button
                   onClick={() => checkPendingOrderStatus()}
                   disabled={isCheckingStatus}
                   className="px-4 py-2 bg-white dark:bg-slate-800 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-400 rounded-lg hover:bg-amber-50 dark:hover:bg-amber-900/10 transition-colors flex items-center gap-2"
                 >
                   {isCheckingStatus ? <Loader2 className="w-4 h-4 animate-spin" /> : <CheckCircle className="w-4 h-4" />}
-                  Refresh Status
+                  {t('billing:actions.refreshStatus')}
                 </button>
               </div>
             </div>
@@ -481,16 +497,16 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-full mb-4">
           <Crown className="w-5 h-5 text-amber-600" />
           <span className="text-sm font-bold text-amber-700 dark:text-amber-400">
-            Premium Plans
+            {t('billing:plans.title')}
           </span>
         </div>
-        
+
         <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
           Upgrade to <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-600">Premium</span>
         </h1>
-        
+
         <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-          Unlock unlimited AI-powered trip planning and advanced features
+          {t('billing:plans.subtitle')}
         </p>
       </div>
 
@@ -500,10 +516,10 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
           <div className="flex items-center gap-3 mb-2">
             <Sparkles className="w-6 h-6 text-amber-600" />
             <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-              Active Premium Subscription
+              {t('billing:subscription.activeTitle')}
             </h3>
           </div>
-          
+
           {subscriptionInfo.subscriptionEndDate ? (
             <p className="text-slate-600 dark:text-slate-400">
               <Calendar className="w-4 h-4 inline mr-2" />
@@ -516,7 +532,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
           ) : (
             <p className="text-slate-600 dark:text-slate-400 flex items-center gap-2">
               <Crown className="w-4 h-4 text-amber-600" />
-              <span className="font-bold text-amber-700">Lifetime Access</span>
+              <span className="font-bold text-amber-700">{t('billing:subscription.lifetimeAccess')}</span>
             </p>
           )}
         </div>
@@ -534,7 +550,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
             }`}
           >
             <Wallet size={18} />
-            <span className="hidden sm:inline">Plans</span>
+            <span className="hidden sm:inline">{t('billing:tabs.plans')}</span>
           </button>
           <button
             onClick={() => setActiveTab('transactions')}
@@ -545,7 +561,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
             }`}
           >
             <History size={18} />
-            <span className="hidden sm:inline">Transactions</span>
+            <span className="hidden sm:inline">{t('billing:tabs.transactions')}</span>
           </button>
           <button
             onClick={() => setActiveTab('voucher')}
@@ -556,7 +572,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
             }`}
           >
             <Gift size={18} />
-            <span className="hidden sm:inline">Redeem Code</span>
+            <span className="hidden sm:inline">{t('billing:tabs.redeemCode')}</span>
           </button>
         </div>
 
@@ -586,35 +602,35 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                     const isSelected = selectedPlan?.id === plan.id;
                     const showDiscount = isSelected && voucherPreview;
                     
-                    // 🟢 智能判断按钮状态和文案
+                    // 🟢 Intelligently determine button state and text
                     const actionType = plan.actionType || 'purchase';
                     const canPurchase = plan.canPurchase !== false; // 默认为 true
-                    
+
                     let ButtonIcon = CreditCard;
-                    let buttonText = "Subscribe Now";
+                    let buttonText = t('billing:actions.subscribeNow');
                     let isUpgrade = false;
 
                     if (actionType === 'upgrade') {
-                        buttonText = "Upgrade Plan";
+                        buttonText = t('billing:actions.upgradePlan');
                         ButtonIcon = TrendingUp;
                         isUpgrade = true;
                     } else if (actionType === 'renew') {
-                        buttonText = "Renew Subscription";
+                        buttonText = t('billing:actions.renewSubscription');
                         ButtonIcon = RefreshCw;
                     } else if (actionType === 'blocked') {
-                        buttonText = "Current Plan is Higher";
+                        buttonText = t('billing:actions.currentPlanHigher');
                         ButtonIcon = Lock;
                     } else if (subscriptionInfo?.isPremium && plan.slug === 'lifetime' && !subscriptionInfo.subscriptionEndDate) {
-                         // 已拥有 Lifetime 的特殊处理
-                         buttonText = "Current Plan";
+                         // Already has Lifetime
+                         buttonText = t('billing:actions.currentPlan');
                          ButtonIcon = Check;
                     }
-                    
-                    // 如果已购买且是当前Plan (后端返回renew也算能买，但这里视觉上区分一下正在用的)
+
+                    // If already purchased and is current plan
                     const isCurrentActive = subscriptionInfo?.currentSubscription?.planId === plan.id;
                     if (isCurrentActive && actionType === 'renew') {
-                        // 允许 Renew，但文字提示
-                        buttonText = "Renew / Extend";
+                        // Allow Renew
+                        buttonText = t('billing:actions.renewExtend');
                     }
 
                     const isDisabled = isLoading || !canPurchase;
@@ -643,7 +659,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                         {/* Popular Badge */}
                         {(plan.isFeatured || plan.slug === 'yearly') && (
                           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 bg-gradient-to-r from-amber-500 to-orange-600 text-white text-xs font-bold rounded-full shadow-lg">
-                            Most Popular
+                            {t('billing:plans.mostPopular')}
                           </div>
                         )}
 
@@ -714,7 +730,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                             {isLoading && selectedPlan?.id === plan.id ? (
                                 <>
                                 <Loader2 className="w-5 h-5 animate-spin" />
-                                Processing...
+                                {t('billing:pricing.processing')}
                                 </>
                             ) : (
                                 <>
@@ -723,17 +739,17 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                                 </>
                             )}
                             </button>
-                            
-                            {/* 🆕 升级提示文案 */}
+
+                            {/* Upgrade hint */}
                             {isUpgrade && !isDisabled && (
                                 <p className="text-xs text-amber-600 dark:text-amber-400 text-center font-medium animate-pulse">
-                                    ✨ Remaining days will be added to new plan!
+                                    {t('billing:subscription.remainingDaysAdded')}
                                 </p>
                             )}
-                            
+
                             {actionType === 'blocked' && (
                                 <p className="text-xs text-slate-400 text-center">
-                                    You are on a higher tier plan.
+                                    {t('billing:subscription.higherTierPlan')}
                                 </p>
                             )}
                         </div>
@@ -749,17 +765,17 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
           {activeTab === 'transactions' && (
             <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">Transaction History</h3>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('billing:transactions.title')}</h3>
                 <select
                   value={transactionFilter}
                   onChange={(e) => setTransactionFilter(e.target.value)}
                   className="px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm"
                 >
-                  <option value="all">All</option>
-                  <option value="pending">Pending</option>
-                  <option value="paid">Paid</option>
-                  <option value="expired">Expired</option>
-                  <option value="cancelled">Cancelled</option>
+                  <option value="all">{t('billing:transactions.filters.all')}</option>
+                  <option value="pending">{t('billing:transactions.filters.pending')}</option>
+                  <option value="paid">{t('billing:transactions.filters.paid')}</option>
+                  <option value="expired">{t('billing:transactions.filters.expired')}</option>
+                  <option value="cancelled">{t('billing:transactions.filters.cancelled')}</option>
                 </select>
               </div>
 
@@ -770,7 +786,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
               ) : transactions.length === 0 ? (
                 <div className="text-center py-12">
                   <Receipt className="w-12 h-12 mx-auto mb-3 text-slate-300 dark:text-slate-600" />
-                  <p className="text-slate-500 dark:text-slate-400">No transactions found</p>
+                  <p className="text-slate-500 dark:text-slate-400">{t('billing:transactions.noTransactions')}</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -789,7 +805,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                           </p>
                           {tx.discountAmount > 0 && (
                             <p className="text-xs text-green-600">
-                              -RM {tx.discountAmount.toFixed(2)} discount
+                              {t('billing:transactions.discount', { amount: tx.discountAmount.toFixed(2) })}
                             </p>
                           )}
                         </div>
@@ -803,13 +819,13 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                             className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white font-medium rounded-lg flex items-center justify-center gap-2"
                           >
                             <ExternalLink size={18} />
-                            Continue Payment
+                            {t('billing:actions.continuePayment')}
                           </button>
                           <button
                             onClick={() => handleCancelOrder(tx.orderReference)}
                             className="px-4 py-2.5 border border-red-200 text-red-600 hover:bg-red-50 rounded-lg"
                           >
-                            Cancel
+                            {t('billing:actions.cancel')}
                           </button>
                         </div>
                       )}
@@ -820,7 +836,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                           className="mt-4 w-full py-2.5 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg flex items-center justify-center gap-2 hover:bg-slate-100 dark:hover:bg-slate-700"
                         >
                           <FileText size={18} />
-                          View Receipt
+                          {t('billing:actions.viewReceipt')}
                         </button>
                       )}
 
@@ -839,14 +855,13 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
           {/* ============== VOUCHER / REDEEM TAB ============== */}
           {activeTab === 'voucher' && (
             <div className="max-w-md mx-auto space-y-6">
-              {/* ... (保持 Voucher Tab 内容不变) ... */}
               <div className="text-center">
                 <Gift className="w-12 h-12 mx-auto mb-3 text-amber-500" />
                 <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2">
-                  Redeem Code
+                  {t('billing:voucher.title')}
                 </h3>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Enter your activation code or discount voucher below.
+                  {t('billing:voucher.description')}
                 </p>
               </div>
 
@@ -859,7 +874,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                       type="text"
                       value={voucherCode}
                       onChange={(e) => setVoucherCode(e.target.value.toUpperCase())}
-                      placeholder="ENTER CODE HERE"
+                      placeholder={t('billing:voucher.placeholder')}
                       className="w-full pl-12 pr-4 py-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl font-mono uppercase text-lg tracking-wider focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all shadow-sm"
                       onKeyDown={(e) => e.key === 'Enter' && handleValidateVoucher()}
                     />
@@ -872,11 +887,11 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                     {isValidatingVoucher ? (
                       <>
                         <Loader2 className="w-5 h-5 animate-spin" />
-                        Validating...
+                        {t('billing:voucher.validating')}
                       </>
                     ) : (
                       <>
-                        Check Code <ArrowRight size={18} />
+                        {t('billing:voucher.checkCode')} <ArrowRight size={18} />
                       </>
                     )}
                   </button>
@@ -897,35 +912,38 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                       <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                         <Sparkles className="w-8 h-8 text-purple-600 dark:text-purple-400" />
                       </div>
-                      
+
+
                       <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
-                        Premium Activation
+                        {t('billing:activation.title')}
                       </h3>
                       <p className="text-slate-500 dark:text-slate-400 mb-6">
-                        Code: <span className="font-mono font-bold text-purple-600">{appliedVoucher.code}</span>
+                        {t('billing:activation.code', { code: appliedVoucher.code })}
                       </p>
 
                       <div className="bg-purple-50 dark:bg-purple-900/20 rounded-xl p-4 mb-6 border border-purple-100 dark:border-purple-800/50">
-                        <p className="text-sm text-purple-800 dark:text-purple-300 mb-1">You will receive:</p>
+                        <p className="text-sm text-purple-800 dark:text-purple-300 mb-1">{t('billing:activation.youWillReceive')}</p>
                         <p className="text-2xl font-bold text-purple-700 dark:text-purple-400">
-                          {appliedVoucher.activationDays ? `${appliedVoucher.activationDays} Days` : 'Lifetime'} Premium
+                          {appliedVoucher.activationDays
+                            ? t('billing:activation.daysPrefix', { days: appliedVoucher.activationDays })
+                            : t('billing:activation.lifetime')} Premium
                         </p>
                       </div>
 
                       <div className="space-y-3">
                         <button
-                          onClick={() => handleSubscribe()} 
+                          onClick={() => handleSubscribe()}
                           disabled={isLoading}
                           className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-purple-600/30 transition-all hover:scale-[1.02]"
                         >
                           {isLoading ? (
                             <>
                               <Loader2 className="w-5 h-5 animate-spin" />
-                              Activating...
+                              {t('billing:activation.activating')}
                             </>
                           ) : (
                             <>
-                              Activate Now <Sparkles className="w-5 h-5" />
+                              {t('billing:activation.activateNow')} <Sparkles className="w-5 h-5" />
                             </>
                           )}
                         </button>
@@ -933,7 +951,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                           onClick={handleRemoveVoucher}
                           className="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 underline"
                         >
-                          Use a different code
+                          {t('billing:activation.useDifferentCode')}
                         </button>
                       </div>
                     </div>
@@ -953,9 +971,9 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                           {appliedVoucher.code}
                         </span>
                         <p className="text-sm text-green-600">
-                          {appliedVoucher.discountType === 'percentage' 
-                            ? `${appliedVoucher.discountValue}% Discount` 
-                            : `RM${appliedVoucher.discountValue} Off`}
+                          {appliedVoucher.discountType === 'percentage'
+                            ? t('billing:discount.percentOff', { percent: appliedVoucher.discountValue })
+                            : t('billing:discount.amountOff', { amount: appliedVoucher.discountValue })}
                         </p>
                       </div>
                     </div>
@@ -968,7 +986,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                   <div>
                     <h4 className="font-medium text-slate-900 dark:text-white mb-3 flex items-center gap-2">
                       <span className="w-6 h-6 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                      Select a Plan
+                      {t('billing:discount.selectPlan')}
                     </h4>
                     <div className="grid grid-cols-1 gap-3">
                       {plans.map((plan) => (
@@ -1005,14 +1023,14 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                       <div className="flex justify-between items-center mb-2">
                         <h4 className="font-medium text-slate-900 dark:text-white flex items-center gap-2">
                           <span className="w-6 h-6 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                          Confirm & Pay
+                          {t('billing:discount.confirmPay')}
                         </h4>
-                        
-                        <button 
-                          onClick={() => handleValidateVoucher()} 
+
+                        <button
+                          onClick={() => handleValidateVoucher()}
                           className="text-xs text-amber-600 underline"
                         >
-                          Refresh Price
+                          {t('billing:discount.refreshPrice')}
                         </button>
                       </div>
 
@@ -1020,15 +1038,15 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                         {voucherPreview ? (
                           <div className="space-y-3 text-sm">
                              <div className="flex justify-between">
-                              <span className="text-slate-500">Plan Price ({selectedPlan.name})</span>
+                              <span className="text-slate-500">{t('billing:pricing.planPrice', { planName: selectedPlan.name })}</span>
                               <span className="text-slate-900 dark:text-white">RM {selectedPlan.price.toFixed(2)}</span>
                             </div>
                             <div className="flex justify-between text-green-600 font-medium">
-                              <span>Voucher Applied</span>
+                              <span>{t('billing:voucher.applied')}</span>
                               <span>-RM {voucherPreview.discount.toFixed(2)}</span>
                             </div>
                             <div className="border-t border-slate-200 dark:border-slate-700 pt-3 flex justify-between items-end">
-                              <span className="text-slate-900 dark:text-white font-bold">Total Amount</span>
+                              <span className="text-slate-900 dark:text-white font-bold">{t('billing:pricing.total')}</span>
                               <span className="text-2xl font-bold text-amber-600">
                                 RM {voucherPreview.finalPrice.toFixed(2)}
                               </span>
@@ -1037,7 +1055,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                         ) : (
                           <div className="text-center py-4 text-slate-500 text-sm">
                             <Loader2 className="w-4 h-4 animate-spin mx-auto mb-2" />
-                            Calculating discount...
+                            {t('billing:discount.calculatingDiscount')}
                           </div>
                         )}
 
@@ -1049,11 +1067,11 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
                           {isLoading ? (
                             <>
                               <Loader2 className="w-5 h-5 animate-spin" />
-                              Processing...
+                              {t('billing:pricing.processing')}
                             </>
                           ) : (
                             <>
-                              Proceed to Payment <ArrowRight size={18} />
+                              {t('billing:pricing.proceedToPayment')} <ArrowRight size={18} />
                             </>
                           )}
                         </button>
@@ -1067,7 +1085,7 @@ const BillingView: React.FC<BillingViewProps> = ({ user, onUpdateUser }) => {
         </div>
       </div>
 
-      {/* FAQ Section (保持不变) */}
+      {/* FAQ Section (Keep unchanged) */}
     </div>
   );
 };

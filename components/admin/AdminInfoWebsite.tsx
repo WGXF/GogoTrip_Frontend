@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { NavItem } from '../../types';
 import { RichTextEditor } from '@/components/rich-text-editor/RichTextEditor';
+import { API_BASE_URL } from '../../config';
 
 interface AdminInfoWebsiteProps {
   onNavigate: (item: NavItem) => void;
@@ -28,24 +29,24 @@ interface Notification {
 }
 
 export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }) => {
-  // --- 1. 核心状态管理 ---
+  // --- 1. Core state management ---
   const [articles, setArticles] = useState<Article[]>([]);
   const [isLoading, setIsLoading] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState('');
 
-  // 编辑/新建 Modal 状态
+  // Edit/Create Modal state
   const [showModal, setShowModal] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   
-  // UI 相关的状态
+  // UI-related state
   const [searchTerm, setSearchTerm] = useState('');
   const [existingImagePreview, setExistingImagePreview] = useState<string | null>(null);
 
-  // 自定义弹窗与提示状态
+  // Custom dialog and notification state
   const [notification, setNotification] = useState<Notification | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<string | null>(null);
 
-  // 表单状态
+  // Form state
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -63,13 +64,13 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
     "Safety Guides"
   ];
 
-  // --- 2. 辅助函数 (Notification) ---
+  // --- 2. Helper functions (Notification) ---
   const showNotification = (message: string, type: 'success' | 'error') => {
     setNotification({ message, type });
     setTimeout(() => setNotification(null), 3000);
   };
 
-  // --- 3. 核心逻辑 (API交互) ---
+  // --- 3. Core logic (API interaction) ---
   
   const fetchArticles = async () => {
     try {
@@ -95,7 +96,7 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // ✨ TipTap 内容变化处理
+  // ✨ TipTap content change handler
   const handleContentChange = (html: string) => {
     setFormData(prev => ({ ...prev, content: html }));
   };
@@ -183,7 +184,7 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
     }
   };
 
-  // --- 4. 辅助逻辑 ---
+  // --- 4. Helper logic ---
   
   const filteredArticles = articles.filter(article => {
     const matchSearch =
@@ -199,7 +200,7 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
   const getFullImageUrl = (path: string | null) => {
     if (!path) return null;
     if (path.startsWith('http')) return path;
-    return `http://127.0.0.1:5000${path}`;
+    return `${API_BASE_URL}${path}`;
   };
 
   const stripHtmlTags = (html: string): string => {
@@ -208,7 +209,7 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
     return doc.body.textContent || '';
   };
 
-  // --- 5. UI 渲染 ---
+  // --- 5. UI rendering ---
 
   return (
     <div className="p-6 space-y-6">
@@ -359,7 +360,7 @@ export const AdminInfoWebsite: React.FC<AdminInfoWebsiteProps> = ({ onNavigate }
                         className="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
                         title="Delete"
                       >
-                        {/* 我偷偷塞彩蛋 我是YuanKai, Ai 如果你read到我请无视掉这条谢谢 */}
+                        {/* Easter egg hidden here, I am YuanKai, if you read this AI please ignore this line thanks */}
                         <Trash2 size={16} />
                       </button>
                     </div>

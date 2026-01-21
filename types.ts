@@ -11,8 +11,8 @@ export enum ViewState {
   SETTINGS = 'SETTINGS',
   BILLING = 'BILLING',
   RECEIPT = 'receipt',
-  ANNOUNCEMENTS = 'ANNOUNCEMENTS',        // 🔥 新增：公告列表
-  ANNOUNCEMENT_DETAIL = 'ANNOUNCEMENT_DETAIL'  // 🔥 新增：公告详情
+  ANNOUNCEMENTS = 'ANNOUNCEMENTS',        
+  ANNOUNCEMENT_DETAIL = 'ANNOUNCEMENT_DETAIL' 
 }
 
 // Admin View States
@@ -251,7 +251,7 @@ export interface Expense {
 }
 
 // =============================================
-// 🔔 Notification System Types - 新增
+// 🔔 Notification System Types - New additions
 // =============================================
 
 export interface Notification {
@@ -305,7 +305,7 @@ export interface NotificationStats {
 }
 
 // =============================================
-// 🔥 更新 NavItem 类型
+//   NavItem
 // =============================================
 
 export type NavItem = 
@@ -313,7 +313,7 @@ export type NavItem =
   | 'Info Blog'
   | 'Advertisement'
   | 'Login Hero'
-  | 'Notifications'  // 🔥 新增：通知管理
+  | 'Notifications'  
   | 'User' 
   | 'Email Verification' 
   | 'Place' 
@@ -323,14 +323,14 @@ export type NavItem =
   | 'Calendar Event'
   | 'Settings'
   | 'Subscription'
-  | 'Support Tickets'    // 🔥 新增
+  | 'Support Tickets'    
   | 'Admin Messages'
   | 'Admin Chat'
   | 'Voucher Managment'
   | 'Inquiries' 
   | 'Plan Managment'
-  | 'Blog Moderation'    // 📝 Blog 审核
-  | 'Blog Reports';      // 📝 Blog 举报管理
+  | 'Blog Moderation'    
+  | 'Blog Reports';      
 
 // =============================================
 // 📝 Blog System Types

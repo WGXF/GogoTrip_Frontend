@@ -231,7 +231,7 @@ const StoryStudio: React.FC<StoryStudioProps> = ({ user, onBack }) => {
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-slate-500">
-                      {new Date(blog.createdAt || '').toLocaleDateString()}
+                      {blog.createdAt ? new Date(blog.createdAt).toLocaleDateString() : 'N/A'}
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-4 text-sm text-slate-500">

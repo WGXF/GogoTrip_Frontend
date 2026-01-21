@@ -75,6 +75,7 @@ interface SuggestionDetailModalProps {
 }
 
 const SuggestionDetailModal: React.FC<SuggestionDetailModalProps> = ({ suggestion, onClose, onSave, onUpdate, isSaved }) => {
+  const { t } = useTranslation('chat');
   const [editingItemIndex, setEditingItemIndex] = useState<number | null>(null);
   const [editForm, setEditForm] = useState<any>(null);
 
@@ -99,7 +100,7 @@ const SuggestionDetailModal: React.FC<SuggestionDetailModalProps> = ({ suggestio
 
   return (
     <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-[2.5rem] shadow-2xl border border-white/20 dark:border-slate-700 relative flex flex-col max-h-[85vh] overflow-hidden animate-in zoom-in-95 duration-200">
+      <div className="bg-white dark:bg-slate-900 w-full max-w-2xl rounded-3xl shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50 relative flex flex-col max-h-[85vh] overflow-hidden animate-in zoom-in-95 duration-200">
         
         {/* Header Image */}
         <div className="relative h-48 sm:h-64 shrink-0 group">
@@ -158,7 +159,7 @@ const SuggestionDetailModal: React.FC<SuggestionDetailModalProps> = ({ suggestio
                     <div className="absolute left-[-5px] top-0 w-2.5 h-2.5 rounded-full bg-sky-500 ring-4 ring-white dark:ring-slate-900" />
                     
                     {editingItemIndex === idx ? (
-                      <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-sky-500 shadow-lg space-y-3">
+                      <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 border-2 border-sky-500 shadow-md shadow-sky-200/50 dark:shadow-sky-900/50 space-y-3">
                         <div className="flex gap-2">
                            <input 
                              value={editForm.day_number}
@@ -242,22 +243,22 @@ const SuggestionDetailModal: React.FC<SuggestionDetailModalProps> = ({ suggestio
 
         {/* Footer */}
         <div className="p-5 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 flex gap-3">
-          <button 
+          <button
              onClick={onClose}
              className="px-6 py-3.5 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
           >
-            Close
+            {t('modals.close')}
           </button>
-          <button 
+          <button
             onClick={() => onSave(suggestion)}
             className={`flex-1 py-3.5 rounded-xl font-bold flex items-center justify-center gap-2 transition-all shadow-lg active:scale-[0.98] ${
-              isSaved 
-                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800' 
+              isSaved
+                ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800'
                 : 'bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-sky-500/25'
             }`}
           >
             {isSaved ? <CheckCircle2 className="w-5 h-5" /> : <PlusCircle className="w-5 h-5" />}
-            {isSaved ? 'Saved to My Trips' : 'Save Trip Plan'}
+            {isSaved ? t('modals.tripSaved') : t('modals.saveTrip')}
           </button>
         </div>
       </div>
@@ -343,10 +344,10 @@ const SuggestionList: React.FC<SuggestionListProps> = ({ suggestions, savedSugge
   return (
     <div className="relative group/list">
       <div className="hidden md:block opacity-0 group-hover/list:opacity-100 transition-opacity">
-         <button onClick={scrollLeft} className="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg">
+         <button onClick={scrollLeft} className="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-md shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50">
             <ChevronLeft className="w-5 h-5" />
          </button>
-         <button onClick={scrollRight} className="absolute right-0 top-1/2 -translate-y-1/2 -mr-1 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg">
+         <button onClick={scrollRight} className="absolute right-0 top-1/2 -translate-y-1/2 -mr-1 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-md shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50">
             <ChevronRight className="w-5 h-5" />
          </button>
       </div>
@@ -382,6 +383,7 @@ interface DailyPlanCardProps {
 }
 
 const DailyPlanCard: React.FC<DailyPlanCardProps> = React.memo(({ plan, onViewDetails, onSave, isSaved }) => {
+  const { t } = useTranslation('chat');
   /**
    * Get cover image - ALL logic handled by backend proxy
    * Proxy never returns 404, always returns an image
@@ -410,7 +412,7 @@ const DailyPlanCard: React.FC<DailyPlanCardProps> = React.memo(({ plan, onViewDe
   const totalActivities = plan.days.reduce((sum, day) => sum + (day.activities?.length || 0), 0);
 
   return (
-    <div className="w-full md:w-auto md:min-w-[320px] md:max-w-[380px] bg-white dark:bg-slate-900/80 backdrop-blur-md border border-slate-200 dark:border-slate-700/50 rounded-2xl isolate transform-gpu flex-shrink-0 snap-start transition-all duration-300 ease-out cursor-pointer group hover:scale-[1.02] hover:shadow-xl">
+    <div className="w-full md:w-auto md:min-w-[320px] md:max-w-[380px] bg-white dark:bg-slate-900/80 backdrop-blur-md border border-slate-100 dark:border-slate-700/50 rounded-3xl isolate transform-gpu flex-shrink-0 snap-start transition-all duration-300 ease-out cursor-pointer group hover:scale-[1.02] hover:shadow-xl hover:shadow-slate-300/50 dark:hover:shadow-slate-800/50 shadow-md shadow-slate-200/50 dark:shadow-slate-900/50">
       {/* Cover Image */}
       <div className="h-40 overflow-hidden relative rounded-t-2xl">
         <img 
@@ -449,27 +451,27 @@ const DailyPlanCard: React.FC<DailyPlanCardProps> = React.memo(({ plan, onViewDe
         <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-slate-400">
           <span className="flex items-center gap-1">
             <Calendar className="w-3.5 h-3.5" />
-            {plan.days.length} 天
+            {t('dailyPlan.days', { count: plan.days.length })}
           </span>
           <span className="flex items-center gap-1">
             <MapPin className="w-3.5 h-3.5" />
-            {totalActivities} 个活动
+            {t('dailyPlan.activities', { count: totalActivities })}
           </span>
         </div>
-        
+
         {/* Footer */}
         <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-slate-700/50">
           <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">预计花费</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{t('dailyPlan.estimatedSpend')}</p>
             <p className="text-sm font-bold text-emerald-600 dark:text-emerald-400">{plan.total_budget_estimate}</p>
           </div>
           <div className="flex gap-2">
-            <button 
+            <button
               onClick={(e) => { e.stopPropagation(); onViewDetails(plan); }}
               className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 dark:bg-indigo-600 text-white transition-all"
             >
               <Info className="w-3.5 h-3.5" />
-              查看详情
+              {t('dailyPlan.viewDetails')}
             </button>
             <button 
               onClick={(e) => { e.stopPropagation(); onSave(plan); }}
@@ -505,10 +507,10 @@ const DailyPlanList: React.FC<DailyPlanListProps> = ({ plans, savedPlans, onView
     <div className="relative group/list">
       {plans.length > 1 && (
         <div className="hidden md:block opacity-0 group-hover/list:opacity-100 transition-opacity">
-          <button onClick={scrollLeft} className="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg">
+          <button onClick={scrollLeft} className="absolute left-0 top-1/2 -translate-y-1/2 -ml-5 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-md shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50">
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <button onClick={scrollRight} className="absolute right-0 top-1/2 -translate-y-1/2 -mr-1 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-lg">
+          <button onClick={scrollRight} className="absolute right-0 top-1/2 -translate-y-1/2 -mr-1 z-20 p-2 bg-white dark:bg-slate-800 rounded-full shadow-md shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
@@ -559,7 +561,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
   onToggleSidebar,
   onUpgrade
 }) => {
-  const { t } = useTranslation(['chat', 'common']);
+  const { t, i18n } = useTranslation(['chat', 'common']);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editTitle, setEditTitle] = useState('');
   const [menuOpenId, setMenuOpenId] = useState<number | null>(null);
@@ -599,20 +601,13 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
 
   return (
     <>
-      {/* Mobile Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={onToggleSidebar}
-        />
-      )}
-      
-      {/* Sidebar */}
+      {/* Sidebar content - fills container on desktop, absolute on mobile */}
       <div className={`
-        fixed md:relative inset-y-0 left-0 z-50 
-        w-72 bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
-        flex flex-col transition-transform duration-300 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0 md:w-0 md:overflow-hidden'}
+        absolute md:static inset-y-0 left-0 z-50 md:z-auto
+        w-72 md:w-full md:h-full
+        bg-slate-50 dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800
+        flex flex-col transition-transform duration-300 ease-in-out md:transition-none
+        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
       `}>
         {/* Header */}
         <div className="p-4 border-b border-slate-200 dark:border-slate-800">
@@ -711,7 +706,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
                       </button>
                       
                       {menuOpenId === conv.id && (
-                        <div className="absolute right-2 top-full mt-1 py-1 bg-white dark:bg-slate-800 rounded-lg shadow-lg border border-slate-200 dark:border-slate-700 z-10 min-w-[120px]">
+                        <div className="absolute right-2 top-full mt-1 py-1 bg-white dark:bg-slate-800 rounded-2xl shadow-md shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50 z-10 min-w-[120px]">
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
@@ -748,7 +743,7 @@ const ConversationSidebar: React.FC<ConversationSidebarProps> = ({
           <div className="p-4 border-t border-slate-200 dark:border-slate-800">
             <div className="flex items-center gap-2 px-3 py-2 bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900/20 dark:to-yellow-900/20 rounded-lg">
               <Crown className="w-4 h-4 text-amber-500" />
-              <span className="text-xs font-bold text-amber-700 dark:text-amber-300">Premium Active</span>
+              <span className="text-xs font-bold text-amber-700 dark:text-amber-300">{t('badges.premiumActive')}</span>
             </div>
           </div>
         )}
@@ -766,7 +761,7 @@ interface ChatViewProps {
 }
 
 const ChatView: React.FC<ChatViewProps> = ({ user }) => {
-  const { t } = useTranslation('chat');
+  const { t, i18n } = useTranslation('chat');
   // URL params for direct conversation loading
   const { conversationId: urlConversationId } = useParams<{ conversationId?: string }>();
   const navigate = useNavigate();
@@ -848,7 +843,7 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
         if (place.itinerary && Array.isArray(place.itinerary)) {
             return {
                 id: place.id || `ai-plan-${index}-${Date.now()}`,
-                title: place.title || '未命名行程',
+                title: place.title || t('defaults.unnamedPlan'),
                 description: place.description || '',
                 duration: place.duration || 'Custom Trip',
                 priceEstimate: place.priceEstimate || 'N/A',
@@ -863,11 +858,11 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
 
         return {
             id: `g-place-${index}-${Date.now()}`,
-            title: place.name || '未知名称',
+            title: place.name || t('defaults.unknownName'),
             description: `${place.address || ''} | 评分: ${place.rating || 'N/A'}`,
-            duration: 'Place', 
+            duration: 'Place',
             priceEstimate: place.price_level ? '$'.repeat(place.price_level.length) : 'N/A',
-            tags: place.business_status === 'OPERATIONAL' ? ['营业中', '地点'] : ['地点'], 
+            tags: place.business_status === 'OPERATIONAL' ? [t('badges.businessOpen'), t('badges.location')] : [t('badges.location')], 
             imageUrl: getImageUrl(),
             itinerary: null,
             reviews: place.review_list || [],
@@ -925,7 +920,9 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
               const jsonString = msg.content.substring('DAILY_PLAN::'.length);
               const planData = JSON.parse(jsonString);
               dailyPlans = [planData];
-              displayContent = `已为您生成 ${planData.duration} 的行程规划，请查看下方卡片：`;
+              // ✅ Don't show any text for DAILY_PLAN:: messages
+              // The system message is saved as a SEPARATE message before this one
+              displayContent = '';
             } catch (e) {
               console.error('Failed to parse daily plan from history:', e);
             }
@@ -937,8 +934,9 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
               const foodData = JSON.parse(jsonString);
               if (foodData.recommendations) {
                 foodRecommendations = foodData.recommendations;
-                const count = foodData.recommendations.length;
-                displayContent = `为您找到了 ${count} 个美食推荐：`;
+                // ✅ Don't show text for FOOD_DATA:: messages
+                // The system message is saved as a SEPARATE message before this one
+                displayContent = '';
               }
             } catch (e) {
               console.error('Failed to parse food data from history:', e);
@@ -949,7 +947,9 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
             try {
               const jsonString = msg.content.substring('POPUP_DATA::'.length);
               suggestions = formatPlacesData(JSON.parse(jsonString));
-              displayContent = `为您找到了 ${suggestions.length} 个相关推荐：`;
+              // ✅ Don't show text for POPUP_DATA:: messages
+              // The system message is saved as a SEPARATE message before this one
+              displayContent = '';
             } catch (e) {}
           }
           // Handle pre-parsed suggestions from database
@@ -990,7 +990,7 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
   };
 
   const handleDeleteConversation = async (conversationId: number) => {
-    if (!confirm('Delete this conversation?')) return;
+    if (!confirm(t('modals.deleteConfirmation'))) return;
     
     try {
       const response = await fetch(`${API_BASE_URL}/api/conversations/${conversationId}`, {
@@ -1081,29 +1081,53 @@ const ChatView: React.FC<ChatViewProps> = ({ user }) => {
 
   const handleWizardComplete = async (prefs: TripPreferences) => {
     setWizardOpen(false);
-    
+
     // Construct a structured prompt based on preferences
-    const prompt = `I need a daily plan with these preferences:
-- Mood: ${prefs.mood}
-- Companions: ${prefs.companions}
-- Budget: ${prefs.budget}
-- Transport: ${prefs.transport}
-- Dietary: ${prefs.dietary.join(', ') || 'None'}
-
-Please suggest a destination or ask for one if needed.`;
-
     // Start new conversation with this prompt
     handleNewConversation();
+
+    // Parse days to number
+    const daysMap: Record<string, number> = {
+      '1day': 1,
+      '2days': 2,
+      '3days': 3,
+      '5days': 5,
+      '7days': 7,
+    };
+
+    // Handle custom days (e.g., "10days" from custom input)
+    let numDays = daysMap[prefs.days];
+    if (!numDays && prefs.days.endsWith('days')) {
+      const parsed = parseInt(prefs.days.replace('days', ''));
+      numDays = isNaN(parsed) ? 3 : parsed;
+    }
+    numDays = numDays || 3;
+
+    // Get language name for better AI understanding
+    const languageMap: Record<string, string> = {
+      'en': 'English',
+      'zh': 'Chinese',
+      'ms': 'Malay'
+    };
+    const currentLang = i18n.language || 'en';
+    const langName = languageMap[currentLang] || 'English';
+
+    // Create a complete prompt in English for AI (more reliable parsing)
+    const prompt = `Plan a ${numDays}-day trip to ${prefs.destination}.
+
+Trip Details:
+- Duration: ${numDays} day${numDays > 1 ? 's' : ''}
+- Destination: ${prefs.destination}
+- Travel style: ${prefs.mood}
+- Budget level: ${prefs.budget}
+- Traveling with: ${prefs.companions}
+- Preferred transport: ${prefs.transport || 'flexible'}
+${prefs.dietary.length > 0 ? `- Dietary requirements: ${prefs.dietary.join(', ')}` : ''}
+
+IMPORTANT: Please respond in ${langName} language and create a detailed itinerary with activities, restaurants, and practical information.`;
+
     setInputValue(prompt);
-    // We'll let the user verify or add destination before sending, 
-    // OR we can auto-send. Let's auto-send for smoother UX, 
-    // but maybe prepend a system instruction? 
-    // For MVP, putting it in the input allows user to add "to Tokyo" 
-    // before hitting send.
-    // Actually, let's set it as the input value so they can add the destination.
-    // "Plan a trip to [DESTINATION]..."
-    setInputValue(`Plan a trip based on my preferences:\nMood: ${prefs.mood}, Budget: ${prefs.budget}, Group: ${prefs.companions}...\n\n(Type your destination here)`);
-    
+
     // focus textarea
     if (textareaRef.current) {
       textareaRef.current.focus();
@@ -1117,10 +1141,11 @@ Please suggest a destination or ask for one if needed.`;
     setFoodRecommendations([]);
     
     // Add a message to chat indicating we're searching
+    const mealLabel = t(`foodWizard.mealOptions.${prefs.mealType}`);
     const searchMsg: Message = {
       id: `food-search-${Date.now()}`,
       sender: 'ai',
-      text: `🍽️ Finding the best ${prefs.mealType} spots for you based on your preferences...`,
+      text: t('wizards.foodSearchMessage', { meal: mealLabel }),
       timestamp: new Date(),
     };
     setMessages(prev => [...prev, searchMsg]);
@@ -1145,7 +1170,7 @@ Please suggest a destination or ask for one if needed.`;
         const resultMsg: Message = {
           id: `food-result-${Date.now()}`,
           sender: 'ai',
-          text: `Found ${data.recommendations.length} great options for you! Check them out below:`,
+          text: t('wizards.foodResultMessage', { count: data.recommendations.length }),
           timestamp: new Date(),
           foodRecommendations: data.recommendations
         };
@@ -1164,7 +1189,7 @@ Please suggest a destination or ask for one if needed.`;
       // Update message to show error
       setMessages(prev => prev.map(m => 
         m.id === searchMsg.id 
-          ? { ...m, text: '抱歉，获取美食推荐时出错。请重试。' }
+          ? { ...m, text: t('wizards.foodErrorMessage') }
           : m
       ));
     } finally {
@@ -1174,7 +1199,7 @@ Please suggest a destination or ask for one if needed.`;
 
   const handleAddFoodToItinerary = (place: FoodPlace) => {
     // For future: convert food place to itinerary item
-    showToast(`Added "${place.name}" to your plans!`, 'success');
+    showToast(t('messages.placeAdded', { name: place.name }), 'success');
   };
 
   const handleSendMessage = async () => {
@@ -1222,15 +1247,31 @@ Please suggest a destination or ask for one if needed.`;
         let formattedDailyPlans = undefined as DailyPlanData[] | undefined;
 
         // Handle DAILY_PLAN:: format (new structured daily plan)
-        if (aiResponseText.startsWith('DAILY_PLAN::')) {
+        if (aiResponseText.includes('DAILY_PLAN::')) {
             try {
-                const planData = JSON.parse(aiResponseText.substring('DAILY_PLAN::'.length));
+                const marker = 'DAILY_PLAN::';
+                const markerIndex = aiResponseText.indexOf(marker);
+
+                // ✅ Extract system message (text before DAILY_PLAN:: marker)
+                // Backend sends TWO separate messages in conversation history, but when first received, it might be combined
+                const systemMessage = aiResponseText.substring(0, markerIndex).trim();
+
+                // Extract and parse the plan data
+                const jsonString = aiResponseText.substring(markerIndex + marker.length);
+                const planData = JSON.parse(jsonString);
+
                 // Store as array in message for card display (don't auto-open fullscreen)
                 formattedDailyPlans = [planData];
-                aiResponseText = `已为您生成 ${planData.duration} 的行程规划，请查看下方卡片：`;
+
+                // ✅ Use system message from backend (respects user's language setting)
+                // Fallback to i18n if no system message (shouldn't happen with new architecture)
+                aiResponseText = systemMessage || t('chat:systemMessages.itineraryGenerated', {
+                    duration: planData.duration,
+                    destination: planData.title
+                });
             } catch (parseError) {
                 console.error('Failed to parse daily plan:', parseError);
-                aiResponseText = "抱歉，行程数据解析出错了。";
+                aiResponseText = t('errors.itineraryParseError');
             }
         }
         // Handle POPUP_DATA:: format (place recommendations)
@@ -1240,7 +1281,7 @@ Please suggest a destination or ask for one if needed.`;
                 formattedSuggestions = formatPlacesData(placesData);
                 aiResponseText = `为您找到了 ${formattedSuggestions.length} 个相关推荐：`;
             } catch (parseError) {
-                aiResponseText = "抱歉，数据解析出错了。";
+                aiResponseText = t('errors.dataParseError');
             }
         }
 
@@ -1268,13 +1309,13 @@ Please suggest a destination or ask for one if needed.`;
             setMessages(prev => [...prev, newAiMsg]);
         }
     
-    } catch (error: any) { 
+    } catch (error: any) {
         console.error('Send message error:', error);
         setIsLoadingMessage(false);
         setMessages(prev => [...prev, {
             id: (Date.now() + 1).toString(),
             sender: 'ai',
-            text: `抱歉，连接失败。错误: ${error.message || error}`,
+            text: t('errors.connectionFailed', { error: error.message || error }),
             timestamp: new Date(),
         }]);
     }
@@ -1299,25 +1340,41 @@ Please suggest a destination or ask for one if needed.`;
   const toggleSaveSuggestion = useCallback(async (suggestion: TripSuggestion) => {
     const suggestionId = suggestion.id;
     const isSaved = savedSuggestions.includes(suggestionId);
-    
-    setSavedSuggestions(prev => 
+
+    // Optimistic UI update
+    setSavedSuggestions(prev =>
       isSaved ? prev.filter(sid => sid !== suggestionId) : [...prev, suggestionId]
     );
 
-    if (isSaved) return;
-
     try {
-        const response = await fetch(`${API_BASE_URL}/api/trips/save`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(suggestion), 
-            credentials: 'include' 
-        });
-        
-        if (!response.ok) throw new Error('Failed to save trip');
-        showToast(t('messages.tripSaved'), "success");
+        if (isSaved) {
+            // Unsave: Delete from backend
+            const response = await fetch(`${API_BASE_URL}/api/trips/save`, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ suggestionId, title: suggestion.title }),
+                credentials: 'include'
+            });
+
+            if (!response.ok) throw new Error('Failed to unsave trip');
+            showToast(t('messages.tripUnsaved', 'Trip removed from saved'), "success");
+        } else {
+            // Save: Add to backend
+            const response = await fetch(`${API_BASE_URL}/api/trips/save`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(suggestion),
+                credentials: 'include'
+            });
+
+            if (!response.ok) throw new Error('Failed to save trip');
+            showToast(t('messages.tripSaved'), "success");
+        }
     } catch (error) {
-        setSavedSuggestions(prev => prev.filter(sid => sid !== suggestionId));
+        // Revert optimistic update on error
+        setSavedSuggestions(prev =>
+          isSaved ? [...prev, suggestionId] : prev.filter(sid => sid !== suggestionId)
+        );
         showToast(t('errors.saveFailed'), "error");
     }
   }, [savedSuggestions]);
@@ -1334,26 +1391,41 @@ Please suggest a destination or ask for one if needed.`;
   const handleSaveDailyPlan = useCallback(async (plan: DailyPlanData) => {
     const planId = plan.title;
     const isSaved = savedDailyPlans.includes(planId);
-    
+
     // Optimistic update
-    setSavedDailyPlans(prev => 
+    setSavedDailyPlans(prev =>
       isSaved ? prev.filter(id => id !== planId) : [...prev, planId]
     );
 
-    if (isSaved) return; // Already saved, just toggle off
-
     try {
-      const response = await fetch(`${API_BASE_URL}/api/trips/save_daily_plan`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(plan),
-        credentials: 'include'
-      });
-      
-      if (!response.ok) throw new Error('Failed to save');
-      showToast(t('messages.tripSaved'), "success");
+      if (isSaved) {
+        // Unsave: Delete from backend
+        const response = await fetch(`${API_BASE_URL}/api/trips/save_daily_plan`, {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: plan.title }),
+          credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to unsave');
+        showToast(t('messages.tripUnsaved', 'Plan removed from saved'), "success");
+      } else {
+        // Save: Add to backend
+        const response = await fetch(`${API_BASE_URL}/api/trips/save_daily_plan`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(plan),
+          credentials: 'include'
+        });
+
+        if (!response.ok) throw new Error('Failed to save');
+        showToast(t('messages.tripSaved'), "success");
+      }
     } catch (error) {
-      setSavedDailyPlans(prev => prev.filter(id => id !== planId));
+      // Revert optimistic update on error
+      setSavedDailyPlans(prev =>
+        isSaved ? [...prev, planId] : prev.filter(id => id !== planId)
+      );
       showToast(t('errors.saveFailed'), "error");
     }
   }, [savedDailyPlans]);
@@ -1405,11 +1477,23 @@ Please suggest a destination or ask for one if needed.`;
     return () => clearTimeout(timer);
   }, [messages, isLoadingMessage]);
 
-  // Textarea auto-height
+  // Textarea auto-height with max height and scroll
   useEffect(() => {
     if (textareaRef.current) {
+      const maxHeight = 200;
+      // Reset height to calculate new scrollHeight
       textareaRef.current.style.height = '56px';
-      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 200) + 'px';
+      const scrollHeight = textareaRef.current.scrollHeight;
+
+      if (scrollHeight <= maxHeight) {
+        // Content fits, no scroll needed
+        textareaRef.current.style.height = scrollHeight + 'px';
+        textareaRef.current.style.overflowY = 'hidden';
+      } else {
+        // Content exceeds max, enable scroll
+        textareaRef.current.style.height = maxHeight + 'px';
+        textareaRef.current.style.overflowY = 'auto';
+      }
     }
   }, [inputValue]);
 
@@ -1441,25 +1525,39 @@ Please suggest a destination or ask for one if needed.`;
   }, [t, currentPlaceholder]);
 
   return (
-    <div className="flex h-full bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
-      
-      {/* Conversation Sidebar */}
-      <ConversationSidebar
-        conversations={conversations}
-        activeConversationId={activeConversationId}
-        isLoading={isLoadingConversations}
-        isPremium={isPremium}
-        isOpen={sidebarOpen}
-        onSelectConversation={loadConversation}
-        onNewConversation={handleNewConversation}
-        onDeleteConversation={handleDeleteConversation}
-        onRenameConversation={handleRenameConversation}
-        onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
-        onUpgrade={() => window.location.href = '/pricing'}
-      />
+    <div className="flex h-screen relative rounded-3xl overflow-hidden bg-gradient-to-b from-slate-50 to-white dark:from-slate-950 dark:to-slate-900">
+
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div
+          className="absolute md:hidden inset-0 bg-black/50 z-40"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Sidebar Column - explicit width ownership */}
+      <div className={`
+        contents
+        md:block md:shrink-0 md:transition-all md:duration-300 md:ease-in-out
+        ${sidebarOpen ? 'md:w-72' : 'md:w-0 md:overflow-hidden'}
+      `}>
+        <ConversationSidebar
+          conversations={conversations}
+          activeConversationId={activeConversationId}
+          isLoading={isLoadingConversations}
+          isPremium={isPremium}
+          isOpen={sidebarOpen}
+          onSelectConversation={loadConversation}
+          onNewConversation={handleNewConversation}
+          onDeleteConversation={handleDeleteConversation}
+          onRenameConversation={handleRenameConversation}
+          onToggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          onUpgrade={() => window.location.href = '/billing'}
+        />
+      </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col relative overflow-hidden">
+      <div className="flex-1 min-w-0 flex flex-col relative overflow-hidden m-4 rounded-[2rem] bg-white dark:bg-slate-900 shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-800">
         
         {/* Toast */}
         {toast && (
@@ -1566,10 +1664,10 @@ Please suggest a destination or ask for one if needed.`;
                         </div>
                       )}
                     </div>
-                    <div className={`flex flex-col gap-1 p-5 rounded-[1.5rem] shadow-sm ${
-                      isUser 
-                        ? 'bg-sky-600 dark:bg-indigo-600 text-white rounded-tr-sm' 
-                        : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-800 rounded-tl-sm'
+                    <div className={`flex flex-col gap-1 p-5 rounded-3xl shadow-sm ${
+                      isUser
+                        ? 'bg-sky-600 dark:bg-indigo-600 text-white rounded-tr-sm shadow-sky-200/30 dark:shadow-indigo-900/30'
+                        : 'bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-200 border border-slate-100 dark:border-slate-700/50 rounded-tl-sm shadow-slate-200/50 dark:shadow-slate-900/50'
                     }`}>
                       <p className="text-[15px] leading-relaxed whitespace-pre-wrap font-medium">{msg.text}</p>
                       <span className={`text-[10px] font-bold ${isUser ? 'text-sky-100' : 'text-slate-400'} self-end mt-1`}>
@@ -1617,12 +1715,12 @@ Please suggest a destination or ask for one if needed.`;
                   <div className="w-10 h-10 rounded-full bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-md animate-pulse">
                     <Bot className="w-5 h-5 text-white animate-spin" />
                   </div>
-                  <div className="flex flex-col gap-1 p-5 rounded-[1.5rem] shadow-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-tl-sm">
+                  <div className="flex flex-col gap-1 p-5 rounded-3xl shadow-sm bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-700/50 rounded-tl-sm shadow-slate-200/50 dark:shadow-slate-900/50">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
                       <div className="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
                       <div className="w-2 h-2 bg-sky-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
-                      <span className="text-sm text-slate-500 ml-2">AI is thinking...</span>
+                      <span className="text-sm text-slate-500 ml-2">{t('thinking')}</span>
                     </div>
                   </div>
                 </div>
@@ -1633,39 +1731,52 @@ Please suggest a destination or ask for one if needed.`;
         </div>
 
         {/* Input */}
-        <div className="px-4 md:px-6 pb-6 pt-4">
-          <div className="relative w-full max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-[2rem] shadow-2xl border border-slate-200 dark:border-slate-800 flex items-end">
-            <div className="absolute left-4 bottom-[8px] flex gap-1 z-10">
-              <button className="p-2.5 text-slate-400 hover:text-sky-600 transition-all rounded-xl">
-                <Paperclip className="w-5 h-5" />
-              </button>
-              <button className="p-2.5 text-slate-400 hover:text-sky-600 transition-all rounded-xl">
-                <Mic className="w-5 h-5" />
-              </button>
-            </div>
+        <div className="px-4 md:px-6 pb-4 pt-4">
+          <div className="relative w-full max-w-3xl mx-auto bg-white dark:bg-slate-900 rounded-3xl shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50 flex items-end">
             {!inputValue && (
-              <div className={`absolute left-28 right-20 top-[18px] pointer-events-none text-slate-400 font-medium text-base transition-all duration-500 truncate ${isPlaceholderVisible ? 'opacity-100' : 'opacity-0'}`}>
+              <div className={`absolute left-6 right-20 top-[18px] pointer-events-none text-slate-400 font-medium text-base transition-all duration-500 truncate ${isPlaceholderVisible ? 'opacity-100' : 'opacity-0'}`}>
                 {currentPlaceholder}
               </div>
             )}
-            <textarea 
-              ref={textareaRef} 
-              value={inputValue} 
-              onChange={(e) => setInputValue(e.target.value)} 
-              onKeyDown={handleKeyDown} 
-              className="w-full bg-transparent text-slate-900 dark:text-slate-100 font-medium rounded-[2rem] pt-[18px] pb-[14px] pl-28 pr-16 focus:outline-none resize-none h-auto overflow-hidden leading-normal" 
-              style={{ minHeight: '56px' }} 
+            <textarea
+              ref={textareaRef}
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+              className="w-full bg-transparent text-slate-900 dark:text-slate-100 font-medium rounded-3xl pt-[18px] pb-[14px] pl-6 pr-16 focus:outline-none resize-none leading-relaxed"
+              style={{ minHeight: '56px' }}
+              placeholder=""
             />
             <div className="absolute right-5 bottom-[8px]">
-              <button 
-                onClick={handleSendMessage} 
-                disabled={!inputValue.trim() || isLoadingMessage} 
+              <button
+                onClick={handleSendMessage}
+                disabled={!inputValue.trim() || isLoadingMessage}
                 className="p-2.5 bg-sky-600 hover:bg-sky-500 dark:bg-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl transition-all"
               >
                 <Send className="w-5 h-4" />
               </button>
             </div>
           </div>
+
+          {/* Quick Action Buttons - Only show after user has sent messages */}
+          {messages.length > 0 && (
+            <div className="flex justify-center gap-3 mt-3 max-w-3xl mx-auto">
+              <button
+                onClick={() => setWizardOpen(true)}
+                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-sm font-bold rounded-xl shadow-lg shadow-sky-500/20 transition-all hover:scale-105 active:scale-95"
+              >
+                <Sparkles className="w-4 h-4" />
+                {t('wizards.planTrip', "Plan Trip")}
+              </button>
+              <button
+                onClick={() => setFoodWizardOpen(true)}
+                className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white text-sm font-bold rounded-xl shadow-lg shadow-orange-500/20 transition-all hover:scale-105 active:scale-95"
+              >
+                <Utensils className="w-4 h-4" />
+                {t('wizards.findFood', "Find Food")}
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Ad Popup */}
@@ -1734,11 +1845,11 @@ Please suggest a destination or ask for one if needed.`;
         {/* Share Modal */}
         {shareModalOpen && shareUrl && (
           <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-slate-900 rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 max-w-md w-full shadow-xl shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-100 dark:border-slate-700/50">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                   <Share2 className="w-5 h-5 text-sky-500" />
-                  Share Conversation
+                  {t('modals.shareConversation')}
                 </h3>
                 <button
                   onClick={handleCloseShareModal}
@@ -1747,11 +1858,11 @@ Please suggest a destination or ask for one if needed.`;
                   <X className="w-5 h-5" />
                 </button>
               </div>
-              
+
               <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
-                Anyone with this link can view this conversation.
+                {t('modals.shareDescription')}
               </p>
-              
+
               <div className="flex items-center gap-2 p-3 bg-slate-100 dark:bg-slate-800 rounded-xl">
                 <Link className="w-4 h-4 text-slate-400 flex-shrink-0" />
                 <input
@@ -1771,23 +1882,23 @@ Please suggest a destination or ask for one if needed.`;
                   {copiedLink ? (
                     <>
                       <Check className="w-4 h-4" />
-                      Copied
+                      {t('modals.copied')}
                     </>
                   ) : (
                     <>
                       <Copy className="w-4 h-4" />
-                      Copy
+                      {t('modals.copyLink')}
                     </>
                   )}
                 </button>
               </div>
-              
+
               <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700">
                 <button
                   onClick={handleCloseShareModal}
                   className="w-full py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition-colors"
                 >
-                  Done
+                  {t('modals.done')}
                 </button>
               </div>
             </div>

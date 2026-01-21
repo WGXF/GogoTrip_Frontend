@@ -9,7 +9,7 @@ export default defineConfig(({ mode }) => {
         port: 3000,
         host: '0.0.0.0',
         proxy: {
-            // 1. 统一处理 /api 开头的请求 (包括通知系统)
+           
             '/api': {
               target: 'http://127.0.0.1:5000',
               changeOrigin: true,
@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
               secure: false,
             },
             
-            // 2. 静态资源和图片
+            
             '/static': {
               target: 'http://127.0.0.1:5000',
               changeOrigin: true,
@@ -34,7 +34,7 @@ export default defineConfig(({ mode }) => {
               secure: false
             },
 
-            // 3. 其他零散的根路径接口
+            
             '/chat_message': { target: 'http://127.0.0.1:5000', changeOrigin: true, secure: false},
             '/user': { target: 'http://127.0.0.1:5000', changeOrigin: true, secure: false },
             '/tts': { target: 'http://127.0.0.1:5000', changeOrigin: true, secure: false },
@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
             '/oauth2callback': { target: 'http://127.0.0.1:5000', changeOrigin: true, secure: false  },
             '/create_event': { target: 'http://127.0.0.1:5000', changeOrigin: true, secure: false  },
             
-            // 4. Socket.IO Proxy (Critical for Live Chat)
+            
             '/socket.io': {
               target: 'http://127.0.0.1:5000',
               changeOrigin: true,

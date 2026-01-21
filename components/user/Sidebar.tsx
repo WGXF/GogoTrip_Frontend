@@ -6,7 +6,6 @@ import {
   CalendarDays,
   Sparkles,
   Settings,
-  Bot,
   Plane,
   NotebookPen,
   HelpCircle,
@@ -18,6 +17,7 @@ import {
   ShieldCheck,
   BookOpen
 } from 'lucide-react';
+import LogoSvg from '@/icon/logo/logo.svg';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -39,14 +39,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [isMobileLogoMenuOpen, setIsMobileLogoMenuOpen] = useState(false);
   const logoMenuRef = useRef<HTMLDivElement>(null);
 
-  // 定义菜单项及其对应路径 (with i18n)
+  // Define menu items and their corresponding paths (with i18n)
   const menuItems = [
     { path: '/', labelKey: 'sidebar.dashboard', icon: LayoutDashboard },
     { path: '/chat', labelKey: 'sidebar.aiPlanner', icon: Sparkles },
     { path: '/trips', labelKey: 'sidebar.myTrips', icon: Plane },
     { path: '/blogs', labelKey: 'sidebar.travelStories', icon: BookOpen },
-    { path: '/scheduler', labelKey: 'sidebar.notes', icon: NotebookPen },
-    { path: '/translate', labelKey: 'sidebar.translate', icon: Languages },
+    // Ban { path: '/scheduler', labelKey: 'sidebar.notes', icon: NotebookPen },
+    { path: '/translates', labelKey: 'sidebar.translate', icon: Languages },
     { path: '/expenses', labelKey: 'sidebar.expenses', icon: Wallet },
     { path: '/calendar', labelKey: 'sidebar.calendar', icon: CalendarDays }
   ];
@@ -63,14 +63,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   }, []);
 
   const handleHelp = () => {
-    navigate('/support');  // 导航到工单页面
-  };
-  
-  const handleAbout = () => {
-    alert("GogoTrip v2.0 Beta\n\nAI-Powered Travel Companion.");
+    navigate('/support');  // Navigate to support ticket page
   };
 
-  // 检查当前路径是否激活
+  const handleAbout = () => {
+    navigate('/about');  // Navigate to about page
+  };
+
+  // Check if current path is active
   const isActive = (path: string) => {
     if (path === '/' || path === '/dashboard') {
       return location.pathname === '/' || location.pathname === '/dashboard';
@@ -96,9 +96,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                className={`w-full flex items-center justify-between p-2 rounded-2xl transition-all duration-300 active:scale-95 active:bg-slate-100 active:scale-95 ${isMobileLogoMenuOpen ? 'bg-slate-100 dark:bg-slate-800' : ''}`}
              >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-blue-600 flex items-center justify-center shadow-lg shadow-sky-500/30">
-                      <Bot className="w-6 h-6 text-white" />
-                  </div>
+                  <img src={LogoSvg} alt="GogoTrip Logo" className="w-10 h-10 rounded-xl" />
                   <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
                     GogoTrip
                   </span>
@@ -180,9 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                onClick={() => setIsLogoMenuOpen(!isLogoMenuOpen)}
                className={`w-full flex items-center gap-4 p-4 rounded-2xl hover:bg-slate-100/50 dark:hover:bg-slate-800/50 transition-all duration-300 group ${isLogoMenuOpen ? 'bg-slate-100 dark:bg-slate-800' : ''}`}
              >
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-sky-500 to-blue-600 flex-shrink-0 flex items-center justify-center shadow-lg shadow-sky-500/30 transition-transform duration-500 group-hover:scale-110">
-                  <Bot className="w-6 h-6 text-white" />
-                </div>
+                <img src={LogoSvg} alt="GogoTrip Logo" className="w-10 h-10 rounded-2xl flex-shrink-0 transition-transform duration-500 group-hover:scale-110" />
                 
                 <div className={`flex flex-col items-start transition-all duration-300 delay-75 origin-left ${isHovered ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 -translate-x-4 scale-95 pointer-events-none fixed'}`}>
                   <span className="text-xl font-bold text-slate-900 dark:text-white tracking-tight leading-none group-hover:scale-105 origin-left transition-transform">

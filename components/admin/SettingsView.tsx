@@ -20,7 +20,7 @@ interface SettingsViewProps {
   onUpdateUser: (updatedUser: Partial<User>) => void;
 }
 
-// Toast Notification 类型定义
+// Toast Notification type definition
 interface Notification {
   type: 'success' | 'error';
   message: string;
@@ -48,15 +48,15 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateUser }
   const [isSaving, setIsSaving] = useState(false); // Loading state
   const [isSaved, setIsSaved] = useState(false);
   
-  // --- 新增：Toast Notification 状态 ---
+  // --- New: Toast Notification state ---
   const [notification, setNotification] = useState<Notification | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // --- 辅助函数：显示通知 ---
+  // --- Helper function: Show notification ---
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
-    setTimeout(() => setNotification(null), 3000); // 3秒后自动消失
+    setTimeout(() => setNotification(null), 3000); // Auto-dismiss after 3 seconds
   };
 
   const handleChangePassword = async () => {

@@ -1,5 +1,5 @@
 // components/admin/AdminMessaging.tsx
-// 📢 Admin 内部消息系统 - Real-time 版本
+// 📢 Admin internal messaging system - Real-time version
 
 import React, { useState, useEffect, useCallback } from 'react';
 import {

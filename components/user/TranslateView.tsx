@@ -154,7 +154,7 @@ const EngineSelector: React.FC<{
     <button
       onClick={() => {
         if (disabled) return;
-        // 如果不是会员，阻止切换并引导升级
+        // If not premium, prevent switching and guide upgrade
         if (!isPremium) {
           onUpgrade();
           return;
@@ -172,7 +172,7 @@ const EngineSelector: React.FC<{
     >
       <Sparkles className="w-3.5 h-3.5" />
       AI Enhanced
-      {/* 锁图标：可见但锁定 */}
+      {/* Lock icon: visible but locked */}
       {!isPremium && (
         <Lock className="w-3 h-3 text-amber-500 ml-1" />
       )}
@@ -180,7 +180,7 @@ const EngineSelector: React.FC<{
   </div>
 );
 
-// 🟢 Model Selector: 使用 React Portal 解决遮挡问题
+// 🟢 Model Selector: Use React Portal to solve occlusion issues
 const ModelSelector: React.FC<{
   selectedModel: string;
   onSelect: (id: string) => void;
@@ -192,14 +192,14 @@ const ModelSelector: React.FC<{
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [coords, setCoords] = useState({ top: 0, left: 0, width: 0 });
 
-  // 计算下拉菜单位置
+  // Calculate dropdown menu position
   const updatePosition = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setCoords({
-        top: rect.bottom + window.scrollY + 8, // 垂直偏移
+        top: rect.bottom + window.scrollY + 8, // Vertical offset
         left: rect.left + window.scrollX,
-        width: Math.max(rect.width, 200), // 最小宽度
+        width: Math.max(rect.width, 200), // Minimum width
       });
     }
   };
@@ -216,13 +216,13 @@ const ModelSelector: React.FC<{
     };
   }, [isOpen]);
 
-  // 点击外部关闭
+  // Close when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (buttonRef.current && buttonRef.current.contains(event.target as Node)) {
         return;
       }
-      // 由于使用了 Portal，我们需要在捕获阶段或 body 上处理关闭
+      // Since using Portal, we need to handle closing on capture phase or body
       setIsOpen(false);
     };
 
@@ -254,7 +254,7 @@ const ModelSelector: React.FC<{
         </div>
       </button>
 
-      {/* Portal 到 Body，确保在最上层 */}
+      {/* Portal to Body, ensure it's on top */}
       {isOpen && createPortal(
         <div 
           className="fixed z-[9999] bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-in fade-in zoom-in-95 duration-100"
@@ -263,7 +263,7 @@ const ModelSelector: React.FC<{
             left: coords.left,
             width: coords.width
           }}
-          onMouseDown={(e) => e.stopPropagation()} // 防止触发外部点击关闭
+          onMouseDown={(e) => e.stopPropagation()} // Prevent triggering outside click close
         >
           {AI_MODELS.map((model) => {
             const isLocked = model.premiumOnly && !isPremium;
@@ -300,7 +300,7 @@ const ModelSelector: React.FC<{
             );
           })}
           
-          {/* 非会员底部引导条 */}
+          {/* Non-premium bottom guidance bar */}
           {!isPremium && (
              <button 
                onClick={() => { onUpgrade(); setIsOpen(false); }}
@@ -545,14 +545,14 @@ const TranslateView: React.FC<{ user?: UserInfo }> = ({ user }) => {
     };
   }, []);
 
-  // 🟢 状态保护：如果用户会员失效但当前选了 AI 引擎，强制切回 Google
+  // 🟢 State protection: If user membership expires but AI engine is selected, force switch back to Google
   useEffect(() => {
     if (!isPremium && engine === 'ai') {
       setEngine('google');
     }
   }, [isPremium, engine]);
 
-  // 🟢 升级引导逻辑
+  // 🟢 Upgrade guidance logic
   const handleUpgradeRedirect = () => {
     if (confirm("This feature requires a Premium subscription. Unlock the full power of AI translation now!")) {
       window.location.href = '/billing';
@@ -922,18 +922,18 @@ const TranslateView: React.FC<{ user?: UserInfo }> = ({ user }) => {
   const stopRecording = useCallback(() => {
     // 1. Stop recording hardware immediately
     cleanupAudio();
-    
+
     // 2. Notify backend
     if (socketRef.current?.connected) {
       socketRef.current.emit('stop_streaming', {
         speaker: currentSpeaker
       });
     }
-    
+
     // 3. Update UI state
     setIsRecording(false);
     setIsProcessing(true); // Show processing while backend finalizes
-    
+
     // Safety fallback: if backend doesn't respond with 'streaming_ended' within 5s, reset state
     // We use a ref to track the current processing request to avoid race conditions if needed,
     // but a simple timeout is usually sufficient for UI reset.
@@ -1119,7 +1119,7 @@ const TranslateView: React.FC<{ user?: UserInfo }> = ({ user }) => {
             onUpgrade={handleUpgradeRedirect}
           />
 
-          {/* Engine 为 AI 时显示模型选择器 */}
+          {/* Show model selector when engine is AI */}
           {engine === 'ai' && (
             <>
               <div className="w-px h-6 bg-slate-200 dark:bg-slate-700 mx-1" />

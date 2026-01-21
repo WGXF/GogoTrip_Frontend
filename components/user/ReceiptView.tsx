@@ -1,5 +1,6 @@
 import React, { JSX, useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import {
   CheckCircle,
   Loader2,
@@ -45,6 +46,7 @@ interface OrderDetails {
 const ReceiptView: React.FC = () => {
   const navigate = useNavigate();
   const receiptRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation(['receipt', 'common']);
 
   const [orderId] = useState<string | null>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -65,7 +67,7 @@ const ReceiptView: React.FC = () => {
 
   useEffect(() => {
     if (!orderId) {
-      setError('Order ID not found');
+      setError(t('receipt:errors.orderNotFound'));
       setIsLoading(false);
       return;
     }
@@ -83,10 +85,10 @@ const ReceiptView: React.FC = () => {
         setOrderDetails(await res.json());
       } else {
         const err = await res.json();
-        setError(err.error || 'Failed to load order');
+        setError(err.error || t('receipt:errors.loadFailed'));
       }
     } catch {
-      setError('Network error occurred');
+      setError(t('receipt:errors.networkError'));
     } finally {
       setIsLoading(false);
     }
@@ -101,9 +103,9 @@ const ReceiptView: React.FC = () => {
         { method: 'POST', credentials: 'include' }
       );
       const data = await res.json();
-      if (data.success && ['paid', 'active'].includes(data.order?.status)) {
-      await fetchOrderDetails();
-    }
+      if (data.success) {
+        await fetchOrderDetails();
+      }
     } catch {
       console.error('Verification failed');
     } finally {
@@ -140,23 +142,23 @@ const ReceiptView: React.FC = () => {
       .then(() => {
         element.classList.remove('download-mode');
         setIsDownloading(false);
-        showToast('Receipt downloaded successfully!');
+        showToast(t('receipt:messages.downloadSuccess'));
       })
       .catch((err: any) => {
         console.error('PDF generation failed:', err);
         element.classList.remove('download-mode');
         setIsDownloading(false);
-        showToast('Failed to download PDF', 'error');
+        showToast(t('receipt:messages.downloadFailed'), 'error');
       });
   };
 
   const StatusBadge = ({ status }: { status: string }) => {
     const statusConfig: Record<string, { icon: JSX.Element; text: string; bgColor: string; textColor: string }> = {
-      paid: { icon: <CheckCircle className="w-5 h-5" />, text: 'Payment Successful', bgColor: 'bg-emerald-50 dark:bg-emerald-900/20', textColor: 'text-emerald-700 dark:text-emerald-400' },
-      active: {icon: <CheckCircle className="w-5 h-5" />,text: 'Payment Successful',bgColor: 'bg-emerald-50',textColor: 'text-emerald-700'},
-      pending: { icon: <Clock className="w-5 h-5" />, text: 'Payment Pending', bgColor: 'bg-amber-50 dark:bg-amber-900/20', textColor: 'text-amber-700 dark:text-amber-400' },
-      failed: { icon: <XCircle className="w-5 h-5" />, text: 'Payment Failed', bgColor: 'bg-red-50 dark:bg-red-900/20', textColor: 'text-red-700 dark:text-red-400' },
-      cancelled: { icon: <XCircle className="w-5 h-5" />, text: 'Payment Cancelled', bgColor: 'bg-slate-50 dark:bg-slate-900/20', textColor: 'text-slate-700 dark:text-slate-400' }
+      paid: { icon: <CheckCircle className="w-5 h-5" />, text: t('receipt:status.paymentSuccessful'), bgColor: 'bg-emerald-50 dark:bg-emerald-900/20', textColor: 'text-emerald-700 dark:text-emerald-400' },
+      active: {icon: <CheckCircle className="w-5 h-5" />,text: t('receipt:status.paymentSuccessful'),bgColor: 'bg-emerald-50',textColor: 'text-emerald-700'},
+      pending: { icon: <Clock className="w-5 h-5" />, text: t('receipt:status.paymentPending'), bgColor: 'bg-amber-50 dark:bg-amber-900/20', textColor: 'text-amber-700 dark:text-amber-400' },
+      failed: { icon: <XCircle className="w-5 h-5" />, text: t('receipt:status.paymentFailed'), bgColor: 'bg-red-50 dark:bg-red-900/20', textColor: 'text-red-700 dark:text-red-400' },
+      cancelled: { icon: <XCircle className="w-5 h-5" />, text: t('receipt:status.paymentCancelled'), bgColor: 'bg-slate-50 dark:bg-slate-900/20', textColor: 'text-slate-700 dark:text-slate-400' }
     };
     const config = statusConfig[status] || statusConfig.pending;
     return (
@@ -179,10 +181,10 @@ const ReceiptView: React.FC = () => {
       <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-6">
         <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 max-w-md w-full border border-slate-200 dark:border-slate-800 text-center">
           <AlertCircle className="w-12 h-12 text-red-600 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold mb-2 dark:text-white">Error</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-6">{error || 'Order not found'}</p>
+          <h2 className="text-2xl font-bold mb-2 dark:text-white">{t('receipt:errors.error')}</h2>
+          <p className="text-slate-600 dark:text-slate-400 mb-6">{error || t('receipt:errors.orderNotFound')}</p>
           <button onClick={handleBackToBilling} className="px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 flex items-center gap-2 mx-auto">
-            <ArrowLeft className="w-5 h-5" /> Back to Billing
+            <ArrowLeft className="w-5 h-5" /> {t('receipt:actions.backToBilling')}
           </button>
         </div>
       </div>
@@ -211,28 +213,28 @@ const ReceiptView: React.FC = () => {
 
       {isVerifying && (
         <div className="fixed top-4 right-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4 shadow-lg z-50 flex items-center gap-3">
-          <Loader2 className="w-5 h-5 text-blue-600 animate-spin" /><p className="text-blue-700 dark:text-blue-400 font-medium">Verifying...</p>
+          <Loader2 className="w-5 h-5 text-blue-600 animate-spin" /><p className="text-blue-700 dark:text-blue-400 font-medium">{t('receipt:actions.verifying')}</p>
         </div>
       )}
 
       {/* Toolbar Buttons */}
       <div className="max-w-4xl mx-auto mb-6 flex flex-wrap gap-4 print:hidden">
         <button onClick={handleBackToBilling} className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-2">
-          <ArrowLeft className="w-5 h-5" /> Back to Billing
+          <ArrowLeft className="w-5 h-5" /> {t('receipt:actions.backToBilling')}
         </button>
 
         {order.status === 'pending' && (
           <button onClick={verifyOrderStatus} disabled={isVerifying} className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-50">
-            <RefreshCw className={`w-5 h-5 ${isVerifying ? 'animate-spin' : ''}`} /> Refresh Status
+            <RefreshCw className={`w-5 h-5 ${isVerifying ? 'animate-spin' : ''}`} /> {t('receipt:actions.refreshStatus')}
           </button>
         )}
 
         <div className="flex-1"></div>
         <button onClick={handlePrint} className="px-4 py-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 rounded-xl hover:bg-slate-50 transition-colors flex items-center gap-2">
-          <Printer className="w-5 h-5" /> Print
+          <Printer className="w-5 h-5" /> {t('receipt:actions.print')}
         </button>
         <button onClick={handleDownloadPDF} disabled={isDownloading} className="px-4 py-2 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2 disabled:opacity-70">
-          {isDownloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />} Download PDF
+          {isDownloading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Download className="w-5 h-5" />} {t('receipt:actions.downloadPdf')}
         </button>
       </div>
 
@@ -246,8 +248,8 @@ const ReceiptView: React.FC = () => {
         <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-8 header-section">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h1 className="text-3xl font-bold mb-2">GogoTrip</h1>
-              <p className="text-blue-100">Premium Subscription</p>
+              <h1 className="text-3xl font-bold mb-2">{t('receipt:header.title')}</h1>
+              <p className="text-blue-100">{t('receipt:header.subtitle')}</p>
             </div>
           </div>
           <div className="flex justify-center"><StatusBadge status={order.status} /></div>
@@ -258,19 +260,19 @@ const ReceiptView: React.FC = () => {
           {/* Order Info */}
           <div className="mb-8 info-group">
             <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-              <ReceiptIcon className="w-5 h-5" /> Order Information
+              <ReceiptIcon className="w-5 h-5" /> {t('receipt:sections.orderInfo')}
             </h2>
             <div className="grid md:grid-cols-2 gap-6 grid-section">
-              <div><div className="text-sm text-slate-500 mb-1">Customer Name</div><div className="font-medium dark:text-white">{user.name}</div></div>
-              <div><div className="text-sm text-slate-500 mb-1">Email</div><div className="font-medium dark:text-white">{user.email}</div></div>
-              <div><div className="text-sm text-slate-500 mb-1">Order Reference</div><div className="font-mono text-sm font-medium dark:text-white">{order.orderReference}</div></div>
-              <div><div className="text-sm text-slate-500 mb-1">Order Date</div><div className="font-medium dark:text-white">{new Date(order.createdAt).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div></div>
+              <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.customerName')}</div><div className="font-medium dark:text-white">{user.name}</div></div>
+              <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.email')}</div><div className="font-medium dark:text-white">{user.email}</div></div>
+              <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.orderReference')}</div><div className="font-mono text-sm font-medium dark:text-white">{order.orderReference}</div></div>
+              <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.orderDate')}</div><div className="font-medium dark:text-white">{new Date(order.createdAt).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</div></div>
             </div>
           </div>
 
           {/* Subscription Info */}
           <div className="border-t border-slate-200 dark:border-slate-800 pt-8 mb-8 info-group">
-            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">Subscription Details</h2>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-4">{t('receipt:sections.subscriptionDetails')}</h2>
             <div className="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-6 sub-card">
               <div className="flex justify-between items-start mb-4">
                 <div><div className="text-xl font-bold text-slate-900 dark:text-white mb-1">{plan.name}</div><div className="text-sm text-slate-600 dark:text-slate-400">{plan.description}</div></div>
@@ -279,8 +281,8 @@ const ReceiptView: React.FC = () => {
               {order.status === 'active' && order.startDate && (
                 <div className="border-t border-slate-200 dark:border-slate-700 pt-4 mt-4">
                   <div className="grid md:grid-cols-2 gap-4">
-                    <div><div className="text-sm text-slate-500 mb-1">Valid From</div><div className="font-medium dark:text-white">{new Date(order.startDate).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric' })}</div></div>
-                    <div><div className="text-sm text-slate-500 mb-1">Valid Until</div><div className="font-medium dark:text-white">{order.endDate ? new Date(order.endDate).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric' }) : <span className="text-amber-600 font-bold">Lifetime</span>}</div></div>
+                    <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.validFrom')}</div><div className="font-medium dark:text-white">{new Date(order.startDate).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric' })}</div></div>
+                    <div><div className="text-sm text-slate-500 mb-1">{t('receipt:fields.validUntil')}</div><div className="font-medium dark:text-white">{order.endDate ? new Date(order.endDate).toLocaleDateString('en-MY', { year: 'numeric', month: 'long', day: 'numeric' }) : <span className="text-amber-600 font-bold">{t('receipt:fields.lifetime')}</span>}</div></div>
                   </div>
                 </div>
               )}
@@ -289,15 +291,15 @@ const ReceiptView: React.FC = () => {
 
           {/* Totals */}
           <div className="border-t border-slate-200 dark:border-slate-800 pt-8 info-group">
-            <div className="flex justify-between items-center mb-4"><span className="text-slate-600 dark:text-slate-400">Subtotal</span><span className="font-medium dark:text-white">RM {order.amount.toFixed(2)}</span></div>
-            <div className="flex justify-between items-center mb-4"><span className="text-slate-600 dark:text-slate-400">Tax (0%)</span><span className="font-medium dark:text-white">RM 0.00</span></div>
-            <div className="border-t border-slate-200 dark:border-slate-800 pt-4 flex justify-between items-center"><span className="text-xl font-bold dark:text-white">Total</span><span className="text-2xl font-bold text-blue-600">RM {order.amount.toFixed(2)}</span></div>
+            <div className="flex justify-between items-center mb-4"><span className="text-slate-600 dark:text-slate-400">{t('receipt:pricing.subtotal')}</span><span className="font-medium dark:text-white">RM {order.amount.toFixed(2)}</span></div>
+            <div className="flex justify-between items-center mb-4"><span className="text-slate-600 dark:text-slate-400">{t('receipt:pricing.tax')}</span><span className="font-medium dark:text-white">RM 0.00</span></div>
+            <div className="border-t border-slate-200 dark:border-slate-800 pt-4 flex justify-between items-center"><span className="text-xl font-bold dark:text-white">{t('receipt:pricing.total')}</span><span className="text-2xl font-bold text-blue-600">RM {order.amount.toFixed(2)}</span></div>
           </div>
 
           {/* Footer */}
           <div className="mt-12 pt-8 border-t border-slate-200 dark:border-slate-800 text-center footer-section">
-            <p className="text-sm text-slate-500 mb-2">Thank you for choosing GogoTrip Premium!</p>
-            <p className="text-xs text-slate-400">For questions or support, please contact us at support@gogotrip.com</p>
+            <p className="text-sm text-slate-500 mb-2">{t('receipt:footer.thankYou')}</p>
+            <p className="text-xs text-slate-400">{t('receipt:footer.support')}</p>
           </div>
         </div>
       </div>

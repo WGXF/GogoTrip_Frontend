@@ -21,6 +21,8 @@ import enChat from '../locales/en/chat.json';
 import enNav from '../locales/en/nav.json';
 import enAuth from '../locales/en/auth.json';
 import enDashboard from '../locales/en/dashboard.json';
+import enBilling from '../locales/en/billing.json';
+import enReceipt from '../locales/en/receipt.json';
 
 import zhCommon from '../locales/zh/common.json';
 import zhSettings from '../locales/zh/settings.json';
@@ -28,6 +30,8 @@ import zhChat from '../locales/zh/chat.json';
 import zhNav from '../locales/zh/nav.json';
 import zhAuth from '../locales/zh/auth.json';
 import zhDashboard from '../locales/zh/dashboard.json';
+import zhBilling from '../locales/zh/billing.json';
+import zhReceipt from '../locales/zh/receipt.json';
 
 import msCommon from '../locales/ms/common.json';
 import msSettings from '../locales/ms/settings.json';
@@ -35,6 +39,8 @@ import msChat from '../locales/ms/chat.json';
 import msNav from '../locales/ms/nav.json';
 import msAuth from '../locales/ms/auth.json';
 import msDashboard from '../locales/ms/dashboard.json';
+import msBilling from '../locales/ms/billing.json';
+import msReceipt from '../locales/ms/receipt.json';
 
 // Supported languages
 export const SUPPORTED_LANGUAGES = [
@@ -61,6 +67,8 @@ const resources = {
     nav: enNav,
     auth: enAuth,
     dashboard: enDashboard,
+    billing: enBilling,
+    receipt: enReceipt,
   },
   zh: {
     common: zhCommon,
@@ -69,6 +77,8 @@ const resources = {
     nav: zhNav,
     auth: zhAuth,
     dashboard: zhDashboard,
+    billing: zhBilling,
+    receipt: zhReceipt,
   },
   ms: {
     common: msCommon,
@@ -77,6 +87,8 @@ const resources = {
     nav: msNav,
     auth: msAuth,
     dashboard: msDashboard,
+    billing: msBilling,
+    receipt: msReceipt,
   },
 };
 
@@ -93,7 +105,7 @@ i18n
     
     // Default namespace
     defaultNS: 'common',
-    ns: ['common', 'settings', 'chat', 'nav', 'auth', 'dashboard'],
+    ns: ['common', 'settings', 'chat', 'nav', 'auth', 'dashboard', 'billing', 'receipt'],
     
     // Language detection options
     detection: {

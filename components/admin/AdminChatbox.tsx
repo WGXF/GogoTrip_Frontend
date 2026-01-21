@@ -106,7 +106,7 @@ const AdminChatbox: React.FC = () => {
     loadAdmins();
   }, []);
 
-  // Socket 事件监听
+  // Socket event listeners
   useEffect(() => {
     if (!socket) return;
 

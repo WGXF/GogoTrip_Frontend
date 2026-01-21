@@ -20,18 +20,18 @@ interface Advertisement {
   updatedAt: string;
 }
 
-// Toast 类型定义
+// Toast type definition
 interface Notification {
   type: 'success' | 'error';
   message: string;
 }
 
 export const AdvertisementManagement: React.FC = () => {
-  // --- 核心数据状态 ---
+  // --- Core data state ---
   const [ads, setAds] = useState<Advertisement[]>([]);
   const [loading, setLoading] = useState(true);
   
-  // --- Modal & Form 状态 ---
+  // --- Modal & Form state ---
   const [showModal, setShowModal] = useState(false);
   const [editingAd, setEditingAd] = useState<Advertisement | null>(null);
   const [formData, setFormData] = useState({
@@ -44,7 +44,7 @@ export const AdvertisementManagement: React.FC = () => {
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string>('');
 
-  // --- 新增：UI 交互状态 ---
+  // --- New: UI interaction state ---
   const [notification, setNotification] = useState<Notification | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
 
@@ -52,10 +52,10 @@ export const AdvertisementManagement: React.FC = () => {
     fetchAds();
   }, []);
 
-  // --- 辅助函数：显示通知 ---
+  // --- Helper function: Show notification ---
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
-    setTimeout(() => setNotification(null), 3000); // 3秒后自动消失
+    setTimeout(() => setNotification(null), 3000); // Auto-dismiss after 3 seconds
   };
 
   const fetchAds = async () => {

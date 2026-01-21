@@ -1,6 +1,6 @@
 import React from 'react';
 
-// ✨ TipTap 工具栏按钮组件
+// ✨ TipTap toolbar button component
 interface ToolbarButtonProps {
   onClick: () => void;
   isActive?: boolean;

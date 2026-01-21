@@ -16,7 +16,7 @@ export const AdminSettingsView: React.FC = () => {
       key: 'login_hero_image',
       value: '',
       label: 'Login Hero Image URL',
-      description: '登录页面左侧的背景图片（推荐使用 Unsplash 或 Pexels 的高清图片）',
+      description: 'Background image for left side of login page (recommended to use high-quality images from Unsplash or Pexels)',
       type: 'url',
       placeholder: 'https://images.unsplash.com/photo-...'
     },
@@ -24,7 +24,7 @@ export const AdminSettingsView: React.FC = () => {
       key: 'login_hero_title',
       value: '',
       label: 'Login Hero Title',
-      description: '登录页面的主标题',
+      description: 'Main title for login page',
       type: 'text',
       placeholder: 'Your Journey Starts Here'
     },
@@ -32,7 +32,7 @@ export const AdminSettingsView: React.FC = () => {
       key: 'login_hero_subtitle',
       value: '',
       label: 'Login Hero Subtitle',
-      description: '登录页面的副标题',
+      description: 'Subtitle for login page',
       type: 'textarea',
       placeholder: 'Plan, explore, and discover amazing destinations...'
     }
@@ -42,7 +42,7 @@ export const AdminSettingsView: React.FC = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
 
-  // 加载当前设置
+  // Load current settings
   useEffect(() => {
     fetchSettings();
   }, []);
@@ -56,14 +56,14 @@ export const AdminSettingsView: React.FC = () => {
       if (response.ok) {
         const data = await response.json();
         
-        // 更新 settings state
+        // Update settings state
         setSettings(prev => prev.map(setting => ({
           ...setting,
           value: data[setting.key] || setting.value
         })));
       }
     } catch (error) {
-      console.error('❌ 获取设置失败:', error);
+      console.error('Failed to fetch settings:', error);
     } finally {
       setIsLoading(false);
     }

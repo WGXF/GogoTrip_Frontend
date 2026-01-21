@@ -4,7 +4,7 @@ import { ListTodo, MapPin, Clock, Search, ExternalLink } from 'lucide-react';
 interface TripItem {
   id: number;
   trip_id: number;
-  place_name: string; // Backend 应该返回 join 后的名字
+  place_name: string; // Backend should return joined name
   day_number: number;
   order_index: number;
   notes: string;
@@ -15,7 +15,7 @@ export const TripItemList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // 模拟 fetch
+    // Mock fetch
     fetch('/api/admin/trip_items')
       .then(res => res.ok ? res.json() : [])
       .then(data => setItems(data))

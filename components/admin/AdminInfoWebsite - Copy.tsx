@@ -10,7 +10,7 @@ import {
 } from 'lucide-react';
 import { NavItem } from '../../types';
 
-// ✨ TipTap v3 引入 - 使用命名导入 + 别名避免冲突
+
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Underline as UnderlineExtension } from '@tiptap/extension-underline';
@@ -42,7 +42,6 @@ interface Notification {
   type: 'success' | 'error';
 }
 
-// ✨ TipTap 工具栏按钮组件
 interface ToolbarButtonProps {
   onClick: () => void;
   isActive?: boolean;
@@ -67,7 +66,6 @@ const ToolbarButton: React.FC<ToolbarButtonProps> = ({ onClick, isActive, disabl
   </button>
 );
 
-// ✨ TipTap 工具栏组件
 interface EditorToolbarProps {
   editor: ReturnType<typeof useEditor>;
 }

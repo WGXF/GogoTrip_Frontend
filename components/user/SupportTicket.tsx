@@ -1,5 +1,5 @@
 // components/user/SupportTicket.tsx
-// 🎫 用户支持工单系统 - Real-time 版本
+// 🎫 User support ticket system - Real-time version
 
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';

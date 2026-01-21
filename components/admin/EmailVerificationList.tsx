@@ -25,7 +25,7 @@ export const EmailVerificationList: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  // --- 新增：UI 交互状态 ---
+  // --- New: UI interaction state ---
   const [notification, setNotification] = useState<Notification | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
 
@@ -33,10 +33,10 @@ export const EmailVerificationList: React.FC = () => {
     fetchData();
   }, []);
 
-  // 辅助函数：显示通知
+  // Helper function: Show notification
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
-    setTimeout(() => setNotification(null), 3000); // 3秒后自动消失
+    setTimeout(() => setNotification(null), 3000); // Auto-dismiss after 3 seconds
   };
 
   const fetchData = async () => {
@@ -54,12 +54,12 @@ export const EmailVerificationList: React.FC = () => {
     }
   };
 
-  // 1. 点击删除按钮，仅打开弹窗
+  // 1. Click delete button, only open dialog
   const initiateDelete = (id: number) => {
     setDeleteTargetId(id);
   };
 
-  // 2. 确认删除（替代了原有的 confirm 逻辑）
+  // 2. Confirm delete (replaced original confirm logic)
   const confirmDelete = async () => {
     if (!deleteTargetId) return;
 
@@ -76,7 +76,7 @@ export const EmailVerificationList: React.FC = () => {
         console.error(e); 
         showNotification('error', 'An error occurred');
     } finally {
-        setDeleteTargetId(null); // 关闭弹窗
+        setDeleteTargetId(null); // Close dialog
     }
   };
 

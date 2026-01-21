@@ -22,7 +22,7 @@ interface DashboardData {
   savedDrafts: any[];
 }
 
-// UI: 恢复原有的 StatCard 样式
+// UI: Restore original StatCard style
 const StatCard: React.FC<{ 
   title: string; 
   value: string; 
@@ -53,7 +53,7 @@ const StatCard: React.FC<{
   </div>
 );
 
-// UI: 恢复原有的 AppointmentCard 样式（带左侧日期方块）
+// UI: Restore original AppointmentCard style (with left date block)
 const AppointmentCard: React.FC<{ appointment: Appointment }> = ({ appointment }) => {
   const aptDate = new Date(appointment.date);
   
@@ -263,8 +263,8 @@ const DashboardView: React.FC<DashboardViewProps> = ({ user }) => {
           {/* Advertisement Banner */}
           <AdvertisementBanner 
             isPremium={user.subscription?.status === 'active' || user.isPremium || false} 
-            // 兼容旧 Banner 的 onNavigate (如果内部还在用 ViewState，需要 Banner 组件也对应调整，或者这里传递一个兼容函数)
-            // 假设 Banner 已经 update，或者 Banner 只用简单的 onClick
+            // Compatible with old Banner's onNavigate (if internal still uses ViewState, Banner component needs adjustment, or pass a compatible function here)
+            // Assuming Banner has been updated, or Banner only uses simple onClick
           />
           
           {/* 3. Trip Idea Card - UI Restore */}

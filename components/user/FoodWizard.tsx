@@ -59,9 +59,9 @@ const DIETARY = [
   { id: 'halal', icon: '☪️' },
   { id: 'vegetarian', icon: '🥬' },
   { id: 'vegan', icon: '🌱' },
-  { id: 'no-pork', icon: '🚫🐷' },
-  { id: 'no-beef', icon: '🚫🐄' },
-  { id: 'gluten-free', icon: '🌾' },
+  { id: 'noPork', icon: '🚫🐷' },
+  { id: 'noBeef', icon: '🚫🐄' },
+  { id: 'glutenFree', icon: '🌾' },
 ];
 
 const DISTANCES = [
@@ -227,7 +227,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                       }`}
                     >
                       <span>{d.icon}</span>
-                      <span>{t(`foodWizard.dietaryOptions.${d.id.replace('-', '')}`)}</span>
+                      <span>{t(`foodWizard.dietaryOptions.${d.id}`)}</span>
                     </button>
                   ))}
                 </div>
@@ -290,7 +290,7 @@ export const FoodWizard: React.FC<FoodWizardProps> = ({ isOpen, onClose, onCompl
                 <div className="text-xs text-orange-700 dark:text-orange-400 space-y-1">
                   <p>• {t(`foodWizard.mealOptions.${prefs.mealType}`)} • {t(`foodWizard.vibeOptions.${prefs.mood}`)}</p>
                   <p>• {t('tripWizard.budget')}: {t(`foodWizard.budgetDescriptions.${prefs.budget}`)}</p>
-                  {prefs.dietary.length > 0 && <p>• {t('tripWizard.dietary')}: {prefs.dietary.map(d => t(`foodWizard.dietaryOptions.${d.replace('-', '')}`)).join(', ')}</p>}
+                  {prefs.dietary.length > 0 && <p>• {t('tripWizard.dietary')}: {prefs.dietary.map(d => t(`foodWizard.dietaryOptions.${d}`)).join(', ')}</p>}
                   {prefs.cuisine.length > 0 && <p>• {t('foodWizard.cuisine')}: {prefs.cuisine.map(c => t(`foodWizard.cuisineOptions.${c}`)).join(', ')}</p>}
                 </div>
               </div>

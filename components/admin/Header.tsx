@@ -21,16 +21,16 @@ export const Header: React.FC<HeaderProps> = ({ onLogout, onNavigate, user }) =>
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   
-  // --- 新增：Toast Notification 状态 ---
+  // --- New: Toast Notification state ---
   const [notification, setNotification] = useState<Notification | null>(null);
 
   const profileRef = useRef<HTMLDivElement>(null);
   const notifRef = useRef<HTMLDivElement>(null);
 
-  // --- 辅助函数：显示通知 ---
+  // --- Helper function: Show notification ---
   const showNotification = (type: 'success' | 'info' | 'warning', message: string) => {
     setNotification({ type, message });
-    setTimeout(() => setNotification(null), 3000); // 3秒自动关闭
+    setTimeout(() => setNotification(null), 3000); // Auto-close after 3 seconds
   };
 
   // Close menus when clicking outside
@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ onLogout, onNavigate, user }) =>
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       console.log(`Searching for: ${searchValue}`);
-      // 使用 Toast 反馈搜索动作
+      // Use Toast to provide search feedback
       if (searchValue.trim()) {
          showNotification('info', `Searching for "${searchValue}"...`);
       }
@@ -78,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({ onLogout, onNavigate, user }) =>
       { id: 3, text: "Trip #1029 reported by user.", time: "3 hours ago", unread: true },
   ];
 
-  // Toast Icon 辅助映射
+  // Toast Icon helper mapping
   const getToastIcon = (type: string) => {
       switch(type) {
           case 'success': return <CheckCircle size={18} />;

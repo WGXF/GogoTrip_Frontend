@@ -202,15 +202,15 @@ const TicketManager: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const typingTimeoutRef = useRef<NodeJS.Timeout>();
 
-  // 初始加载
+  // Initial load
   useEffect(() => {
     loadTickets();
   }, [statusFilter, assignedFilter]);
 
-  // 🔴 监听新工单
+  // 🔴 Listen for new tickets
   useEffect(() => {
     const unsub = onNewTicket((data) => {
-      // 添加新工单到列表顶部
+      // Add new ticket to top of list
       setTickets(prev => [{
         id: data.ticketId,
         subject: data.subject,
@@ -224,17 +224,17 @@ const TicketManager: React.FC = () => {
         createdAt: data.createdAt
       }, ...prev]);
       
-      // 更新统计
+      // Update statistics
       setStats(prev => prev ? { ...prev, pending: prev.pending + 1, total: prev.total + 1 } : prev);
     });
 
     return () => unsub();
   }, [onNewTicket]);
 
-  // 🔴 监听工单活动（用户发消息等）
+  // 🔴 Listen for ticket activity (user messages, etc.)
   useEffect(() => {
     const unsub = onTicketActivity((data) => {
-      // 更新工单列表中的最后消息
+      // Update last message in ticket list
       setTickets(prev => prev.map(t => 
         t.id === data.ticketId 
           ? { ...t, lastMessage: { text: data.preview, senderType: 'user', time: 'now' } }
@@ -245,7 +245,7 @@ const TicketManager: React.FC = () => {
     return () => unsub();
   }, [onTicketActivity]);
 
-  // 🔴 加入选中工单的房间
+  // 🔴 Join selected ticket room
   useEffect(() => {
     if (selectedTicket && isConnected) {
       joinTicket(selectedTicket.id);
@@ -256,7 +256,7 @@ const TicketManager: React.FC = () => {
     }
   }, [selectedTicket?.id, isConnected, joinTicket, leaveTicket]);
 
-  // 🔴 监听选中工单的新消息
+  // 🔴 Listen for new messages in selected ticket
   useEffect(() => {
     const unsub = onNewTicketMessage((data) => {
       if (selectedTicket && data.ticketId === selectedTicket.id) {
@@ -271,7 +271,7 @@ const TicketManager: React.FC = () => {
     return () => unsub();
   }, [selectedTicket?.id, onNewTicketMessage]);
 
-  // 🔴 监听用户输入状态
+  // 🔴 Listen for user typing status
   useEffect(() => {
     const unsub = onUserTyping((data) => {
       if (selectedTicket && data.ticketId === selectedTicket.id && !data.isAdmin) {
@@ -286,7 +286,7 @@ const TicketManager: React.FC = () => {
     return () => unsub();
   }, [selectedTicket?.id, onUserTyping]);
 
-  // 自动滚动
+  // Auto-scroll
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, userTyping]);
@@ -316,13 +316,13 @@ const TicketManager: React.FC = () => {
     if (result.success) {
       setSelectedTicket(result.ticket);
       loadTickets();
-      // 重新加载消息
+      // Reload messages
       const data = await ticketApi.getTicketDetail(selectedTicket.id);
       if (data) setMessages(data.messages);
     }
   };
 
-  // 🔴 发送消息（通过 Socket）
+  // 🔴 Send message (via Socket)
   const handleSendMessage = useCallback(() => {
     if (!selectedTicket || !newMessage.trim() || !isConnected) return;
 
@@ -335,7 +335,7 @@ const TicketManager: React.FC = () => {
     sendTypingStatus(selectedTicket.id, false);
   }, [selectedTicket, newMessage, isConnected, sendTicketMessage, sendTypingStatus]);
 
-  // 🔴 输入状态
+  // 🔴 Typing status
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewMessage(e.target.value);
     
@@ -377,7 +377,7 @@ const TicketManager: React.FC = () => {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <h2 className="text-lg font-bold text-slate-800">Support Tickets</h2>
-              {/* 🔴 连接状态 */}
+              {/* 🔴 Connection status */}
               <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                 isConnected ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
               }`}>
@@ -582,7 +582,7 @@ const TicketManager: React.FC = () => {
                 </div>
               ))}
               
-              {/* 🔴 用户输入状态 */}
+              {/* 🔴 User typing status */}
               {userTyping && (
                 <div className="flex justify-start">
                   <div className="bg-white border border-slate-200 px-4 py-3 rounded-2xl rounded-bl-md">

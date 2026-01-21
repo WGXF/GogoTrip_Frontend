@@ -6,6 +6,7 @@ import {
   Info, Navigation, Sun, Cloud, Sparkles, Save, Trash2,
   Wand2, Check, Square
 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { API_BASE_URL } from '../../config';
 
 /**
@@ -127,6 +128,7 @@ const ActivityIcon: React.FC<{ type: string; className?: string }> = ({ type, cl
 };
 
 const TimeSlotBadge: React.FC<{ slot: string }> = ({ slot }) => {
+  const { t } = useTranslation('chat');
   const colors: Record<string, string> = {
     morning: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
     lunch: 'bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400',
@@ -135,17 +137,9 @@ const TimeSlotBadge: React.FC<{ slot: string }> = ({ slot }) => {
     night: 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400'
   };
   
-  const labels: Record<string, string> = {
-    morning: '上午',
-    lunch: '午餐',
-    afternoon: '下午',
-    evening: '傍晚',
-    night: '夜晚'
-  };
-
   return (
     <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider ${colors[slot] || colors.morning}`}>
-      {labels[slot] || slot}
+      {t(`dailyPlan.${slot}`) || slot}
     </span>
   );
 };
@@ -162,23 +156,24 @@ interface EditActivityModalProps {
 }
 
 const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave, onCancel, onDelete }) => {
+  const { t } = useTranslation('chat');
   const [form, setForm] = useState<Activity>({ ...activity });
 
   const TIME_SLOTS = [
-    { value: 'morning', label: '上午 Morning' },
-    { value: 'lunch', label: '午餐 Lunch' },
-    { value: 'afternoon', label: '下午 Afternoon' },
-    { value: 'evening', label: '傍晚 Evening' },
-    { value: 'night', label: '夜晚 Night' }
+    { value: 'morning', label: t('dailyPlan.morning') },
+    { value: 'lunch', label: t('dailyPlan.lunch') },
+    { value: 'afternoon', label: t('dailyPlan.afternoon') },
+    { value: 'evening', label: t('dailyPlan.evening') },
+    { value: 'night', label: t('dailyPlan.night') }
   ];
 
   const ACTIVITY_TYPES = [
-    { value: 'attraction', label: '景点 Attraction' },
-    { value: 'food', label: '美食 Food' },
-    { value: 'cafe', label: '咖啡厅 Cafe' },
-    { value: 'hotel', label: '住宿 Hotel' },
-    { value: 'shopping', label: '购物 Shopping' },
-    { value: 'transport', label: '交通 Transport' }
+    { value: 'attraction', label: t('dailyPlan.activityTypes.attraction') },
+    { value: 'food', label: t('dailyPlan.activityTypes.food') },
+    { value: 'cafe', label: t('dailyPlan.activityTypes.cafe') },
+    { value: 'hotel', label: t('dailyPlan.activityTypes.hotel') },
+    { value: 'shopping', label: t('dailyPlan.activityTypes.shopping') },
+    { value: 'transport', label: t('dailyPlan.activityTypes.transport') }
   ];
 
   return (
@@ -186,7 +181,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
       <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
-          <h3 className="text-lg font-bold text-slate-900 dark:text-white">编辑活动</h3>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('dailyPlan.editActivity')}</h3>
           <button onClick={onCancel} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
             <X className="w-5 h-5" />
           </button>
@@ -197,7 +192,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
           {/* Time Row */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">开始时间</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.startTime')}</label>
               <input
                 type="time"
                 value={form.start_time}
@@ -206,7 +201,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">结束时间</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.endTime')}</label>
               <input
                 type="time"
                 value={form.end_time}
@@ -219,7 +214,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
           {/* Time Slot & Type */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">时段</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.timeSlot')}</label>
               <select
                 value={form.time_slot}
                 onChange={e => setForm({ ...form, time_slot: e.target.value as Activity['time_slot'] })}
@@ -231,7 +226,7 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
               </select>
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">类型</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.type')}</label>
               <select
                 value={form.activity_type}
                 onChange={e => setForm({ ...form, activity_type: e.target.value as Activity['activity_type'] })}
@@ -246,60 +241,60 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
 
           {/* Place Name */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">地点名称</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.placeName')}</label>
             <input
               type="text"
               value={form.place_name}
               onChange={e => setForm({ ...form, place_name: e.target.value })}
               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 outline-none"
-              placeholder="输入地点名称"
+              placeholder={t('dailyPlan.placeNamePlaceholder')}
             />
           </div>
 
           {/* Address */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">地址</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.address')}</label>
             <input
               type="text"
               value={form.place_address}
               onChange={e => setForm({ ...form, place_address: e.target.value })}
               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 outline-none"
-              placeholder="输入地址"
+              placeholder={t('dailyPlan.addressPlaceholder')}
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">描述</label>
+            <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.description')}</label>
             <textarea
               value={form.description}
               onChange={e => setForm({ ...form, description: e.target.value })}
               rows={3}
               className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 outline-none resize-none"
-              placeholder="活动描述"
+              placeholder={t('dailyPlan.descriptionPlaceholder')}
             />
           </div>
 
           {/* Budget & Tips */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">预算</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.budget')}</label>
               <input
                 type="text"
                 value={form.budget_estimate}
                 onChange={e => setForm({ ...form, budget_estimate: e.target.value })}
                 className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 outline-none"
-                placeholder="RM 50"
+                placeholder={t('dailyPlan.budgetPlaceholder')}
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">小贴士</label>
+              <label className="block text-xs font-bold text-slate-500 uppercase mb-2">{t('dailyPlan.tips')}</label>
               <input
                 type="text"
                 value={form.tips || ''}
                 onChange={e => setForm({ ...form, tips: e.target.value })}
                 className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-sky-500 outline-none"
-                placeholder="可选"
+                placeholder={t('dailyPlan.optional')}
               />
             </div>
           </div>
@@ -312,21 +307,21 @@ const EditActivityModal: React.FC<EditActivityModalProps> = ({ activity, onSave,
             className="flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl text-sm font-medium transition-colors"
           >
             <Trash2 className="w-4 h-4" />
-            删除
+            {t('dailyPlan.delete')}
           </button>
           <div className="flex gap-2">
             <button
               onClick={onCancel}
               className="px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-sm font-medium transition-colors"
             >
-              取消
+              {t('dailyPlan.cancel')}
             </button>
             <button
               onClick={() => onSave(form)}
               className="flex items-center gap-2 px-5 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-xl text-sm font-bold transition-colors"
             >
               <Save className="w-4 h-4" />
-              保存
+              {t('dailyPlan.save')}
             </button>
           </div>
         </div>
@@ -347,15 +342,16 @@ interface AIEditModalProps {
 }
 
 const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCancel, isLoading }) => {
+  const { t } = useTranslation('chat');
   const [instructions, setInstructions] = useState('');
 
   const suggestions = [
-    '把时间都提前1小时',
-    '替换成更适合素食者的餐厅',
-    '增加预算估算的详细说明',
-    '改成更经济实惠的选项',
-    '添加更多当地特色体验',
-    '调整为更适合带小孩的活动'
+    t('dailyPlan.aiSuggest1'),
+    t('dailyPlan.aiSuggest2'),
+    t('dailyPlan.aiSuggest3'),
+    t('dailyPlan.aiSuggest4'),
+    t('dailyPlan.aiSuggest5'),
+    t('dailyPlan.aiSuggest6')
   ];
 
   return (
@@ -368,8 +364,8 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
               <Wand2 className="w-5 h-5 text-white" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white">AI 批量编辑</h3>
-              <p className="text-xs text-slate-500">已选择 {selectedCount} 个活动</p>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">{t('dailyPlan.aiEditTitle')}</h3>
+              <p className="text-xs text-slate-500">{t('dailyPlan.selectedCount', { count: selectedCount })}</p>
             </div>
           </div>
           <button onClick={onCancel} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg">
@@ -381,12 +377,12 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
         <div className="p-6 space-y-4">
           <div>
             <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">
-              告诉 AI 你想怎么修改这些活动：
+              {t('dailyPlan.aiInstructionLabel')}
             </label>
             <textarea
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
-              placeholder="例如：把这些活动的时间都推迟2小时，并且增加更详细的描述..."
+              placeholder={t('dailyPlan.aiInstructionPlaceholder')}
               rows={4}
               className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none resize-none"
               disabled={isLoading}
@@ -395,7 +391,7 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
 
           {/* Quick suggestions */}
           <div>
-            <p className="text-xs font-bold text-slate-400 uppercase mb-2">快捷建议</p>
+            <p className="text-xs font-bold text-slate-400 uppercase mb-2">{t('dailyPlan.quickSuggestions')}</p>
             <div className="flex flex-wrap gap-2">
               {suggestions.map((sug, idx) => (
                 <button
@@ -418,7 +414,7 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
             className="px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl text-sm font-medium transition-colors"
             disabled={isLoading}
           >
-            取消
+            {t('dailyPlan.cancel')}
           </button>
           <button
             onClick={() => onSubmit(instructions)}
@@ -428,12 +424,12 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
             {isLoading ? (
               <>
                 <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                处理中...
+                {t('dailyPlan.processing')}
               </>
             ) : (
               <>
                 <Wand2 className="w-4 h-4" />
-                开始修改
+                {t('dailyPlan.startEdit')}
               </>
             )}
           </button>
@@ -448,6 +444,7 @@ const AIEditModal: React.FC<AIEditModalProps> = ({ selectedCount, onSubmit, onCa
 ========================= */
 
 export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan, onClose, onSave, onEditActivity }) => {
+  const { t } = useTranslation('chat');
   // Local state for the plan (allows editing)
   const [plan, setPlan] = useState<DailyPlanData>(initialPlan);
   const [selectedDay, setSelectedDay] = useState(0);
@@ -620,7 +617,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
       }
     } catch (error) {
       console.error('AI Edit failed:', error);
-      alert('AI 编辑失败，请重试');
+      alert(t('errors.aiEditFailed'));
     } finally {
       setAiEditLoading(false);
       setAiEditModalOpen(false);
@@ -661,7 +658,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
               }`}
             >
               <Wand2 className="w-4 h-4" />
-              {selectionMode ? '取消选择' : 'AI 编辑'}
+              {selectionMode ? t('dailyPlan.cancelSelect') : t('dailyPlan.aiEdit')}
             </button>
             
             {/* Show "Edit Selected" when items are selected */}
@@ -671,7 +668,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
                 className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-sm shadow-lg shadow-purple-500/20 hover:from-purple-600 hover:to-pink-600 transition-all animate-in slide-in-from-right-2"
               >
                 <Sparkles className="w-4 h-4" />
-                修改 {selectedActivities.size} 项
+                {t('dailyPlan.editSelected', { count: selectedActivities.size })}
               </button>
             )}
 
@@ -684,7 +681,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
               }`}
             >
               {hasChanges ? <Save className="w-4 h-4" /> : <PlusCircle className="w-4 h-4" />}
-              {hasChanges ? '保存更改' : '保存行程'}
+              {hasChanges ? t('dailyPlan.saveChanges') : t('dailyPlan.savePlan')}
             </button>
           </div>
         </div>
@@ -714,7 +711,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
                   }`}
                 >
                   <div className="flex flex-col items-center">
-                    <span className="font-bold">Day {day.day_number}</span>
+                    <span className="font-bold">{t('dailyPlan.day', { number: day.day_number })}</span>
                     <span className="text-[10px] opacity-75">{day.theme}</span>
                   </div>
                 </button>
@@ -740,7 +737,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
           {currentDay.top_locations && currentDay.top_locations.length > 0 && (
             <section>
               <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-                <Sparkles className="w-4 h-4" /> 今日亮点
+                <Sparkles className="w-4 h-4" /> {t('dailyPlan.highlights')}
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {currentDay.top_locations.map((loc, idx) => (
@@ -773,8 +770,8 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
                   <Calendar className="w-5 h-5 text-sky-600 dark:text-sky-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">活动数量</p>
-                  <p className="font-bold text-slate-900 dark:text-white">{currentDay.day_summary.total_activities} 项</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase">{t('dailyPlan.totalActivities')}</p>
+                  <p className="font-bold text-slate-900 dark:text-white">{currentDay.day_summary.total_activities} {t('dailyPlan.items')}</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -782,7 +779,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
                   <Wallet className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">预计花费</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase">{t('dailyPlan.estimatedCost')}</p>
                   <p className="font-bold text-slate-900 dark:text-white">{currentDay.day_summary.total_budget}</p>
                 </div>
               </div>
@@ -791,7 +788,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
                   <Bus className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-slate-400 uppercase">交通建议</p>
+                  <p className="text-[10px] font-bold text-slate-400 uppercase">{t('dailyPlan.transportTips')}</p>
                   <p className="font-bold text-slate-900 dark:text-white text-sm">{currentDay.day_summary.transport_notes}</p>
                 </div>
               </div>
@@ -801,7 +798,7 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
           {/* Itinerary List */}
           <section>
             <h2 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4 flex items-center gap-2">
-              <Clock className="w-4 h-4" /> 详细行程
+              <Clock className="w-4 h-4" /> {t('dailyPlan.itineraryDetails')}
             </h2>
             
             <div className="space-y-4">
@@ -908,18 +905,18 @@ export const DailyPlanView: React.FC<DailyPlanViewProps> = ({ plan: initialPlan,
           {plan.practical_info && (
             <section className="bg-amber-50 dark:bg-amber-900/20 rounded-2xl p-5 border border-amber-100 dark:border-amber-800/30">
               <h2 className="text-sm font-bold text-amber-800 dark:text-amber-400 mb-3 flex items-center gap-2">
-                <Info className="w-4 h-4" /> 实用信息
+                <Info className="w-4 h-4" /> {t('dailyPlan.practicalInfo')}
               </h2>
               <div className="space-y-2 text-sm text-amber-700 dark:text-amber-300">
                 {plan.practical_info.best_transport && (
-                  <p><strong>交通:</strong> {plan.practical_info.best_transport}</p>
+                  <p><strong>{t('dailyPlan.transport')}:</strong> {plan.practical_info.best_transport}</p>
                 )}
                 {plan.practical_info.weather_advisory && (
-                  <p><strong>天气:</strong> {plan.practical_info.weather_advisory}</p>
+                  <p><strong>{t('dailyPlan.weather')}:</strong> {plan.practical_info.weather_advisory}</p>
                 )}
                 {plan.practical_info.booking_recommendations && plan.practical_info.booking_recommendations.length > 0 && (
                   <div>
-                    <strong>预订建议:</strong>
+                    <strong>{t('dailyPlan.bookingAdvice')}:</strong>
                     <ul className="list-disc list-inside mt-1">
                       {plan.practical_info.booking_recommendations.map((rec, i) => (
                         <li key={i}>{rec}</li>

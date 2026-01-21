@@ -9,7 +9,7 @@ import {
 } from 'lucide-react';
 import { ToolbarButton } from './ToolbarButton';
 
-// ✨ TipTap 工具栏组件
+// ✨ TipTap toolbar component
 interface EditorToolbarProps {
   editor: ReturnType<typeof useEditor>;
 }
@@ -41,7 +41,7 @@ export const EditorToolbar: React.FC<EditorToolbarProps> = ({ editor }) => {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run();
   };
 
-  // 颜色选项
+  // Color options
   const colors = [
     '#000000', '#374151', '#6b7280', '#ef4444', '#f97316', 
     '#eab308', '#22c55e', '#3b82f6', '#8b5cf6', '#ec4899'

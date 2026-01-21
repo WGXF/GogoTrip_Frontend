@@ -468,7 +468,7 @@ const CalendarView: React.FC<CalendarViewProps> = ({ user }) => {
         {/* --- Month View --- */}
         {/* 🐞 Bug 1 Fix: Dynamic row count instead of fixed 5 rows */}
         {viewType === 'month' && (
-            <div className="flex-1 grid grid-cols-7 grid-rows-[auto_1fr]">
+            <div className="flex-1 grid grid-cols-7 grid-rows-[auto_1fr] overflow-y-auto custom-scrollbar">
                 {DAYS.map(day => (
                     <div key={day} className="p-4 text-center border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/50">
                         <span className="text-xs font-semibold text-slate-500 uppercase">{day}</span>
@@ -479,19 +479,23 @@ const CalendarView: React.FC<CalendarViewProps> = ({ user }) => {
                   style={{ gridTemplateRows: `repeat(${getMonthRowCount(currentDate)}, 1fr)` }}
                 >
                     {getMonthDays(currentDate).map((day, i) => {
-                        const dayEvents = day ? events.filter(e => e.date.getDate() === day.getDate() && e.date.getMonth() === day.getMonth()) : [];
+                        const dayEvents = day ? events.filter(e =>
+  e.date.getDate() === day.getDate() &&
+  e.date.getMonth() === day.getMonth() &&
+  e.date.getFullYear() === day.getFullYear()
+) : [];
                         return (
                             <div 
                                 key={i} 
                                 onClick={() => day && handleGridClick(day)}
-                                className={`border-r border-b border-slate-100 dark:border-slate-800/50 p-2 min-h-[100px] hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer ${!day ? 'bg-slate-50/50 dark:bg-slate-900/50' : ''}`}
+                                className={`border-r border-b border-slate-100 dark:border-slate-800/50 p-2 h-full min-h-[100px] hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors cursor-pointer ${!day ? 'bg-slate-50/50 dark:bg-slate-900/50' : ''}`}
                             >
                                 {day && (
                                     <>
                                         <span className={`text-sm font-medium ${day.getDate() === new Date().getDate() && day.getMonth() === new Date().getMonth() ? 'bg-sky-600 text-white w-7 h-7 flex items-center justify-center rounded-full' : 'text-slate-700 dark:text-slate-300'}`}>
                                             {day.getDate()}
                                         </span>
-                                        <div className="mt-2 space-y-1">
+                                        <div className="mt-2 space-y-1 max-h-[60px] overflow-y-auto custom-scrollbar">
                                             {dayEvents.map(ev => (
                                                 <div 
                                                     key={ev.id} 
@@ -540,7 +544,11 @@ const CalendarView: React.FC<CalendarViewProps> = ({ user }) => {
                         </div>
                         {/* Day Columns */}
                         {getWeekDays(currentDate).map((day, colIdx) => {
-                            const dayEvents = events.filter(e => e.date.getDate() === day.getDate() && e.date.getMonth() === day.getMonth());
+                            const dayEvents = events.filter(e =>
+  e.date.getDate() === day.getDate() &&
+  e.date.getMonth() === day.getMonth() &&
+  e.date.getFullYear() === day.getFullYear()
+);
                             return (
                                 <div key={colIdx} className="border-r border-slate-100 dark:border-slate-800/50 last:border-r-0 relative">
                                     {HOURS.map(hour => (
@@ -583,9 +591,10 @@ const CalendarView: React.FC<CalendarViewProps> = ({ user }) => {
                  <div className="max-w-3xl mx-auto space-y-4">
                      {HOURS.map(hour => {
                          // Filter events for current day that overlap with this hour slot
-                         const dayEvents = events.filter(e => 
-                           e.date.getDate() === currentDate.getDate() && 
+                         const dayEvents = events.filter(e =>
+                           e.date.getDate() === currentDate.getDate() &&
                            e.date.getMonth() === currentDate.getMonth() &&
+                           e.date.getFullYear() === currentDate.getFullYear() &&
                            isEventInHourSlot(e, hour)
                          );
                          return (

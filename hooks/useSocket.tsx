@@ -1,6 +1,6 @@
 // hooks/useSocket.tsx
 // 🔌 Socket.IO React Hook & Provider
-// 提供实时通信功能
+// Provides real-time communication functionality
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { io, Socket } from 'socket.io-client';
@@ -12,17 +12,17 @@ import { API_BASE_URL } from '../config';
 interface SocketContextType {
   socket: Socket | null;
   isConnected: boolean;
-  
-  // Ticket 相关
+
+  // Ticket-related
   joinTicket: (ticketId: number) => void;
   leaveTicket: (ticketId: number) => void;
   sendTicketMessage: (ticketId: number, content: string) => void;
   sendTypingStatus: (ticketId: number, isTyping: boolean) => void;
-  
-  // Admin 消息
+
+  // Admin messages
   sendAdminMessage: (recipientId: number | null, content: string, subject?: string, priority?: string) => void;
-  
-  // 事件监听
+
+  // Event listeners
   onNewTicketMessage: (callback: (data: any) => void) => () => void;
   onTicketActivity: (callback: (data: any) => void) => () => void;
   onUserTyping: (callback: (data: any) => void) => () => void;
@@ -52,10 +52,10 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   const [isConnected, setIsConnected] = useState(false);
   const socketRef = useRef<Socket | null>(null);
 
-  // 初始化 Socket 连接
+  // Initialize Socket connection
   useEffect(() => {
     if (!isAuthenticated || !userId) {
-      // 未登录时断开连接
+      // Disconnect when not logged in
       if (socketRef.current) {
         socketRef.current.disconnect();
         socketRef.current = null;
@@ -65,7 +65,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
       return;
     }
 
-    // 创建 Socket 连接
+    // Create Socket connection
     const newSocket = io(API_BASE_URL, {
       withCredentials: true,
       transports: ['websocket', 'polling'],
@@ -79,7 +79,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
     socketRef.current = newSocket;
     setSocket(newSocket);
 
-    // 连接事件
+    // Connection events
     newSocket.on('connect', () => {
       console.log('🔌 Socket connected:', newSocket.id);
       setIsConnected(true);
@@ -103,7 +103,7 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
       console.error('❌ Socket error:', data.message);
     });
 
-    // 清理
+    // Cleanup
     return () => {
       console.log('🔌 Cleaning up socket connection');
       newSocket.disconnect();
@@ -112,9 +112,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   }, [isAuthenticated, userId]);
 
   // =====================================
-  // Ticket 方法
+  // Ticket methods
   // =====================================
-  
+
   const joinTicket = useCallback((ticketId: number) => {
     if (socketRef.current?.connected) {
       socketRef.current.emit('join_ticket', { ticketId });
@@ -140,9 +140,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   }, []);
 
   // =====================================
-  // Admin 消息方法
+  // Admin message methods
   // =====================================
-  
+
   const sendAdminMessage = useCallback((
     recipientId: number | null, 
     content: string, 
@@ -161,9 +161,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   }, []);
 
   // =====================================
-  // 事件监听器（返回 cleanup 函数）
+  // Event listeners (return cleanup function)
   // =====================================
-  
+
   const createEventListener = useCallback((eventName: string) => {
     return (callback: (data: any) => void) => {
       if (socketRef.current) {
@@ -185,9 +185,9 @@ export const SocketProvider: React.FC<SocketProviderProps> = ({
   const onTicketResolved = useCallback(createEventListener('ticket_resolved'), [createEventListener]);
 
   // =====================================
-  // Context Value
+  // Context value
   // =====================================
-  
+
   const value: SocketContextType = {
     socket,
     isConnected,

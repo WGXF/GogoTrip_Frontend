@@ -28,13 +28,27 @@ const CreateBlogModal: React.FC<CreateBlogModalProps> = ({ onClose, onSuccess, i
 
   const handleSubmit = async (e: React.FormEvent, status: 'pending' | 'draft') => {
     e.preventDefault();
+
+    // Validate content is not empty (check for actual text content, not just HTML tags)
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = formData.content;
+    const plainText = tempDiv.textContent || tempDiv.innerText || '';
+    const hasContent = plainText.trim().length > 0;
+
+    if (!formData.title.trim()) {
+      toast.error('Please enter a title');
+      return;
+    }
+
+    if (!hasContent) {
+      toast.error('Please enter some content for your story');
+      return;
+    }
+
     setIsLoading(true);
 
     try {
       // Generate plain text excerpt from content
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = formData.content;
-      const plainText = tempDiv.textContent || tempDiv.innerText || '';
       const excerpt = plainText.slice(0, 150) + (plainText.length > 150 ? '...' : '');
 
       const url = initialData 
@@ -121,6 +135,7 @@ const CreateBlogModal: React.FC<CreateBlogModalProps> = ({ onClose, onSuccess, i
 
             {/* Rich Text Editor */}
             <RichTextEditor
+              key={initialData?.id || 'new'}
               content={formData.content}
               onChange={(content) => setFormData({...formData, content})}
               placeholder="Tell your story..."
@@ -130,15 +145,16 @@ const CreateBlogModal: React.FC<CreateBlogModalProps> = ({ onClose, onSuccess, i
 
         {/* Footer */}
         <div className="px-8 py-6 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-3 bg-white dark:bg-slate-900">
-           <button 
+           <button
              onClick={(e) => handleSubmit(e, 'draft')}
-             className="px-6 py-2.5 text-slate-600 font-bold hover:bg-slate-100 rounded-xl transition-colors"
+             disabled={isLoading}
+             className="px-6 py-2.5 text-slate-600 font-bold hover:bg-slate-100 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
            >
-             Save as Draft
+             {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Save as Draft'}
            </button>
-           <button 
+           <button
              onClick={(e) => handleSubmit(e, 'pending')}
-             disabled={isLoading || !formData.title || !formData.content}
+             disabled={isLoading}
              className="px-8 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-500/20 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
            >
              {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : (initialData ? 'Save Changes' : 'Submit for Review')}

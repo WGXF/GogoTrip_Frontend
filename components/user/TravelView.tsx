@@ -121,7 +121,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
   const [showTripDetails, setShowTripDetails] = useState(false);
   const [tripDetails, setTripDetails] = useState<any>(null);
   
-  // 导出日期选择
+  // Export date selection
   const [showExportModal, setShowExportModal] = useState(false);
   const [selectedTripForExport, setSelectedTripForExport] = useState<string | null>(null);
   const [exportStartDate, setExportStartDate] = useState('');
@@ -131,12 +131,12 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [isLocating, setIsLocating] = useState(false);
 
-  // 🆕 自定义 Toast (Alert) 状态
+  // 🆕 Custom Toast (Alert) state
   const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' | 'info' }>({
     show: false, message: '', type: 'success'
   });
 
-  // 🆕 自定义 Confirm Modal 状态
+  // 🆕 Custom Confirm Modal state
   const [confirmDialog, setConfirmDialog] = useState<{
     show: boolean;
     title: string;
@@ -150,10 +150,10 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
 
   const upcomingTrip = trips.length > 0 ? trips[0] : null;
 
-  // 🆕 显示 Toast 辅助函数 (must be defined before useGoogleLink)
+  // 🆕 Show Toast helper function (must be defined before useGoogleLink)
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'success') => {
     setToast({ show: true, message, type });
-    // 3秒后自动消失
+    // Auto-dismiss after 3 seconds
     setTimeout(() => {
       setToast(prev => ({ ...prev, show: false }));
     }, 3000);
@@ -168,7 +168,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     handleCancelLink
   } = useGoogleLink({ user, onShowWarning: (msg) => showToast(msg, 'info') });
 
-  // 🆕 获取真实的用户行程数据
+  // 🆕 Fetch real user trip data
   const fetchTrips = async () => {
     setIsLoadingTrips(true);
     try {
@@ -201,7 +201,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     }
   };
 
-  // 获取单个行程的详细信息
+  // Fetch details of a single trip
   const fetchTripDetails = async (tripId: string) => {
     try {
       const res = await fetch(`${API_BASE_URL}/api/trips/${tripId}`, {
@@ -233,7 +233,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     setShowExportModal(true);
   };
 
-  // 🔥 导出到 Google Calendar (已替换 Alert/Confirm)
+  // 🔥 Export to Google Calendar (Replaced Alert/Confirm)
   const exportToGoogleCalendar = async (tripId: string, startDate: string) => {
     setIsExporting(true);
     try {
@@ -252,7 +252,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
           fetchTrips();
         }
       } else if (res.status === 401) {
-        // ⚠️ 替换原生的 confirm 为自定义 Modal
+        // ⚠️ Replace native confirm with custom Modal
         setConfirmDialog({
           show: true,
           title: 'Authorization Required',
@@ -276,7 +276,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     }
   };
 
-  // 🆕 删除点击处理 (打开确认框)
+  // 🆕 Delete click handler (Open confirmation dialog)
   const handleDeleteClick = (tripId: string) => {
     setConfirmDialog({
       show: true,
@@ -288,9 +288,9 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
     });
   };
 
-  // 🆕 实际删除逻辑
+  // 🆕 Actual delete logic
   const handleDeleteConfirm = async (tripId: string) => {
-    setConfirmDialog(prev => ({ ...prev, show: false })); // 先关闭弹窗
+    setConfirmDialog(prev => ({ ...prev, show: false })); // Close dialog first
     
     try {
       const res = await fetch(`${API_BASE_URL}/api/trips/${tripId}`, {
@@ -646,13 +646,13 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
                                onClick={() => showToast('AI Day Optimization coming soon!', 'info')}
                                className="text-xs font-bold text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-500/10 hover:bg-sky-100 dark:hover:bg-sky-500/20 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5"
                              >
-                                <Sparkles className="w-3 h-3" /> Optimize Day
+                                <Sparkles className="w-3 h-3" /> Energize Your Day
                              </button>
                              <button 
                                onClick={() => showToast('Relax Mode coming soon!', 'info')}
                                className="text-xs font-bold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 px-3 py-1.5 rounded-full transition-colors flex items-center gap-1.5"
                              >
-                                <Coffee className="w-3 h-3" /> Relax
+                                <Coffee className="w-3 h-3" /> Relaxed Schedule
                              </button>
                           </div>
                         </div>
@@ -789,7 +789,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <h2 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">Travel Hub</h2>
+          <h2 className="text-4xl font-bold text-slate-900 dark:text-white tracking-tight">My Trips</h2>
           <p className="text-lg font-medium text-slate-500 dark:text-slate-400 mt-1">
             {trips.length} {trips.length === 1 ? 'trip' : 'trips'} planned
           </p>
@@ -857,7 +857,7 @@ const TravelView: React.FC<TravelViewProps> = ({ user }) => {
                   Export
                 </button>
                 <button 
-                  onClick={() => handleDeleteClick(trip.id)} // 🆕 更改这里调用自定义弹窗
+                  onClick={() => handleDeleteClick(trip.id)} // 🆕 Changed here to call custom dialog
                   className="p-2.5 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/40 transition-all"
                 >
                   <Trash2 className="w-4 h-4" />

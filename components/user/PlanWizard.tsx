@@ -7,6 +7,8 @@ import {
 import { useTranslation } from 'react-i18next';
 
 export interface TripPreferences {
+  destination: string;
+  days: string;
   mood: string;
   companions: string;
   budget: 'low' | 'medium' | 'high' | 'luxury';
@@ -51,10 +53,22 @@ const DIETARY = [
   'halal', 'vegetarian', 'vegan', 'noBeef', 'noPork', 'glutenFree'
 ];
 
+const DAYS = [
+  { id: '1day' },
+  { id: '2days' },
+  { id: '3days' },
+  { id: '5days' },
+  { id: '7days' },
+  { id: 'custom' },
+];
+
 export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onComplete }) => {
   const { t } = useTranslation('chat');
   const [step, setStep] = useState(1);
+  const [customDays, setCustomDays] = useState('');
   const [prefs, setPrefs] = useState<TripPreferences>({
+    destination: '',
+    days: '',
     mood: '',
     companions: '',
     budget: 'medium',
@@ -65,8 +79,14 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
   if (!isOpen) return null;
 
   const handleNext = () => {
-    if (step < 3) setStep(step + 1);
-    else onComplete(prefs);
+    if (step < 4) setStep(step + 1);
+    else {
+      // If custom days, replace with the actual number
+      const finalPrefs = prefs.days === 'custom'
+        ? { ...prefs, days: `${customDays}days` }
+        : prefs;
+      onComplete(finalPrefs);
+    }
   };
 
   const toggleDietary = (item: string) => {
@@ -86,7 +106,7 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
         <div className="p-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-900/50">
           <div>
             <h2 className="text-lg font-bold text-slate-900 dark:text-white">{t('tripWizard.title')}</h2>
-            <p className="text-xs text-slate-500">{t('tripWizard.stepIndicator', { current: step, total: 3 })}</p>
+            <p className="text-xs text-slate-500">{t('tripWizard.stepIndicator', { current: step, total: 4 })}</p>
           </div>
           <button onClick={onClose} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
             <X className="w-5 h-5 text-slate-500" />
@@ -95,9 +115,60 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
 
         {/* Content */}
         <div className="p-6 overflow-y-auto flex-1">
-          
-          {/* Step 1: Vibe & Company */}
+
+          {/* Step 1: Destination & Duration */}
           {step === 1 && (
+            <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                  <MapPin className="w-4 h-4" /> {t('tripWizard.destination')}
+                </label>
+                <input
+                  type="text"
+                  value={prefs.destination}
+                  onChange={(e) => setPrefs({...prefs, destination: e.target.value})}
+                  placeholder={t('tripWizard.destinationPlaceholder')}
+                  className="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                />
+              </div>
+
+              <div className="space-y-3">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('tripWizard.duration')}</label>
+                <div className="grid grid-cols-2 gap-2">
+                  {DAYS.map(d => (
+                    <button
+                      key={d.id}
+                      onClick={() => {
+                        setPrefs({...prefs, days: d.id});
+                        if (d.id !== 'custom') setCustomDays('');
+                      }}
+                      className={`p-3 rounded-xl border transition-all text-sm font-medium ${
+                        prefs.days === d.id
+                          ? 'border-sky-500 bg-sky-50 dark:bg-sky-900/20 text-sky-600 dark:text-sky-400 ring-1 ring-sky-500'
+                          : 'border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800'
+                      }`}
+                    >
+                      {t(`tripWizard.durationOptions.${d.id}`)}
+                    </button>
+                  ))}
+                </div>
+                {prefs.days === 'custom' && (
+                  <input
+                    type="number"
+                    min="1"
+                    max="7"
+                    value={customDays}
+                    onChange={(e) => setCustomDays(e.target.value)}
+                    placeholder={t('tripWizard.customDaysPlaceholder') || 'Enter number of days (max 7)'}
+                    className="w-full px-4 py-3 rounded-xl border border-sky-500 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all"
+                  />
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Step 2: Vibe & Company */}
+          {step === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300">{t('tripWizard.mood')}</label>
@@ -140,8 +211,8 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
             </div>
           )}
 
-          {/* Step 2: Budget & Transport */}
-          {step === 2 && (
+          {/* Step 3: Budget & Transport */}
+          {step === 3 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
               <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
@@ -187,8 +258,8 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
             </div>
           )}
 
-          {/* Step 3: Food & Restrictions */}
-          {step === 3 && (
+          {/* Step 4: Food & Restrictions */}
+          {step === 4 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
                <div className="space-y-3">
                 <label className="text-sm font-bold text-slate-700 dark:text-slate-300 flex items-center gap-2">
@@ -223,10 +294,13 @@ export const PlanWizard: React.FC<PlanWizardProps> = ({ isOpen, onClose, onCompl
         <div className="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
           <button
             onClick={handleNext}
-            disabled={step === 1 && (!prefs.mood || !prefs.companions)}
+            disabled={
+              (step === 1 && (!prefs.destination || !prefs.days || (prefs.days === 'custom' && !customDays))) ||
+              (step === 2 && (!prefs.mood || !prefs.companions))
+            }
             className="w-full py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold rounded-xl shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {step === 3 ? (
+            {step === 4 ? (
               <>
                 <Sparkles className="w-5 h-5" /> {t('tripWizard.generatePlan')}
               </>

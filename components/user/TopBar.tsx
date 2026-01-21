@@ -17,7 +17,7 @@ interface TopBarProps {
   onToggleTheme: () => void;
   user: User;
   onLogout?: () => void;
-  // 兼容旧接口，虽然我们主要用内部 navigate
+  // Compatible with old interface, although we primarily use internal navigate
   onNavigate?: (path: string) => void; 
 }
 

@@ -24,7 +24,7 @@ export const TripList: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
 
-  // --- 新增：UI 交互状态 ---
+  // --- New: UI interaction state ---
   const [notification, setNotification] = useState<Notification | null>(null);
   const [deleteTargetId, setDeleteTargetId] = useState<number | null>(null);
 
@@ -35,33 +35,33 @@ export const TripList: React.FC = () => {
             if (res.ok) setTrips(await res.json());
         } catch(e) { 
             console.error(e);
-            // 实际项目中可以在这里 showNotification('error', ...)
+            // In actual projects, you can showNotification('error', ...) here
         } 
         finally { setIsLoading(false); }
     };
     fetchTrips();
   }, []);
 
-  // --- 辅助函数：显示通知 ---
+  // --- Helper function: Show notification ---
   const showNotification = (type: 'success' | 'error', message: string) => {
     setNotification({ type, message });
     setTimeout(() => setNotification(null), 3000);
   };
 
-  // 1. 点击删除按钮，只触发弹窗
+  // 1. Click delete button, only trigger dialog
   const handleDeleteClick = (id: number) => {
     setDeleteTargetId(id);
   };
 
-  // 2. 确认删除逻辑
+  // 2. Confirm delete logic
   const confirmDelete = async () => {
     if (!deleteTargetId) return;
 
     try {
-        // 模拟 API 调用
+        // Mock API call
         // await fetch(`/api/admin/trips/${deleteTargetId}`, { method: 'DELETE' });
-        
-        // 乐观更新 UI
+
+        // Optimistic UI update
         setTrips(trips.filter(t => t.id !== deleteTargetId));
         showNotification('success', 'Trip deleted successfully');
     } catch (e) {
