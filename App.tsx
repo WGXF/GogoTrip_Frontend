@@ -16,6 +16,7 @@ import ExpensesView from './components/user/ExpensesView';
 import SettingsView from './components/user/SettingsView';
 import BillingView from './components/user/BillingView';
 import ReceiptView from './components/user/ReceiptView';
+import AboutView from './components/user/AboutView';
 import AnnouncementPage, {
   AnnouncementListPage,
 } from './components/user/AnnouncementPage';
@@ -243,6 +244,7 @@ const App: React.FC<AppProps> = ({ user, onLogout, onSwitchToAdmin, onUpdateUser
                 <Route path="/expenses" element={<ExpensesView user={normalizedUser} />} />
                 <Route path="/support" element={<TicketListPage user={normalizedUser} />} />
                 <Route path="/support/:id" element={<TicketChatPage user={normalizedUser} />} />
+                <Route path="/about" element={<AboutView user={normalizedUser} />} />
 
                 <Route
                   path="/settings"
